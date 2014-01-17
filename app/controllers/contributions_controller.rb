@@ -10,14 +10,20 @@ class ContributionsController < ActionController::Base
   end
 
   def create
-    @contribution = Contribution.new(params[:contribution])
+    @contribution = Contribution.new(contribution_params)
 
     if @contribution.save
-      redirect_to contribution_url(@contribution)
+      redirect_to contributions_url
     else
       flash[:errors] = @contribution.errors.full_messages
       render :new, status: 422
     end
+  end
+
+  private
+
+  def contribution_params
+    params.require(:contribution).permit(:category)
   end
 
 end

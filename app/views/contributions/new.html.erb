@@ -1,0 +1,12 @@
+<h1>Join the fun</h1>
+
+<form for="contributions" action="<%= contributions_url %>" method="POST">
+  <label for="new_contribution_category">Category</label>
+
+  <select id="new_contribution_category" name="contribution[category]">
+    <option value="picture">Picture</option>
+    <option value="sentence">Sentence</option>
+  </select>
+
+  <input type="submit" value="Send">
+</form>
