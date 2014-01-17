@@ -1,3 +1,3 @@
 class Contribution < ActiveRecord::Base
-  validates :category, inclusion: in: ["picture", "sentence"]
+  validates :category, inclusion: ["picture", "sentence"]
 end
