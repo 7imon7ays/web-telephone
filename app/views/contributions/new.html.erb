@@ -1,8 +1,13 @@
 <h1>Join the fun</h1>
 
 <form for="contributions" action="<%= contributions_url %>" method="POST">
-  <label for="new_contribution_category">Category</label>
+  <input
+  type="hidden"
+  name="authenticity_token"
+  value="<%= form_authenticity_token %>"
+  >
 
+  <label for="new_contribution_category">Category</label>
   <select id="new_contribution_category" name="contribution[category]">
     <option value="picture">Picture</option>
     <option value="sentence">Sentence</option>
@@ -13,3 +18,8 @@
 
   <input type="submit" value="Send">
 </form>
+
+<script type="text/javascript">
+  var $canvas_wrapper = $("#canvas_wrapper");
+  loadScribble($canvas_wrapper);
+</script>
