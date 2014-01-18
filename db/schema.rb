@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116233858) do
+ActiveRecord::Schema.define(version: 20140118002316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,22 @@ ActiveRecord::Schema.define(version: 20140116233858) do
     t.string   "category",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "author_id",  null: false
+    t.integer  "parent_id"
+    t.integer  "thread_id",  null: false
   end
+
+  create_table "conversations", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "players", force: true do |t|
+    t.string   "ip_address", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "players", ["ip_address"], name: "index_players_on_ip_address", using: :btree
 
 end

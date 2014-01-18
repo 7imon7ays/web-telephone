@@ -10,6 +10,8 @@ class ContributionsController < ApplicationController
 
   def create
     @contribution = Contribution.new(contribution_params)
+    client_ip = request.remote_ip
+    @contribution.register(client_ip, params[:contribution])
 
     if @contribution.save
       redirect_to contributions_url
