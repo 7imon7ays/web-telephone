@@ -1,29 +1,27 @@
 <h1>Join the fun</h1>
 
-<form for="contributions" action="<%= contributions_url %>" method="POST">
-  <input
-  type="hidden"
-  name="authenticity_token"
-  value="<%= form_authenticity_token %>"
-  >
+<div id="canvas_wrapper">
+</div>
 
-  <label for="new_contribution_category">Category</label>
-  <select id="new_contribution_category" name="contribution[category]">
-    <option value="picture">Picture</option>
-    <option value="sentence">Sentence</option>
-  </select>
+<div id="image_wrapper">
+  <img>
+</div>
 
-  <div id="canvas_wrapper">
-  </div>
+<button id="done">Done</button>
+<button id="upload">Upload</button>
 
-  <label for="new_thread_option">Start new Thread</label>
-  <input type="checkbox" name="contribution[start_new_thread]" value="true">
-  <br>
+<%= render "server_form" %>
 
-  <input type="submit">
-</form>
 
 <script type="text/javascript">
   var $canvas_wrapper = $("#canvas_wrapper");
   loadScribble($canvas_wrapper);
+
+  var canvas = $("#canvas_wrapper").find("canvas")[0];
+  
+  $("#done").on("click", function () {
+    var imgTag = $("#image_wrapper").find("img")[0];
+    console.log(canvas.toDataURL())
+    imgTag.src = canvas.toDataURL();
+  });  
 </script>

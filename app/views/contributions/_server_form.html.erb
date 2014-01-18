@@ -1,0 +1,19 @@
+<form for="contributions" action="<%= contributions_url %>" method="POST">
+  <input
+  type="hidden"
+  name="authenticity_token"
+  value="<%= form_authenticity_token %>"
+  >
+
+  <label for="new_contribution_category">Category</label>
+  <select id="new_contribution_category" name="contribution[category]">
+    <option value="picture">Picture</option>
+    <option value="sentence">Sentence</option>
+  </select>
+
+  <label for="new_thread_option">Start new Thread</label>
+  <input type="checkbox" name="contribution[start_new_thread]" value="true">
+  <br>
+
+  <input type="submit">
+</form>
