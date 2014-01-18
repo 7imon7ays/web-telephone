@@ -1,13 +1,6 @@
-<%
+<% load "policy_document_hash.rb" %>
 
-encoded_policy_document = Base64.encode64(ENV["POLICY_DOCUMENT"]).gsub("\n", "")
-
-signature = Base64.encode64(
-    OpenSSL::HMAC.digest(
-        OpenSSL::Digest::Digest.new('sha1'), 
-        ENV["AWS_SECRET_KEY"], encoded_policy_document)
-    ).gsub("\n","")
-%>
+<% policy_document = PolicyDocument.new %>
 
 <!-- TODO: upload file with non-random name -->
 
@@ -16,8 +9,8 @@ signature = Base64.encode64(
   <input type="hidden" name="AWSAccessKeyId" value="<%= ENV["AWS_PUBLIC_KEY"] %>"> 
   <input type="hidden" name="acl" value="public-read"> 
   <input type="hidden" name="success_action_redirect" value="<%= contributions_url %>">
-  <input type="hidden" name="policy" value="<%= encoded_policy_document %>">
-  <input type="hidden" name="signature" value="<%= signature %>">
+  <input type="hidden" name="policy" value="<%= policy_document.encoded_policy_document %>">
+  <input type="hidden" name="signature" value="<%= policy_document.signature %>">
   <input type="hidden" name="Content-Type" value="image/jpeg">
   <!-- Include any additional input fields here -->
 
