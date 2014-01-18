@@ -1,28 +1,23 @@
 <%
 
-AWS_ACCESS_KEY = ENV["AWS_PUBLIC_KEY"]
-AWS_SECRET_KEY = ENV["AWS_SECRET_KEY"]
+encoded_policy_document = Base64.encode64(ENV["POLICY_DOCUMENT"]).gsub("\n", "")
 
-policy_document = ENV["POLICY_DOCUMENT"]
-ENCODED_POLICY_DOCUMENT = Base64.encode64(policy_document.to_json).gsub("\n", "")
-
-SIGNATURE = Base64.encode64(
+signature = Base64.encode64(
     OpenSSL::HMAC.digest(
         OpenSSL::Digest::Digest.new('sha1'), 
-        AWS_SECRET_KEY, ENCODED_POLICY_DOCUMENT)
+        ENV["AWS_SECRET_KEY"], encoded_policy_document)
     ).gsub("\n","")
-
 %>
 
 <!-- TODO: upload file with non-random name -->
 
 <form action="https://web_telephone.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
   <input type="hidden" name="key" value="contributions/picture#<%= (rand * 1000).to_i %>">
-  <input type="hidden" name="AWSAccessKeyId" value="<%= AWS_ACCESS_KEY %>"> 
+  <input type="hidden" name="AWSAccessKeyId" value="<%= ENV["AWS_PUBLIC_KEY"] %>"> 
   <input type="hidden" name="acl" value="public-read"> 
   <input type="hidden" name="success_action_redirect" value="<%= contributions_url %>">
-  <input type="hidden" name="policy" value="<%= ENCODED_POLICY_DOCUMENT %>">
-  <input type="hidden" name="signature" value="YOUR_CALCULATED_SIGNATURE">
+  <input type="hidden" name="policy" value="<%= encoded_policy_document %>">
+  <input type="hidden" name="signature" value="<%= signature %>">
   <input type="hidden" name="Content-Type" value="image/jpeg">
   <!-- Include any additional input fields here -->
 
