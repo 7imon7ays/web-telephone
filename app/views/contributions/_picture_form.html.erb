@@ -1,0 +1,16 @@
+<div id="canvas_wrapper">
+</div>
+
+<button id="done">Done</button>
+
+<script type="text/javascript">
+  var $canvas_wrapper = $("#canvas_wrapper");
+  loadScribble($canvas_wrapper);
+  var canvas = $canvas_wrapper.data("jqScribble").canvas;
+
+  $("#done").on("click", function () {
+    var dataURL = canvas.toDataURL('image/png');
+
+    $("#s3-file").val(dataURL);
+  });
+</script>

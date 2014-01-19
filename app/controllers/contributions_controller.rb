@@ -7,7 +7,8 @@ class ContributionsController < ApplicationController
   def new
     load "policy_document_hash.rb"
     @policy_document = PolicyDocument.new
-    @contribution = Contribution.new
+    @contribution = Contribution.new(thread_id: pick_thread_id)
+    @contribution.set_parent_id_and_category
   end
 
   def create

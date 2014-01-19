@@ -4,6 +4,18 @@
   name="authenticity_token"
   value="<%= form_authenticity_token %>"
   >
+  
+  <input
+  type="hidden"
+  name="contribution[thread_id]"
+  value="<%= @contribution.thread_id %>"
+  >
+
+  <input
+  type="hidden"
+  name="contribution[thread_id]"
+  value="<%= @contribution.thread_id %>"
+  >
 
   <label for="new_contribution_category">Category</label>
   <select id="new_contribution_category" name="contribution[category]">
