@@ -20,8 +20,8 @@ class Contribution < ActiveRecord::Base
   end
 
   def set_parent_id_and_category
-    parent = ( thread_id ? Contribution.where(thread_id: thread_id).last : false )
-    category = ( parent && parent.category == CATEGORIES.first ?
+    self.parent = ( thread_id ? Contribution.where(thread_id: thread_id).last : false )
+    self.category = ( parent && parent.category == CATEGORIES.first ?
       CATEGORIES.second : CATEGORIES.first )
   end
   
