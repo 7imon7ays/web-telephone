@@ -3,26 +3,20 @@
 <div id="canvas_wrapper">
 </div>
 
-<div id="image_wrapper">
-  <img id="image-save">
-</div>
-
 <button id="done">Done</button>
-<button id="upload">Upload</button>
 
 <%#= render "server_form" %>
 <%= render "s3_form" %>
 
 
 <script type="text/javascript">
-  var $canvas_wrapper = $("#canvas_wrapper")
-    , imgTag = $("#image-save")[0];
-  
+  var $canvas_wrapper = $("#canvas_wrapper");
   loadScribble($canvas_wrapper);
-
-  var canvas = $canvas_wrapper.data("jqScribble").canvas
+  var canvas = $canvas_wrapper.data("jqScribble").canvas;
 
   $("#done").on("click", function () {
-    imgTag.src = canvas.toDataURL();
+    var dataURL = canvas.toDataURL('image/png');
+
+    $("#s3-file").val(dataURL);
   });
 </script>
