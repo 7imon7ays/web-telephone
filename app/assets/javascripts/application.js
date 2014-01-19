@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require jquery.jqscribble
+//= require fidel
+//= require scribble
 //= require_tree .

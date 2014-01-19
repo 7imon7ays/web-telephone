@@ -13,8 +13,8 @@
     <option value="sentence">Sentence</option>
   </select>
 
-  <div id="canvas_wrapper">
-  </div>
+  <canvas width="500" height="500" id="canvas_wrapper">
+  </canvas>
 
   <label for="new_thread_option">Start new Thread</label>
   <input type="checkbox" name="contribution[start_new_thread]" value="true">
@@ -24,6 +24,15 @@
 </form>
 
 <script type="text/javascript">
-  var $canvas_wrapper = $("#canvas_wrapper");
-  loadScribble($canvas_wrapper);
+(function(){
+    var $canvas_wrapper = $("#canvas_wrapper");
+    $canvas_wrapper.scribble();
+
+    var scribble = $canvas_wrapper.scribble(),
+        scribbleFidel = $canvas_wrapper.data('scribble');
+
+    // loadScribble($canvas_wrapper);
+
+})();
+
 </script>
