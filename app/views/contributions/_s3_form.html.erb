@@ -1,7 +1,3 @@
-<% load "policy_document_hash.rb" %>
-
-<% policy_document = PolicyDocument.new %>
-
 <!-- TODO: upload file with non-random name -->
 
 <form action="https://web_telephone.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
@@ -9,8 +5,8 @@
   <input type="hidden" name="AWSAccessKeyId" value="<%= ENV["AWS_PUBLIC_KEY"] %>"> 
   <input type="hidden" name="acl" value="public-read"> 
   <input type="hidden" name="success_action_redirect" value="<%= contributions_url %>">
-  <input type="hidden" name="policy" value="<%= policy_document.encoded_policy_document %>">
-  <input type="hidden" name="signature" value="<%= policy_document.signature %>">
+  <input type="hidden" name="policy" value="<%= @policy_document.encoded_policy_document %>">
+  <input type="hidden" name="signature" value="<%= @policy_document.signature %>">
   <input type="hidden" name="Content-Type" value="image/jpeg">
   <!-- Include any additional input fields here -->
 

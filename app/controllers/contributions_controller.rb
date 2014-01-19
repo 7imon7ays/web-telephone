@@ -5,6 +5,8 @@ class ContributionsController < ApplicationController
   end
 
   def new
+    load "policy_document_hash.rb"
+    @policy_document = PolicyDocument.new
     @contribution = Contribution.new
   end
 
