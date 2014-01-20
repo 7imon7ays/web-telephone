@@ -13,19 +13,16 @@
 
   <input
   type="hidden"
-  name="contribution[thread_id]"
-  value="<%= @contribution.thread_id %>"
+  name="contribution[parent_id]"
+  value="<%= @contribution.parent_id %>"
   >
 
-  <label for="new_contribution_category">Category</label>
-  <select id="new_contribution_category" name="contribution[category]">
-    <option value="picture">Picture</option>
-    <option value="sentence">Sentence</option>
-  </select>
-
-  <label for="new_thread_option">Start new Thread</label>
-  <input type="checkbox" name="contribution[start_new_thread]" value="true">
-  <br>
+  <input
+  type="hidden"
+  name="contribution[s3_id]"
+  value="<%= @contribution.s3_id %>"
+  >
+  <input type="hidden" name="contribution[category]" value="<%= @contribution.category %>">
 
   <input type="submit">
 </form>

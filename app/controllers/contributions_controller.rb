@@ -7,14 +7,14 @@ class ContributionsController < ApplicationController
   def new
     load "policy_document_hash.rb"
     @policy_document = PolicyDocument.new
-    @contribution = Contribution.new(thread_id: pick_thread_id)
-    @contribution.set_parent_id_and_category
+    @contribution = Contribution.new
+    @contribution.set_associations
   end
 
   def create
     @contribution = Contribution.new(contribution_params)
     client_ip = request.remote_ip
-    @contribution.register(client_ip, params[:contribution])
+    @contribution.register_author(client_ip)
 
     if @contribution.save
       redirect_to contributions_url
@@ -27,7 +27,6 @@ class ContributionsController < ApplicationController
   private
 
   def contribution_params
-    params.require(:contribution).permit(:category)
+    params.require(:contribution).permit(:thread_id, :category, :s3_id)
   end
-
 end
