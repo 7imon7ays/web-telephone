@@ -347,9 +347,7 @@
       this.points = [];
     },
     _getXY : function(e){
-      //TODO THIS IS WHERE THE SHIT IS GOING WRONG
       var x, y, touchEvent = { pageX : 0, pageY : 0};
-      console.log(e);
 
       if (typeof e.changedTouches !== 'undefined'){
         touchEvent = e.changedTouches[0];
@@ -357,10 +355,6 @@
       else if ( typeof e.originalEvent !== 'undefined' && typeof e.originalEvent.changedTouches !== 'undefined'){
         touchEvent = e.originalEvent.changedTouches[0];
       }
-
-      // x = e.offsetX || e.layerX || touchEvent.pageX;
-      // y = e.offsetY || e.layerY || touchEvent.pageY;
-
 
       x = e.offsetX || e.layerX || touchEvent.pageX - e.originalEvent.target.offsetParent.offsetLeft;
       y = e.offsetY || e.layerY || touchEvent.pageY - e.originalEvent.target.offsetParent.offsetTop;

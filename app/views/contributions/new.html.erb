@@ -7,32 +7,105 @@
   value="<%= form_authenticity_token %>"
   >
 
-  <label for="new_contribution_category">Category</label>
-  <select id="new_contribution_category" name="contribution[category]">
-    <option value="picture">Picture</option>
-    <option value="sentence">Sentence</option>
-  </select>
-
   <canvas width="500" height="500" id="canvas_wrapper">
   </canvas>
-
-  <label for="new_thread_option">Start new Thread</label>
-  <input type="checkbox" name="contribution[start_new_thread]" value="true">
-  <br>
-
+  <div class="draw-tools">
+    <button class="draw-color">Color</button>
+    <button class="draw-weight">Weight</button>
+    <button class="draw-undo">Undo</button>
+    <button class="draw-redo">Redo</button>
+    <button class="draw-reset">Reset</button>
+  </div>
   <input type="submit">
 </form>
 
 <script type="text/javascript">
 (function(){
-    var $canvas_wrapper = $("#canvas_wrapper");
-    $canvas_wrapper.scribble();
+  var $canvas_wrapper = $("#canvas_wrapper");
+  var scribble = $canvas_wrapper.scribble(),
+  scribbleFidel = $canvas_wrapper.data('scribble');
 
-    var scribble = $canvas_wrapper.scribble(),
-        scribbleFidel = $canvas_wrapper.data('scribble');
+  var draw = {
 
-    // loadScribble($canvas_wrapper);
+    init: function() {
+      this.scribbleSetDefaults();
+      this.scribbleAddListeners();
+    },
 
+    currentOptions: {
+      weight: 6,
+      color: "529eff"
+    },
+
+    drawingOptions: {
+      weight: [2 , 6, 12],
+      color: [
+        "ff199c" // red
+        ,"ff9e00" // orange
+        ,"b7f300" // green
+        ,"529eff" // blue
+        ,"272727" // black
+      ]
+    },
+
+    updateCurrentOptions: function( new_options ) {
+      for (var key in new_options) {
+        this.currentOptions[key] = new_options[key];
+      }
+    },
+
+    nextOption : function( option_type ) {
+      var option_array = this.drawingOptions[option_type];
+      var old_index = option_array.indexOf(this.currentOptions[option_type]);
+      console.log(old_index);
+      var new_value;
+
+      // If we reach end of array, start back at beginning
+      if ((old_index + 1) < option_array.length) {
+        new_value = option_array[(old_index + 1)];
+      }
+      else {
+        new_value = option_array[0];
+      }
+
+      // Update model
+      var obj = {};
+      obj[option_type] = new_value;
+      this.updateCurrentOptions(obj);
+
+      return new_value;
+    },
+
+    scribbleSetDefaults: function() {
+      scribbleFidel.changeColor(this.currentOptions.color);
+      scribbleFidel.changeSize(this.currentOptions.weight);
+    },
+
+    scribbleAddListeners: function() {
+      $('.draw-weight').on('click touchend',function(e){
+        e.preventDefault();
+        scribbleFidel.changeSize(draw.nextOption('weight'));
+      });
+      $('.draw-color').on('click touchend',function(e){
+        e.preventDefault();
+        scribbleFidel.changeColor(draw.nextOption('color'));
+      });
+      $('.draw-undo').on('click touchend',function(e){
+        e.preventDefault();
+        scribbleFidel.undo();
+      });
+      $('.draw-redo').on('click touchend',function(e){
+        e.preventDefault();
+        scribbleFidel.redo();
+      });
+      $('.draw-reset').on('click touchend',function(e){
+        e.preventDefault();
+        scribbleFidel.clear();
+      });
+    }
+  };
+
+  draw.init();
 })();
 
 </script>
