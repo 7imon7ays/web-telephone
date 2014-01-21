@@ -40,10 +40,12 @@ var NEW = {
 		$wrapper = $('.wrapper');
 		// If height is less than width, set dimensions to in respect to height
 		// If both h and w are larger than max-size, set to max-size
-		if ( h < w ) {
+		if ( h > max && w > max ) {
+			console.log('asd');
+			$canvas.attr('height', (max-40));
+		}
+		else if ( h < w ) {
 			$canvas.attr('height', (h-40));
-		} else if ( h > max && w > max ) {
-			$canvas.attr('height', max);
 		} else {
 			$canvas.attr('height', (w-40));
 		}
