@@ -20,11 +20,10 @@ var NEW = {
 	init: function() {
 		this.scribbleInit();
 		this.setCanvasSize();
-		// this.scribbleSetDefaults();
-		// this.scribbleAddListeners();
+		this.scribbleSetDefaults();
+		this.scribbleAddListeners();
 	},
 
-	scribble : {},
 	scribbleFidel : {},
 
 	setCanvasSize: function() {
@@ -41,13 +40,10 @@ var NEW = {
 		// If height is less than width, set dimensions to in respect to height
 		// If both h and w are larger than max-size, set to max-size
 		if ( h < w ) {
-			console.log('1');
 			$canvas.attr('height', (h-40));
 		} else if ( h > max && w > max ) {
-			console.log('2');
 			$canvas.attr('height', max);
 		} else {
-			console.log('3');
 			$canvas.attr('height', (w-40));
 		}
 		$canvas.attr('width', $canvas.attr('height'));
@@ -56,8 +52,8 @@ var NEW = {
 
 	scribbleInit: function() {
 		$canvas_wrapper = $("#canvas-wrapper");
-		scribble = $canvas_wrapper.scribble(),
-		scribbleFidel = $canvas_wrapper.data('scribble');
+		$canvas_wrapper.scribble();
+		this.scribbleFidel = $canvas_wrapper.data('scribble');
 	},
 
 	currentOptions: {
@@ -77,25 +73,25 @@ var NEW = {
 	},
 
 	scribbleAddListeners: function() {
-		$('.draw-weight').on('click touchend',function(e){
+		$('.draw-weight').on('click touchend', function(e){
 			e.preventDefault();
-			scribbleFidel.changeSize(draw.nextOption('weight'));
+			NEW.scribbleFidel.changeSize(NEW.nextOption('weight'));
 		});
-		$('.draw-color').on('click touchend',function(e){
+		$('.draw-color').on('click touchend', function(e){
 			e.preventDefault();
-			scribbleFidel.changeColor(draw.nextOption('color'));
+			NEW.scribbleFidel.changeColor(NEW.nextOption('color'));
 		});
-		$('.draw-undo').on('click touchend',function(e){
+		$('.draw-undo').on('click touchend', function(e){
 			e.preventDefault();
-			scribbleFidel.undo();
+			NEW.scribbleFidel.undo();
 		});
-		$('.draw-redo').on('click touchend',function(e){
+		$('.draw-redo').on('click touchend', function(e){
 			e.preventDefault();
-			scribbleFidel.redo();
+			NEW.scribbleFidel.redo();
 		});
-		$('.draw-reset').on('click touchend',function(e){
+		$('.draw-reset').on('click touchend', function(e){
 			e.preventDefault();
-			scribbleFidel.clear();
+			NEW.scribbleFidel.clear();
 		});
 	},
 
