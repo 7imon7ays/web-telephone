@@ -14,14 +14,14 @@ function handleSubmission($canvasWrapper) {
   postToServerAndS3();
 }
 
-function fillS3Data($formField) {
+function fillS3Data($canvasWrapper, $formField) {
   if (!!$canvasWrapper.length) {
     var canvas = $canvasWrapper.data("jqScribble").canvas;
     var dataURL = canvas.toDataURL('image/png');
-    $s3FormField.val(dataURL);
+    $formField.val(dataURL);
   } else {
     var description = $("#sentence_field").val();
-    $s3FormField.val(description);
+    $formField.val(description);
   }
 }
 
