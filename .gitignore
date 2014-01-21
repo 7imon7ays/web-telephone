@@ -15,5 +15,6 @@
 /log/*.log
 /tmp
 
-config/application.yml
+# Ignore application configuration
+/config/application.yml
 policy_document_hash.rb

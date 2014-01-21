@@ -1,0 +1,14 @@
+<form id="s3-form" action="https://web_telephone.s3.amazonaws.com/"
+  method="post" enctype="multipart/form-data"
+  >
+  <input type="hidden" name="key" value="contributions/<%= @contribution.s3_id %>">
+  <input type="hidden" name="AWSAccessKeyId" value="<%= ENV["AWS_ACCESS_KEY_ID"] %>"> 
+  <input type="hidden" name="acl" value="public-read"> 
+  <input type="hidden" name="success_action_redirect" value="<%= contributions_url %>">
+  <input type="hidden" name="policy" value="<%= @policy_document.encoded_policy_document %>">
+  <input type="hidden" name="signature" value="<%= @policy_document.signature %>">
+  <input type="hidden" name="Content-Type" value="text/plain">
+
+  <input id="s3-file" name="file" type="hidden">
+  <br>
+</form>

@@ -1,27 +1,13 @@
 <h1>Join the fun</h1>
 
-<div id="canvas_wrapper">
-</div>
-
-<div id="image_wrapper">
-  <img>
-</div>
-
-<button id="done">Done</button>
-<button id="upload">Upload</button>
-
+<%= render "#{@contribution.category}_form" %>
+<%= render "s3_form", locals: { contribution: @contribution, policy_document: @policy_document } %>
 <%= render "server_form" %>
 
+<button id="submit">Submit</button>
 
 <script type="text/javascript">
-  var $canvas_wrapper = $("#canvas_wrapper");
-  loadScribble($canvas_wrapper);
-
-  var canvas = $("#canvas_wrapper").find("canvas")[0];
-  
-  $("#done").on("click", function () {
-    var imgTag = $("#image_wrapper").find("img")[0];
-    console.log(canvas.toDataURL())
-    imgTag.src = canvas.toDataURL();
-  });  
+  var $canvasWrapper = $("#canvas_wrapper");
+  if (!!$canvasWrapper.length) { loadScribble($canvasWrapper); }
+  listenForSubmission($canvasWrapper);
 </script>

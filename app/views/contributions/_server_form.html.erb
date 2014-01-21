@@ -1,19 +1,26 @@
-<form for="contributions" action="<%= contributions_url %>" method="POST">
+<form id="server-form" for="contributions" action="<%= contributions_url %>" method="POST">
   <input
   type="hidden"
   name="authenticity_token"
   value="<%= form_authenticity_token %>"
   >
+  
+  <input
+  type="hidden"
+  name="contribution[thread_id]"
+  value="<%= @contribution.thread_id %>"
+  >
 
-  <label for="new_contribution_category">Category</label>
-  <select id="new_contribution_category" name="contribution[category]">
-    <option value="picture">Picture</option>
-    <option value="sentence">Sentence</option>
-  </select>
+  <input
+  type="hidden"
+  name="contribution[parent_id]"
+  value="<%= @contribution.parent_id %>"
+  >
 
-  <label for="new_thread_option">Start new Thread</label>
-  <input type="checkbox" name="contribution[start_new_thread]" value="true">
-  <br>
-
-  <input type="submit">
+  <input
+  type="hidden"
+  name="contribution[s3_id]"
+  value="<%= @contribution.s3_id %>"
+  >
+  <input type="hidden" name="contribution[category]" value="<%= @contribution.category %>">
 </form>
