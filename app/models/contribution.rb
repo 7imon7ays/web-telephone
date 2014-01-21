@@ -36,7 +36,7 @@ class Contribution < ActiveRecord::Base
   
   def pick_category
     ( (!!parent && parent.category == CATEGORIES.first) ?
-          CATEGORIES.second : CATEGORIES.first )
+          CATEGORIES.last : CATEGORIES.first )
   end
   
   

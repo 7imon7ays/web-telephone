@@ -1,12 +1,2 @@
 <label for="sentence_field">What do you see?</label>
 <input id="sentence_field" type="text">
-  
-<button id="done">Done</button>
-
-<script type="text/javascript">
-  $("#done").on("click", function () {
-    var description = $("#sentence_field").val()
-
-    $("#s3-file").val(description);
-  });
-</script>

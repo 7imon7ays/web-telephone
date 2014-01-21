@@ -3,3 +3,11 @@
 <%= render "#{@contribution.category}_form" %>
 <%= render "s3_form", locals: { contribution: @contribution, policy_document: @policy_document } %>
 <%= render "server_form" %>
+
+<button id="submit">Submit</button>
+
+<script type="text/javascript">
+  var $canvasWrapper = $("#canvas_wrapper");
+  if (!!$canvasWrapper.length) { loadScribble($canvasWrapper); }
+  listenForSubmission($canvasWrapper);
+</script>

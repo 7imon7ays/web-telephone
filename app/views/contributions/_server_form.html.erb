@@ -1,4 +1,4 @@
-<form for="contributions" action="<%= contributions_url %>" method="POST">
+<form id="server-form" for="contributions" action="<%= contributions_url %>" method="POST">
   <input
   type="hidden"
   name="authenticity_token"
@@ -23,6 +23,4 @@
   value="<%= @contribution.s3_id %>"
   >
   <input type="hidden" name="contribution[category]" value="<%= @contribution.category %>">
-
-  <input type="submit">
 </form>

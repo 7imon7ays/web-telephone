@@ -17,10 +17,10 @@ class ContributionsController < ApplicationController
     @contribution.register_author(client_ip)
 
     if @contribution.save
-      redirect_to contributions_url
+      render json: @contribution
     else
       flash[:errors] = @contribution.errors.full_messages
-      render :new, status: 422
+      render json: @contribution, status: 422
     end
   end
 
