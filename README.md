@@ -14,7 +14,6 @@ See instructions for using CORS with AWS http://aws.amazon.com/articles/1434
 
 ## TODO
 
-* Merge drawing and AWS uploading functionality
-* Name uploaded pictures logically for simple retrieval
+* Display picture of image prompt
 * Thread picking logic:
   * Make # of eligible threads inversely proprotional to # of childless prompts
