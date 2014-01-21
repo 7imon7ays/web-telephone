@@ -1,0 +1,39 @@
+/*    Base
+   ------------------------------------------------------- */
+
+/*    Submit
+   ------------------------------------------------------- */
+
+
+
+ /*    Scribble canvas native styles
+    ------------------------------------------------------- */
+
+ .scribble-canvas-holder {
+   border: 2px solid #343434;
+   border-radius: 4px;
+   position: relative;
+   margin: auto;
+ }
+
+ .scribble-canvas-holder canvas {
+   display: inline-block;
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   cursor: crosshair;
+   -moz-user-select: -moz-none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+ }
+
+ .scribble-main-canvas {
+ }
+
+ .scribble-shadow-canvas {
+   position: absolute;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   top: 0;
+ }
