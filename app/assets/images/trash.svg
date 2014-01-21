@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="47px" height="56px" viewBox="0 0 47 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <title>trash</title>
+    <description>Created with Sketch (http://www.bohemiancoding.com/sketch)</description>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Mobile" sketch:type="MSArtboardGroup" transform="translate(-574.000000, -665.000000)" fill="#979797">
+            <g id="Drawing-Tools" sketch:type="MSLayerGroup" transform="translate(282.000000, 665.000000)">
+                <g id="Trash" transform="translate(292.000000, 0.000000)" sketch:type="MSShapeGroup">
+                    <path d="M45,14 L39.505511,56 L8.49448897,56 L3,14 L7.96982073,14 L12.8914491,51.3172932 L35.10897,51.3172932 L40.0635647,14 L45,14 L45,14 Z M33.7643766,3.70585124 C31.6086282,3.70585124 29.8608032,2.04666882 29.8608032,0 L17.1390574,0 C17.1390574,2.04680107 15.3915112,3.70585124 13.235484,3.70585124 L0,3.70585124 L0,9 L47,9 L47,3.70585124 L33.7643766,3.70585124 L33.7643766,3.70585124 Z" id="trash-can-10-icon"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
