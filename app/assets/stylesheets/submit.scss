@@ -1,19 +1,203 @@
 /*    Base
    ------------------------------------------------------- */
 
+/*    Variables  -------------------------------------------- */
+
+$gray: #bababa;
+$gray-d: #979797;
+
+$green: #97e791;
+
+
+$vert-space: 12px;
+
+//*    Reset  -------------------------------------------- */
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font-size: 100%;
+   font: inherit;
+   vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+   display: block;
+}
+body {
+   line-height: 1;
+}
+ol, ul {
+   list-style: none;
+}
+blockquote, q {
+   quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+   content: '';
+   content: none;
+}
+table {
+   border-collapse: collapse;
+   border-spacing: 0;
+}
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+
+/*    Global
+   ------------------------------------------------------- */
+
+body {
+   padding: $vert-space 0;
+}
+
+.wrapper {
+   margin: auto;
+}
+
 /*    Submit
    ------------------------------------------------------- */
 
+.draw-tools {
+   @extend .cf;
+}
 
+$tool_height: 56px;
+$tool-space: 8px;
+
+%tool-button {
+   &:focus, :active {
+      outline: 0;
+   }
+   -webkit-tap-highlight-color: rgba(0,0,0,0);
+   -webkit-tap-highlight-color: transparent; /* For some Androids */
+   cursor: pointer;
+   text-indent: -9999px;
+   height: $tool_height;
+   display: block;
+}
+
+%draw-tool-l {
+   float: left;
+   margin-right: $tool-space;
+}
+
+%draw-tool-r {
+   float: right;
+   margin-left: $tool-space;
+}
+
+.draw-color {
+   @extend %tool-button;
+   @extend %draw-tool-l;
+   background-color: transparent;
+   width: $tool-height;
+   display: block;
+   border: 4px solid $gray-d;
+   border-radius: $tool-height;
+   cursor: pointer;
+}
+
+.draw-weight {
+   @extend %tool-button;
+   @extend %draw-tool-l;
+   background-size: 100%;
+   width: $tool-height;
+
+   &.light {
+      background: url("weight-light.svg") no-repeat;
+   }
+   &.medium {
+      background: url("weight-med.svg") no-repeat;
+   }
+   &.heavy {
+      background: url("weight-heavy.svg") no-repeat;
+   }
+}
+
+.draw-undo, .draw-redo {
+   @extend %draw-tool-r;
+   @extend %tool-button;
+   width: 38px;
+   height: 61px;
+   background: url("step.svg") no-repeat;
+}
+
+.draw-undo {
+   -webkit-transform: rotate(180deg);
+}
+
+.draw-reset {
+   @extend %draw-tool-r;
+   width: 47px;
+   @extend %tool-button;
+   background: url("trash.svg") no-repeat;
+}
+
+.submit {
+   margin-top: $vert-space;
+   display: block;
+   clear: both;
+   width: 100%;
+   padding: 12px 0;
+   font-size: 24px;
+   border: 1px solid $gray;
+   border-radius: 2px;
+}
 
  /*    Scribble canvas native styles
     ------------------------------------------------------- */
 
  .scribble-canvas-holder {
-   border: 2px solid #343434;
+   border: 1px dashed $gray;
    border-radius: 4px;
    position: relative;
-   margin: auto;
+   margin: 0 auto $vert-space;
  }
 
  .scribble-canvas-holder canvas {

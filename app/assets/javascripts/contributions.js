@@ -37,6 +37,7 @@ var NEW = {
 		// Set canvas size
 		$canvas = $("#canvas-wrapper, .scribble-shadow-canvas");
 		$canvas_holder = $('.scribble-canvas-holder');
+		$wrapper = $('.wrapper');
 		// If height is less than width, set dimensions to in respect to height
 		// If both h and w are larger than max-size, set to max-size
 		if ( h < w ) {
@@ -48,6 +49,7 @@ var NEW = {
 		}
 		$canvas.attr('width', $canvas.attr('height'));
 		$canvas_holder.height($canvas.attr('height')).width($canvas.attr('width'));
+		$wrapper.width($canvas.attr('height'));
 	},
 
 	scribbleInit: function() {
@@ -68,18 +70,41 @@ var NEW = {
 	},
 
 	scribbleSetDefaults: function() {
+		$('.draw-weight').removeClass("light medium heavy").addClass(this.assignWeightClass(this.currentOptions.weight));
+		$('.draw-color').css({'background-color':('#'+this.currentOptions.color)});
 		this.scribbleFidel.changeColor(this.currentOptions.color);
 		this.scribbleFidel.changeSize(this.currentOptions.weight);
+	},
+
+	assignWeightClass: function( number ) {
+		switch (number) {
+			case (2) :
+				return "light"
+			break
+			case (6) :
+				return "medium"
+			break
+			case (12) :
+				return "heavy"
+			break
+		}
 	},
 
 	scribbleAddListeners: function() {
 		$('.draw-weight').on('click touchend', function(e){
 			e.preventDefault();
-			NEW.scribbleFidel.changeSize(NEW.nextOption('weight'));
+			var weight = NEW.nextOption('weight');
+			NEW.scribbleFidel.changeSize(weight);
+			var class_name = NEW.assignWeightClass(weight);
+			$(this).removeClass("light medium heavy").addClass(class_name);
+
 		});
 		$('.draw-color').on('click touchend', function(e){
 			e.preventDefault();
-			NEW.scribbleFidel.changeColor(NEW.nextOption('color'));
+			var color = NEW.nextOption('color')
+			NEW.scribbleFidel.changeColor(color);
+			$(this).css({'background-color':('#'+color)});
+
 		});
 		$('.draw-undo').on('click touchend', function(e){
 			e.preventDefault();

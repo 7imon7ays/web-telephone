@@ -1,18 +1,19 @@
 <form for="contributions" action="<%= contributions_url %>" method="POST">
-  <input
-  type="hidden"
-  name="authenticity_token"
-  value="<%= form_authenticity_token %>"
-  >
-
-  <canvas id="canvas-wrapper">
-  </canvas>
-  <div class="draw-tools">
-    <button class="draw-color">Color</button>
-    <button class="draw-weight">Weight</button>
-    <button class="draw-undo">Undo</button>
-    <button class="draw-redo">Redo</button>
-    <button class="draw-reset">Reset</button>
-  </div>
-  <input type="submit">
+	<input
+	type="hidden"
+	name="authenticity_token"
+	value="<%= form_authenticity_token %>"
+	>
+	<div class="wrapper">
+		<canvas id="canvas-wrapper">
+		</canvas>
+		<div class="draw-tools">
+			<a href="/" class="draw-color"></a>
+			<a href="/" class="draw-weight"></a>
+			<a href="/" class="draw-reset">Reset</a>
+			<a href="/" class="draw-redo">Redo</a>
+			<a href="/" class="draw-undo"></a>
+		</div>
+		<input class="submit" type="submit">
+	</div>
 </form>
