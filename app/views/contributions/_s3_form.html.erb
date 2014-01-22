@@ -1,4 +1,4 @@
-<form id="s3-form" action="https://web-telephone-will.s3.amazonaws.com/"
+<form id="s3-form" action="https://<%= ENV["AWS_BUCKET_NAME"] %>.s3.amazonaws.com/"
   method="post" enctype="multipart/form-data"
   >
   <input type="hidden" name="key" value="contributions/<%= @contribution.s3_id %>">
