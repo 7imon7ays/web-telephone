@@ -1,4 +1,5 @@
 <div class="wrapper">
+  <%= render "#{@contribution.category}_prompt" %>
 	<%= render "#{@contribution.category}_form" %>
 	<%= render "s3_form", locals: { contribution: @contribution, policy_document: @policy_document } %>
 	<%= render "server_form" %>
