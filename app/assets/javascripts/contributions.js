@@ -16,7 +16,7 @@ var SUBMIT = {
 
 	fillS3Data : function($canvasWrapper, $formField) {
 	  if (!!$canvasWrapper.length) {
-	    var canvas = $canvasWrapper[0];
+	    canvas = NEW_PIC.scribbleFidel;
 	    var dataURL = canvas.toDataURL('image/png');
 	    $formField.val(dataURL);
 	  } else {
@@ -93,7 +93,7 @@ var NEW_PIC = {
 		$canvasWrapper = $("#canvas-wrapper");
 		$canvasWrapper.scribble();
 		this.scribbleFidel = $canvasWrapper.data('scribble');
-		SUBMIT.listenForSubmission($canvasWrapper);
+		this.listenForSubmission($canvasWrapper);
 	},
 
 	currentOptions: {
