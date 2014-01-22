@@ -1,26 +1,27 @@
 // Handles form submission
 var SUBMIT = {
 
-	listenForSubimssion : function($canvas_wrapper) {
+	listenForSubmission : function($canvasWrapper) {
+    var self = this;
 	  $("#submit").on("click", function (event) {
-	    this.handleSubmission($canvas_wrapper);
+	    self.handleSubmission($canvasWrapper);
 	  });
 	},
 
-	handleSubmission : function($canvas_wrapper) {
+	handleSubmission : function($canvasWrapper) {
 	  var $formField = $("#s3-file");
-	  this.fillS3Data($canvas_wrapper, $formField);
-	  postToServerAndS3();
+	  this.fillS3Data($canvasWrapper, $formField);
+	  this.postToServerAndS3();
 	},
 
-	fillS3Data : function($canvas_wrapper, $formField) {
+	fillS3Data : function($canvasWrapper, $formField) {
 	  if (!!$canvasWrapper.length) {
-	    var canvas = $canvasWrapper.data("jqScribble").canvas;
+	    var canvas = $canvasWrapper[0];
 	    var dataURL = canvas.toDataURL('image/png');
-	    $s3FormField.val(dataURL);
+	    $formField.val(dataURL);
 	  } else {
 	    var description = $("#sentence_field").val();
-	    $s3FormField.val(description);
+	    $formField.val(description);
 	  }
 	},
 
@@ -89,10 +90,10 @@ var NEW_PIC = {
 	},
 
 	scribbleInit: function() {
-		$canvas_wrapper = $("#canvas-wrapper");
-		$canvas_wrapper.scribble();
-		this.scribbleFidel = $canvas_wrapper.data('scribble');
-		SUBMIT.listenForSubmission($canvas_wrapper);
+		$canvasWrapper = $("#canvas-wrapper");
+		$canvasWrapper.scribble();
+		this.scribbleFidel = $canvasWrapper.data('scribble');
+		SUBMIT.listenForSubmission($canvasWrapper);
 	},
 
 	currentOptions: {
@@ -107,7 +108,9 @@ var NEW_PIC = {
 	},
 
 	scribbleSetDefaults: function() {
-		$('.draw-weight').removeClass("light medium heavy").addClass(this.assignWeightClass(this.currentOptions.weight));
+		$('.draw-weight')
+      .removeClass("light medium heavy")
+      .addClass(this.assignWeightClass(this.currentOptions.weight));
 		$('.draw-color').css({'background-color':('#'+this.currentOptions.color)});
 		this.scribbleFidel.changeColor(this.currentOptions.color);
 		this.scribbleFidel.changeSize(this.currentOptions.weight);
