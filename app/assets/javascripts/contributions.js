@@ -93,7 +93,7 @@ var NEW_PIC = {
 		$canvasWrapper = $("#canvas-wrapper");
 		$canvasWrapper.scribble();
 		this.scribbleFidel = $canvasWrapper.data('scribble');
-		this.listenForSubmission($canvasWrapper);
+		SUBMIT.listenForSubmission($canvasWrapper);
 	},
 
 	currentOptions: {
