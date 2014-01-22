@@ -1,26 +1,26 @@
 // Handles form submission
 var SUBMIT = {
 
-	listenForSubimssion : function($canvas_wrapper) {
+	listenForSubimssion : function($canvasWrapper) {
 	  $("#submit").on("click", function (event) {
-	    this.handleSubmission($canvas_wrapper);
+	    SUBMIT.handleSubmission($canvasWrapper);
 	  });
 	},
 
-	handleSubmission : function($canvas_wrapper) {
+	handleSubmission : function($canvasWrapper) {
 	  var $formField = $("#s3-file");
-	  this.fillS3Data($canvas_wrapper, $formField);
-	  postToServerAndS3();
+	  SUBMIT.fillS3Data($canvasWrapper, $formField);
+	  SUBMIT.postToServerAndS3();
 	},
 
-	fillS3Data : function($formField) {
+	fillS3Data : function($canvasWrapper, $formField) {
 	  if (!!$canvasWrapper.length) {
-	    var canvas = $canvasWrapper.data("jqScribble").canvas;
+	    canvas = NEW_PIC.scribbleFidel;
 	    var dataURL = canvas.toDataURL('image/png');
-	    $s3FormField.val(dataURL);
+	    $formField.val(dataURL);
 	  } else {
 	    var description = $("#sentence_field").val();
-	    $s3FormField.val(description);
+	    $formField.val(description);
 	  }
 	},
 
@@ -92,7 +92,7 @@ var NEW_PIC = {
 		$canvas_wrapper = $("#canvas-wrapper");
 		$canvas_wrapper.scribble();
 		this.scribbleFidel = $canvas_wrapper.data('scribble');
-		SUBMIT.listenForSubmission($canvas_wrapper);
+		SUBMIT.listenForSubimssion($canvas_wrapper);
 	},
 
 	currentOptions: {
