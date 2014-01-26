@@ -1,1 +1,9 @@
+<img id="img-prompt" src="<%= s3_prefix + @contribution.parent.s3_id %>">
+<br/>
 <label for="sentence_field">What do you see?</label>
+
+<script type="text/javascript">
+  $.get("<%= s3_prefix + @contribution.parent.s3_id %>", function (data) {
+    $("#img-prompt").attr("src", data)
+  })
+</script>

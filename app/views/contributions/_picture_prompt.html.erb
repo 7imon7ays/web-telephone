@@ -1,1 +1,8 @@
 <p>Illustrate this.</p>
+<h3 id="sentence-prompt"></h3>
+
+<script type="text/javascript">
+  $.get("<%= s3_prefix + @contribution.parent.s3_id %>", function (data) {
+    $("#sentence-prompt").html(data)
+  })
+</script>

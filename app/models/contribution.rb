@@ -1,5 +1,4 @@
 class Contribution < ActiveRecord::Base
-  include ApplicationHelper
   CATEGORIES = ["picture", "sentence"]
   validates :category, inclusion: CATEGORIES
   validates :author, :thread, :s3_id, presence: true
@@ -25,7 +24,7 @@ class Contribution < ActiveRecord::Base
   
   def pick_thread_id
     # top_thread_ids defined in application_helper.rb
-    thread_id = top_thread_ids.sample || Conversation.last.id
+    thread_id = Conversation.top_thread_ids.sample || Conversation.last.id
     throw "No thread found for new contribution!" unless thread_id
     thread_id
   end
@@ -38,10 +37,9 @@ class Contribution < ActiveRecord::Base
     ( (!!parent && parent.category == CATEGORIES.first) ?
           CATEGORIES.last : CATEGORIES.first )
   end
-  
-  
+
   def get_s3_id
-    s3_id = "thread_#{thread_id}_#{category}_"
+    s3_id = "thread_#{thread_id}/#{category}_"
     parent ? s3_id.concat("#{parent.id + 1}") : s3_id.concat("1")
-  end
+  end  
 end
