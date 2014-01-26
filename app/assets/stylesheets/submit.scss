@@ -3,11 +3,15 @@
 
 /*    Variables  -------------------------------------------- */
 
+$white: #fefefe;
+
 $gray: #bababa;
 $gray-d: #979797;
 
 $green: #31ba00;
 
+$blue: #e7fdff;
+$blue-trans: rgba(102, 181, 251, 0.73);
 
 $vert-space: 8px;
 
@@ -93,14 +97,15 @@ table {
    ------------------------------------------------------- */
 
 body {
-   background-color: #e7fdff;
+   background-color: $blue;
+   font-family: arial, sans-serif;
 }
 
 .wrapper {
    margin: auto;
 }
 
-/*    Submit
+/* Drawing tools
    ------------------------------------------------------- */
 
 .draw-tools {
@@ -203,7 +208,7 @@ $tool-space: 10px;
  .scribble-canvas-holder {
    position: relative;
    margin: 0 auto $vert-space;
-   background-color: #fefefe;
+   background-color: $white;
    box-shadow: 0 0px 11px -4px #5D5D5D inset;
  }
 
@@ -228,3 +233,24 @@ $tool-space: 10px;
    bottom: 0;
    top: 0;
  }
+
+/*    Orientation alert (only for drawing form)
+   ------------------------------------------------------- */
+
+.orientation-alert {
+   display: none;
+   position: fixed;
+   bottom: 0;
+   top: 0;
+   left: 0;
+   right: 0;
+   background-color: $blue-trans;
+   text-align: center;
+}
+
+.alert-msg {
+   padding-top: 60px;
+   font-size: 40px;
+   line-height: 55px;
+   color: $white;
+}

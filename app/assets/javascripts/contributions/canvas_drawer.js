@@ -11,43 +11,47 @@ WebTelephone.CanvasDrawer = function ($canvasWrapper) {
   			,"b7f300" // green
   			,"529eff" // blue
   			,"272727" // black
-  			]
+  		]
     }
   };
   this.currentOptions = { weight: 6, color: "529eff" },
   this.scribbleFidel = {};
+  this.canvasSizeIsSet = false;
 };
 
 WebTelephone.CanvasDrawer.prototype.init = function() {
  	this.scribbleInit();
-	this.setCanvasSize();
+ 	this.handleOrientation(this);
+ 	this.listenForOrientationChange();
 	this.scribbleSetDefaults();
 	this.scribbleAddListeners();
 };
 
 WebTelephone.CanvasDrawer.prototype.setCanvasSize = function() {
+	this.canvasSizeIsSet = true;
+
 	// Get document dimensions
-	var $doc = $(document);
-	var h = $doc.height();
-	var w = $doc.width();
+	var $win = $(window);
+	var h = $win.height();
+	var w = $win.width();
 	var max = this.config.canvas.max_size;
-	console.log(h, w);
+
 	// Set canvas size
 	$canvas = $("#canvas-wrapper, .scribble-shadow-canvas");
 	$canvas_holder = $('.scribble-canvas-holder');
 	$wrapper = $('.wrapper');
+
 	// If both h and w are larger than max-size, set to max-size
 	if ( h > max && w > max ) {
 		console.log('max');
 		$canvas.attr('height', (max));
-	}
-	// If height is less than width, set dimensions with respect to height
+	} // If height is less than width, set dimensions with respect to height
 	else if ( h < w ) {
-		console.log('h<w');
+		console.log('h<w')
 		$canvas.attr('height', (h));
 	// If width is less than height, set dimensions with respect to width
 	} else {
-		console.log('h>w');
+		console.log('w<h')
 		$canvas.attr('height', (w));
 	}
 	$canvas.attr('width', $canvas.attr('height'));
@@ -127,8 +131,8 @@ WebTelephone.CanvasDrawer.prototype.nextOption = function( option_type ) {
 	var option_array = this.config.drawingOptions[option_type];
 	var old_index = option_array.indexOf(this.currentOptions[option_type]);
 
-  old_index = (old_index + 1) % option_array.length;
-  new_value = option_array[old_index];
+ 	old_index = (old_index + 1) % option_array.length;
+  	new_value = option_array[old_index];
 
 	// Update model
 	var obj = {};
@@ -138,3 +142,25 @@ WebTelephone.CanvasDrawer.prototype.nextOption = function( option_type ) {
 	return new_value;
 };
 
+
+WebTelephone.CanvasDrawer.prototype.handleOrientation = function(self) {
+	// TODO don't reset this every time function is called
+	var $alert = $('.orientation-alert');
+
+	if(window.orientation === 90 || window.orientation === -90) {
+		$alert.show();
+	}
+	else {
+		if (!self.canvasSizeIsSet) {
+			self.setCanvasSize();
+		}
+		$alert.hide();
+	}
+};
+
+WebTelephone.CanvasDrawer.prototype.listenForOrientationChange = function() {
+	var self = this;
+	window.addEventListener('orientationchange', function() {
+		self.handleOrientation(self);
+	});
+};
