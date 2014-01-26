@@ -5,11 +5,11 @@ WebTelephone.PromptFetcher = function (promptURL, $promptEl) {
 
 WebTelephone.PromptFetcher.prototype.fetchPrompt = function () {
   var self = this;
-  $.get(this.promptURL, function (promptData){
+  $.get(this.promptURL, function (data) {
     if (self.$promptEl.is("img")) {
-     $promptEl.attr("src", promptData);
+      self.$promptEl.attr("src", data);
     } else {
-      $promptEl.html(promptData);
+      self.$promptEl.html(data);
     }
   });
 };
