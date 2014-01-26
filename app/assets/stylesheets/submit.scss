@@ -6,10 +6,10 @@
 $gray: #bababa;
 $gray-d: #979797;
 
-$green: #97e791;
+$green: #31ba00;
 
 
-$vert-space: 12px;
+$vert-space: 8px;
 
 //*    Reset  -------------------------------------------- */
 
@@ -93,7 +93,7 @@ table {
    ------------------------------------------------------- */
 
 body {
-   padding: $vert-space 0;
+   background-color: #e7fdff;
 }
 
 .wrapper {
@@ -107,8 +107,8 @@ body {
    @extend .cf;
 }
 
-$tool_height: 56px;
-$tool-space: 8px;
+$tool_height: 28px;
+$tool-space: 10px;
 
 %tool-button {
    &:focus, :active {
@@ -119,16 +119,15 @@ $tool-space: 8px;
    cursor: pointer;
    height: $tool_height;
    display: block;
+   margin: 4px $tool-space;
 }
 
 %draw-tool-l {
    float: left;
-   margin-right: $tool-space;
 }
 
 %draw-tool-r {
    float: right;
-   margin-left: $tool-space;
 }
 
 .draw-color {
@@ -137,9 +136,10 @@ $tool-space: 8px;
    background-color: transparent;
    width: $tool-height;
    display: block;
-   border: 4px solid $gray-d;
+   border: 1px solid $gray-d;
    border-radius: $tool-height;
    cursor: pointer;
+   box-sizing: border-box;
 }
 
 .draw-weight {
@@ -148,23 +148,32 @@ $tool-space: 8px;
    background-size: 100%;
    width: $tool-height;
 
+   .weight {
+      margin-top: -2px;
+   }
+
    &.light {
-      background: url("weight-light.svg") no-repeat;
+      .stroke-width {
+         stroke-width: 2;
+      }
    }
+
    &.medium {
-      background: url("weight-med.svg") no-repeat;
+      .stroke-width {
+         stroke-width: 6;
+      }
    }
+
    &.heavy {
-      background: url("weight-heavy.svg") no-repeat;
+      .stroke-width {
+         stroke-width: 12;
+      }
    }
 }
 
 .draw-undo, .draw-redo {
-   @extend %draw-tool-r;
-   @extend %tool-button;
-   width: 38px;
-   height: 61px;
-   background: url("step.svg") no-repeat;
+   @extend %draw-tool-l;
+   @extend %tool-button;;
 }
 
 .draw-undo {
@@ -172,31 +181,30 @@ $tool-space: 8px;
 }
 
 .draw-reset {
-   @extend %draw-tool-r;
-   width: 47px;
    @extend %tool-button;
-   background: url("trash.svg") no-repeat;
+   @extend %draw-tool-l;
 }
 
-.submit {
-   margin-top: $vert-space;
+.draw-submit {
+   @extend %tool-button;
+   @extend %draw-tool-r;
    display: block;
-   clear: both;
-   width: 100%;
-   padding: 12px 0;
-   font-size: 24px;
-   border: 1px solid $gray;
+   border: none;
    border-radius: 2px;
+   background-color: $green;
+   box-shadow: 0 1px 1px 0px #000;
+   padding-left: 12px;
+   padding-right: 12px;
 }
 
  /*    Scribble canvas native styles
     ------------------------------------------------------- */
 
  .scribble-canvas-holder {
-   border: 1px dashed $gray;
-   border-radius: 4px;
    position: relative;
    margin: 0 auto $vert-space;
+   background-color: #fefefe;
+   box-shadow: 0 0px 11px -4px #5D5D5D inset;
  }
 
  .scribble-canvas-holder canvas {

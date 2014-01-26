@@ -39,16 +39,16 @@ WebTelephone.CanvasDrawer.prototype.setCanvasSize = function() {
 	// If both h and w are larger than max-size, set to max-size
 	if ( h > max && w > max ) {
 		console.log('max');
-		$canvas.attr('height', (max-40));
+		$canvas.attr('height', (max));
 	}
 	// If height is less than width, set dimensions with respect to height
 	else if ( h < w ) {
 		console.log('h<w');
-		$canvas.attr('height', (h-40));
+		$canvas.attr('height', (h));
 	// If width is less than height, set dimensions with respect to width
 	} else {
 		console.log('h>w');
-		$canvas.attr('height', (w-40));
+		$canvas.attr('height', (w));
 	}
 	$canvas.attr('width', $canvas.attr('height'));
 	$canvas_holder.height($canvas.attr('height')).width($canvas.attr('width'));
