@@ -19,12 +19,11 @@ WebTelephone.CanvasDrawer = function ($canvasWrapper) {
 };
 
 WebTelephone.CanvasDrawer.prototype.init = function() {
-  this.scribbleInit();
+ 	this.scribbleInit();
 	this.setCanvasSize();
 	this.scribbleSetDefaults();
 	this.scribbleAddListeners();
 };
-
 
 WebTelephone.CanvasDrawer.prototype.setCanvasSize = function() {
 	// Get document dimensions
@@ -32,19 +31,23 @@ WebTelephone.CanvasDrawer.prototype.setCanvasSize = function() {
 	var h = $doc.height();
 	var w = $doc.width();
 	var max = this.config.canvas.max_size;
-  
+	console.log(h, w);
 	// Set canvas size
 	$canvas = $("#canvas-wrapper, .scribble-shadow-canvas");
 	$canvas_holder = $('.scribble-canvas-holder');
 	$wrapper = $('.wrapper');
-	// If height is less than width, set dimensions to in respect to height
 	// If both h and w are larger than max-size, set to max-size
 	if ( h > max && w > max ) {
+		console.log('max');
 		$canvas.attr('height', (max-40));
 	}
+	// If height is less than width, set dimensions with respect to height
 	else if ( h < w ) {
+		console.log('h<w');
 		$canvas.attr('height', (h-40));
+	// If width is less than height, set dimensions with respect to width
 	} else {
+		console.log('h>w');
 		$canvas.attr('height', (w-40));
 	}
 	$canvas.attr('width', $canvas.attr('height'));
@@ -126,7 +129,7 @@ WebTelephone.CanvasDrawer.prototype.nextOption = function( option_type ) {
 
   old_index = (old_index + 1) % option_array.length;
   new_value = option_array[old_index];
-  
+
 	// Update model
 	var obj = {};
 	obj[option_type] = new_value;
