@@ -5,6 +5,8 @@
 	<%= render "server_form" %>
 </div>
 
-<script id="prompt-url" type="text/plain">
-  <%= s3_prefix + @contribution.parent.s3_id %>
-</script>
+<% if @contribution.parent %>
+  <script id="prompt-url" type="text/plain">
+    <%= s3_prefix + @contribution.parent.s3_id %>
+  </script>
+<% end %>

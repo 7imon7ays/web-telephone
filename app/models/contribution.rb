@@ -24,9 +24,9 @@ class Contribution < ActiveRecord::Base
   
   def pick_thread_id
     # top_thread_ids defined in application_helper.rb
-    thread_id = Conversation.top_thread_ids.sample || Conversation.last.id
-    throw "No thread found for new contribution!" unless thread_id
-    thread_id
+    Conversation.top_thread_ids.sample ||
+    Conversation.last && Conversation.last.id ||
+    Conversation.create!.id
   end
   
   def pick_parent

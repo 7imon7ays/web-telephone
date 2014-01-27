@@ -5,6 +5,9 @@ WebTelephone.PromptFetcher = function (promptURL, $promptEl) {
 
 WebTelephone.PromptFetcher.prototype.fetchPrompt = function () {
   var self = this;
+  
+  this.promptURL ? null : return;
+  
   $.get(this.promptURL, function (data) {
     if (self.$promptEl.is("img")) {
       self.$promptEl.attr("src", data);
