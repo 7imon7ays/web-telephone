@@ -4,14 +4,14 @@ WebTelephone.CanvasDrawer = function ($canvasWrapper) {
   this.config = {
     canvas: { max_size: 500 },
     drawingOptions: {
-      weight: [2 , 6, 12],
-      color: [
-        "ff199c" // red
-        ,"ff9e00" // orange
-  			,"b7f300" // green
-  			,"529eff" // blue
-  			,"272727" // black
-  		]
+		weight: [2 , 6, 12],
+		color: [
+		"ff199c" // red
+		,"ff9e00" // orange
+		,"b7f300" // green
+		,"529eff" // blue
+		,"272727" // black
+		  ]
     }
   };
   this.currentOptions = { weight: 6, color: "529eff" },
