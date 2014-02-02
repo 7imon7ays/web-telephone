@@ -1,3 +1,21 @@
 <script id="bootstrapped-thread-json" type="application/json">
   <%= @thread.to_json.html_safe %>
 </script>
+
+<script id="bucket-url" type="text/plain">
+	<%= s3_prefix %>
+</script>
+
+<div class="wrapper">
+	<div class="js-node-sack wrapper-saved">
+		<div class="holder-sentence" id="blank-sentence">
+			<span class="node-number"></span>
+			<p class="saved-sentence"></p>
+		</div>
+		<div class="holder-picture" id="blank-picture">
+			<span class="node-number"></span>
+			<img class="saved-picture" />
+		</div>
+		<a href="" class="holder-sentence show-start">Go to the beginning of the chain</a>
+	</div>
+</div>
