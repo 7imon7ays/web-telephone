@@ -29,6 +29,9 @@ WebTelephone.FormHandler.prototype.fillS3Data = function() {
 
 WebTelephone.FormHandler.prototype.postToServerAndS3 = function() {
   var formInput = $("#server-form").serializeJSON();
-  $.post("contributions", formInput);
-  $("#s3-form").submit();
+  $.post("/contributions", formInput).then(_postToS3);
+
+  function _postToS3(threadID) {
+    $("#s3-form").submit();
+  }
 };

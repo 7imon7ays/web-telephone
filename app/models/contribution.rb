@@ -23,10 +23,9 @@ class Contribution < ActiveRecord::Base
   private
   
   def pick_thread_id
-    # top_thread_ids defined in application_helper.rb
     Conversation.top_thread_ids.sample ||
-    Conversation.last && Conversation.last.id ||
-    Conversation.create!.id
+      Conversation.last && Conversation.last.id ||
+      Conversation.create!.id
   end
   
   def pick_parent
@@ -41,5 +40,5 @@ class Contribution < ActiveRecord::Base
   def get_s3_id
     s3_id = "thread_#{thread_id}/#{category}_"
     parent ? s3_id.concat("#{parent.id + 1}") : s3_id.concat("1")
-  end  
+  end
 end
