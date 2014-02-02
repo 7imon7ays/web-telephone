@@ -16,4 +16,5 @@
 //= require jquery.serializeJSON
 //= require fidel
 //= require scribble
+//= require main
 //= require_tree .
