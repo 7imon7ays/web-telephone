@@ -1,17 +1,15 @@
 class Conversation < ActiveRecord::Base
   has_many :contributions, class_name: Contribution, foreign_key: :thread_id
 
-  def self.top_thread_ids
-    # TODO Make selection LIMIT depend
-    # on the number of childless leaves
-    max_contributions_sql = "SELECT id FROM conversations WHERE id IN 
-                              (SELECT thread_id FROM contributions
-                              GROUP BY thread_id
-                              ORDER BY count(thread_id)
-                              LIMIT 5);"
+  def self.longest(n = 1)
+    joins(:contributions)
+    .group("conversations.id, contributions.thread_id")
+    .order("count(contributions.thread_id) DESC")
+    .limit(n)
+  end
 
-    max_contributions_result = ActiveRecord::Base.connection.execute(max_contributions_sql)
-    top_thread_ids = max_contributions_result.values.flatten.map(&:to_i)
+  def self.longest_one
+    longest.first
   end
 
   # Useless for now
@@ -20,7 +18,7 @@ class Conversation < ActiveRecord::Base
       secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"])    
   end
 
-  def as_json(options)
+  def as_json(options = {})
     super(options.merge({ include: :contributions }))
   end
 end

@@ -9,7 +9,7 @@ class Contribution < ActiveRecord::Base
   has_many :children, class_name: Contribution, foreign_key: :parent_id
 
   def set_associations
-    self.thread_id = pick_thread_id    
+    self.thread = pick_thread
     self.parent = pick_parent
     self.category = pick_category
     self.s3_id = get_s3_id
@@ -22,14 +22,14 @@ class Contribution < ActiveRecord::Base
   
   private
   
-  def pick_thread_id
-    Conversation.top_thread_ids.sample ||
-      Conversation.last && Conversation.last.id ||
-      Conversation.create!.id
+  def pick_thread
+    Conversation.longest(5).sample ||
+      Conversation.last ||
+      Conversation.create
   end
   
   def pick_parent
-    Contribution.where(thread_id: thread_id).last
+    Contribution.where(thread_id: thread.id).last
   end
   
   def pick_category
