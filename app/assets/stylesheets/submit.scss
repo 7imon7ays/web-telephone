@@ -94,6 +94,28 @@ table {
     *zoom: 1;
 }
 
+/*    Elements
+   ------------------------------------------------------- */
+
+.loading-animate {
+   width: 30px;
+   animation: spin-back-and-forth .5s infinite linear;
+   -webkit-animation: spin-back-and-forth .5s infinite linear;   animation-direction: alternate;
+   -webkit-animation-direction: alternate;
+   -webkit-transform-origin: 0 50%;
+   margin-left: 30px;
+}
+
+@-webkit-keyframes spin-back-and-forth {
+   from {
+      -webkit-transform: rotateZ(0deg);
+      -webkit-transition-timing-function: ease-in;
+   }
+   to {
+      -webkit-transform: rotateZ(180deg);
+   }
+}
+
 /*    Mixins
    ------------------------------------------------------- */
 
@@ -106,6 +128,22 @@ table {
   }
 
 }
+
+@mixin size-1 {
+   font-size: 40px;
+   line-height: 55px;
+}
+
+@mixin size-3 {
+   font-size: 28px;
+   line-height: 38.5px;
+}
+
+@mixin size-4 {
+   font-size: 20px;
+   line-height: 27.5px;
+}
+
 
 /*    Utility
    ------------------------------------------------------- */
@@ -127,18 +165,23 @@ body {
    margin: auto;
    width: 500px;
    max-width: 100%;
+   position: relative;
+   height: 100%;
+   padding-bottom: $vert-space;
 }
 
 /*   Submit
    ------------------------------------------------------- */
 
-.prompt-direction-picture {
+/*    Sentence  -------------------------------------------- */
+
+.prompt-direction-sentence {
    display: block;
    width: 100%;
    text-align: center;
 }
 
-.prompt-picture {
+.prompt-sentence {
    max-width: 100%;
    background-color: $white;
 }
@@ -148,6 +191,30 @@ body {
    border: 0;
    resize: vertical;
    width: 80%;
+}
+
+/*    Picture  -------------------------------------------- */
+
+.prompt-holder-picture {
+   position: absolute;
+   z-index: 1;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background-color: $blue-trans;
+   text-align: center;
+}
+
+.prompt-direction-draw {
+   margin: $vert-space 0;
+   @include size-3;
+}
+
+.prompt-picture {
+   @include size-4;
+   text-align: center;
+   padding: 0 4px;
 }
 
 /* Drawing tools
@@ -223,7 +290,7 @@ $tool-space: 10px;
 
 .draw-undo, .draw-redo {
    @extend %draw-tool-l;
-   @extend %tool-button;;
+   @extend %tool-button;
 }
 
 .draw-undo {
@@ -295,8 +362,7 @@ $tool-space: 10px;
 
 .alert-msg {
    padding-top: 60px;
-   font-size: 40px;
-   line-height: 55px;
+   @include size-1;
    color: $white;
 }
 
@@ -320,12 +386,13 @@ $tool-space: 10px;
    left: 0px;
    padding-top: 4px;
    padding-left: 4px;
-   font-size: 20px;
+   @include size-4;
+
 
    @include bp(med-min) {
       padding-top: 8px;
       padding-left: 8px;
-      font-size: 28px;
+      @include size-3;
    }
 }
 
@@ -364,8 +431,7 @@ $tool-space: 10px;
 /*    Other  -------------------------------------------- */
 
 .show-start {
-   font-size: 24px;
-   line-height: 30px;
+   @include size-3;
    text-align: center;
    display: block;
 }
