@@ -11,7 +11,6 @@ jQuery(document).ready(function($) {
 	}
 	// If thank-you page
 	else if ($("#js-init-thankyou").length) {
-		alert('thankyou');
 	   	var thread = $.parseJSON($('#bootstrapped-thread-json').html());
 	   	new WebTelephone.NodeLoad(thread).buildLinks();
 	}

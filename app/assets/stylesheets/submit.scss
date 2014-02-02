@@ -125,8 +125,30 @@ body {
 
 .wrapper {
    margin: auto;
+   width: 500px;
+   max-width: 100%;
 }
 
+/*   Submit
+   ------------------------------------------------------- */
+
+.prompt-direction-picture {
+   display: block;
+   width: 100%;
+   text-align: center;
+}
+
+.prompt-picture {
+   max-width: 100%;
+   background-color: $white;
+}
+
+.sentence-field {
+   margin: 0;
+   border: 0;
+   resize: vertical;
+   width: 80%;
+}
 
 /* Drawing tools
    ------------------------------------------------------- */
@@ -282,8 +304,6 @@ $tool-space: 10px;
    ------------------------------------------------------- */
 
 .wrapper-saved {
-   max-width: 500px;
-   margin: auto;
    background-color: $white;
    border: 1px solid $gray;
 }
