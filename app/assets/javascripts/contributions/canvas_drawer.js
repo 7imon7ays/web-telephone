@@ -25,6 +25,7 @@ WebTelephone.CanvasDrawer.prototype.init = function() {
  	this.listenForOrientationChange();
 	this.scribbleSetDefaults();
 	this.scribbleAddListeners();
+	this.togglePrompt();
 };
 
 WebTelephone.CanvasDrawer.prototype.setCanvasSize = function() {
@@ -161,5 +162,12 @@ WebTelephone.CanvasDrawer.prototype.listenForOrientationChange = function() {
 	var self = this;
 	window.addEventListener('orientationchange', function() {
 		self.handleOrientation(self);
+	});
+};
+
+WebTelephone.CanvasDrawer.prototype.togglePrompt = function() {
+	$(".js-picture-prompt").on('touchend click', function() {
+
+		$(this).hide();
 	});
 };
