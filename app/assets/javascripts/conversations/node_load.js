@@ -12,8 +12,6 @@ WebTelephone.NodeLoad.prototype.buildLinks = function() {
 	var nodes = this.thread.contributions;
 	for (var i = 0; i < nodes.length; i++) {
 		this.appendNode(nodes[i]);
-
-
 	}
 };
 
