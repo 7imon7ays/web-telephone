@@ -166,8 +166,15 @@ WebTelephone.CanvasDrawer.prototype.listenForOrientationChange = function() {
 };
 
 WebTelephone.CanvasDrawer.prototype.togglePrompt = function() {
-	$(".js-picture-prompt").on('touchstart mousedown/                                                                                                                                                                                                                                                         x', function() {
+	var $prompt = $(".js-picture-prompt");
 
+	$prompt.on('touchend mouseup', function(e){
+		e.preventDefault();
 		$(this).hide();
+	});
+
+	$(".prompt-toggle").on('touchend mouseup', function(e){
+		e.preventDefault();
+		$prompt.toggle();
 	});
 };

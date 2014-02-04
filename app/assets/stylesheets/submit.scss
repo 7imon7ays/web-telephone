@@ -144,6 +144,17 @@ table {
    line-height: 27.5px;
 }
 
+@mixin size-5 {
+   font-size: 16px;
+   line-height: 22px;
+}
+
+@mixin size-6 {
+   font-size: 10px;
+   line-height: 14px;
+}
+
+
 
 /*    Utility
    ------------------------------------------------------- */
@@ -199,10 +210,14 @@ body {
    position: absolute;
    z-index: 1;
    top: 0;
-   bottom: 0;
    left: 0;
    right: 0;
+   min-height: 75%;
+   margin: 20px;
    text-align: center;
+   box-shadow: 0 0 4px #ccc;
+   background-color: rgba(255, 255, 255, 0.90);
+   border-radius: 3px;
 }
 
 .prompt-direction-draw {
@@ -211,9 +226,35 @@ body {
 }
 
 .prompt-picture {
-   @include size-4;
+   @include size-5;
    text-align: center;
    padding: 0 4px;
+}
+
+.cta-draw {
+   display: inline-block;
+   margin: 24px auto;
+   padding: 8px 12px;
+   border: 2px solid $green;
+   border-radius: 3px;
+   color: $green;
+   font-weight: bold;
+}
+
+.prompt-toggle {
+   position: absolute;
+   @include size-6;
+   z-index: 1;
+   right: 0;
+   padding: 2px 4px;
+   text-decoration: underline;
+   cursor: pointer;
+   color: $blue-trans;
+   text-shadow: 0px 0px  #FFF, 0px 0px #FFF;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }
 
 /* Drawing tools
