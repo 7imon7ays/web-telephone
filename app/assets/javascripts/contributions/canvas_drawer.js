@@ -166,7 +166,7 @@ WebTelephone.CanvasDrawer.prototype.listenForOrientationChange = function() {
 };
 
 WebTelephone.CanvasDrawer.prototype.togglePrompt = function() {
-	$(".js-picture-prompt").on('touchend click', function() {
+	$(".js-picture-prompt").on('touchstart mousedown/                                                                                                                                                                                                                                                         x', function() {
 
 		$(this).hide();
 	});
