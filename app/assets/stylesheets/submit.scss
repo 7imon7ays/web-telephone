@@ -129,6 +129,12 @@ table {
 
 }
 
+@mixin big-enough {
+   @media screen and (min-height: 700px) and (min-width: 500px)  {
+      @content;
+   }
+}
+
 @mixin size-1 {
    font-size: 40px;
    line-height: 55px;
@@ -218,6 +224,30 @@ body {
    box-shadow: 0 0 4px #ccc;
    background-color: rgba(255, 255, 255, 0.90);
    border-radius: 3px;
+
+}
+
+// Change display if it's a huge screen
+.big-enough {
+   .prompt-holder-picture {
+        position: static;
+        z-index: 0;
+        min-height: 0;
+        margin: 0;
+        background-color: transparent;
+        border-radius: 0;
+        box-shadow: 0;
+        box-shadow: none;
+        padding-bottom: $vert-space;
+   }
+
+   .cta-draw {
+      display: none;
+   }
+
+   .prompt-toggle {
+      display: none;
+   }
 }
 
 .prompt-direction-draw {
@@ -239,6 +269,8 @@ body {
    border-radius: 3px;
    color: $green;
    font-weight: bold;
+
+
 }
 
 .prompt-toggle {

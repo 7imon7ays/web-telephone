@@ -166,15 +166,20 @@ WebTelephone.CanvasDrawer.prototype.listenForOrientationChange = function() {
 };
 
 WebTelephone.CanvasDrawer.prototype.togglePrompt = function() {
-	var $prompt = $(".js-picture-prompt");
+	if ( $(window).height() > 400 & $(window).width() > 500 ) {
+		$('.wrapper').addClass('big-enough');
+	}
+	else {
+		var $prompt = $(".js-picture-prompt");
 
-	$prompt.on('touchend mouseup', function(e){
-		e.preventDefault();
-		$(this).hide();
-	});
+		$prompt.on('touchend mouseup', function(e){
+			e.preventDefault();
+			$(this).hide();
+		});
 
-	$(".prompt-toggle").on('touchend mouseup', function(e){
-		e.preventDefault();
-		$prompt.toggle();
-	});
+		$(".prompt-toggle").on('touchend mouseup', function(e){
+			e.preventDefault();
+			$prompt.toggle();
+		});
+	}
 };
