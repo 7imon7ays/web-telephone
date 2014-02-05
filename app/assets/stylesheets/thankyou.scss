@@ -1,0 +1,71 @@
+@import 'base';
+
+/*    Thankyou page
+   ------------------------------------------------------- */
+
+.wrapper-saved {
+   background-color: $white;
+   border: 1px solid $gray;
+}
+
+.holder-sentence, .holder-picture {
+   position: relative;
+   width: 100%;
+}
+
+.node-number {
+   color: $gray;
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   padding-top: 4px;
+   padding-left: 4px;
+   @include size-4;
+
+
+   @include bp(med-min) {
+      padding-top: 8px;
+      padding-left: 8px;
+      @include size-3;
+   }
+}
+
+#blank-picture, #blank-sentence {
+   display: none;
+}
+
+/*    Sentence  -------------------------------------------- */
+
+.holder-sentence {
+   padding-top: 16px;
+   padding-bottom: 16px;
+   line-height: 19px;
+   font-size: 14px;
+   background-color: $gray-l;
+
+   @include bp(med-min) {
+      line-height: 24px;
+      font-size: 16px;
+   }
+}
+
+.saved-sentence {
+   max-width: 70%;
+   text-align: left;
+   margin: auto;
+   display: block;
+}
+
+/*    Drawing  -------------------------------------------- */
+
+.saved-picture {
+   width: 100%;
+}
+
+/*    Other  -------------------------------------------- */
+
+.show-start {
+   @include size-3;
+   text-align: center;
+   display: block;
+}
