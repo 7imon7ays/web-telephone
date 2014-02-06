@@ -1,7 +1,7 @@
 class ConversationsController < ApplicationController
   def show
-    if params[:key]
-      thread_id = params[:key].match(/\d+/).to_s.to_i
+    if params[:thread_id]
+      thread_id = params[:thread_id]
       @thread = Conversation.find(thread_id)
     else
       @thread = Conversation.longest_one

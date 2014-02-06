@@ -1,18 +1,12 @@
 <a class="prompt-toggle">show prompt</a>
 <div class="js-picture-prompt prompt-holder-picture">
 	<p class="prompt-direction-draw">Draw:</p>
-	<p id="prompt" class="prompt-picture">
-		<svg class="loading-animate" width="128px" height="28px" viewBox="0 0 128 28" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-		    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-		        <g sketch:type="MSArtboardGroup" transform="translate(-248.000000, -990.000000)" fill="#D8D8D8">
-		            <g sketch:type="MSLayerGroup" transform="translate(258.000000, 990.000000)">
-		                <circle id="one" sketch:type="MSShapeGroup" cx="6" cy="14" r="6"></circle>
-		                <circle id="two" sketch:type="MSShapeGroup" cx="51" cy="14" r="10"></circle>
-		                <circle id="three" sketch:type="MSShapeGroup" cx="104" cy="14" r="14"></circle>
-		            </g>
-		        </g>
-		    </g>
-		</svg>
-	</p>
+
+    <% if @parent_blob %>
+      <p id="prompt" class="prompt-picture"><%= @parent_blob %></p>
+    <% else %>
+    <p><i>No prompt. Free rein!</i></p>
+    <% end %>
+
 	<a class="cta-draw">start</a>
 </div>

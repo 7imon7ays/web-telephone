@@ -10,13 +10,17 @@ WebTelephone.FormHandler.prototype.listenForSubmission = function() {
 };
 
 WebTelephone.FormHandler.prototype.handleSubmission = function() {
-  this.fillS3Data();
-  this.postToServerAndS3();
+  var $formField = $("input[name='contribution[blob]']")
+    , $serverForm = $("#server-form");
+
+  this.fillBlob($formField);
+  this.submitIfValid($formField, function () {
+    $serverForm.submit();
+  });
 };
 
-WebTelephone.FormHandler.prototype.fillS3Data = function() {
-  var $formField = $("#s3-file");
-
+WebTelephone.FormHandler.prototype.fillBlob = function($formField) {
+  
   if (!!this.$canvasWrapper.length) {
     canvas = this.$canvasWrapper[0];
     var dataURL = canvas.toDataURL('image/png');
@@ -27,11 +31,11 @@ WebTelephone.FormHandler.prototype.fillS3Data = function() {
   }
 };
 
-WebTelephone.FormHandler.prototype.postToServerAndS3 = function() {
-  var formInput = $("#server-form").serializeJSON();
-  $.post("/contributions", formInput).then(_postToS3);
-
-  function _postToS3(threadID) {
-    $("#s3-form").submit();
+WebTelephone.FormHandler.prototype.submitIfValid = function ($formField, callback) {
+  // Currently only validates sentences.
+  if ($formField.val() == "") {
+    console.log("Gotta come up with something.")
+  } else {
+    callback();
   }
 };

@@ -1,12 +1,6 @@
 <div id="js-init-submit" class="wrapper">
-  	<%= render "#{@contribution.category}_prompt" %>
+	<%= render "#{@contribution.category}_prompt",
+    locals: { parent_blob: @parent_blob } %>
 	<%= render "#{@contribution.category}_form" %>
-	<%= render "s3_form", locals: { contribution: @contribution, policy_document: @policy_document } %>
 	<%= render "server_form" %>
 </div>
-
-<% if @contribution.parent %>
-  <script id="prompt-url" type="text/plain">
-    <%= s3_prefix + @contribution.parent.s3_id %>
-  </script>
-<% end %>

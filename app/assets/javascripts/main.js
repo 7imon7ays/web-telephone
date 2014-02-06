@@ -2,12 +2,11 @@ var WebTelephone = {};
 
 jQuery(document).ready(function($) {
 	// If submission page
-	if ($("#js-init-submit").length) {
+  if ($("#js-init-submit").length) {
 		// alert('submit');
 		var $canvasWrapper = $("#canvas-wrapper");
 		$canvasWrapper.length ? new WebTelephone.CanvasDrawer($canvasWrapper).init() : null;
-	  	new WebTelephone.FormHandler($canvasWrapper).listenForSubmission();
-	   	new WebTelephone.PromptFetcher().fetchPrompt();
+  	new WebTelephone.FormHandler($canvasWrapper).listenForSubmission();
 	}
 	// If thank-you page
 	else if ($("#js-init-thankyou").length) {

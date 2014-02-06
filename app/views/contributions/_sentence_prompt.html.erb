@@ -1,2 +1,6 @@
 <label class="prompt-direction-sentence" for="sentence_field">What do you see?</label>
-<img id="prompt" class="prompt-sentence" />
+<% if @parent_blob %>
+  <img id="prompt" class="prompt-sentence" src="<%= @parent_blob %>"/>
+<% else %>
+<p><i>No prompt. Free rein!</i></p>
+<% end %>

@@ -1,14 +1,12 @@
 class ContributionsController < ApplicationController
-  def index
-    @contributions = Contribution.all
-    render json: @contributions
+  def show
+    render json: Contribution.find(params[:id])
   end
 
   def new
-    load "policy_document_hash.rb"
-    @policy_document = PolicyDocument.new
     @contribution = Contribution.new
     @contribution.set_associations
+    @parent_blob = (@contribution.parent ? @contribution.parent.blob : nil)
   end
 
   def create
@@ -17,7 +15,7 @@ class ContributionsController < ApplicationController
     @contribution.register_author(client_ip)
 
     if @contribution.save
-      render json: @contribution
+      redirect_to thank_you_url(thread_id: @contribution.thread_id)
     else
       flash[:errors] = @contribution.errors.full_messages
       render json: @contribution, status: 422
@@ -27,6 +25,6 @@ class ContributionsController < ApplicationController
   private
 
   def contribution_params
-    params.require(:contribution).permit(:thread_id, :category, :s3_id, :parent_id)
+    params.require(:contribution).permit(:thread_id, :category, :blob, :parent_id)
   end
 end

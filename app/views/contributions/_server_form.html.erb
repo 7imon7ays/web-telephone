@@ -19,8 +19,13 @@
 
   <input
   type="hidden"
-  name="contribution[s3_id]"
-  value="<%= @contribution.s3_id %>"
+  name="contribution[category]"
+  value="<%= @contribution.category %>"
   >
-  <input type="hidden" name="contribution[category]" value="<%= @contribution.category %>">
+
+  <input
+  type="hidden"
+  name="contribution[blob]"
+  value="<%= @contribution.blob %>"
+  >
 </form>
