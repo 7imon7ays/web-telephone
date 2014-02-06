@@ -9,9 +9,10 @@ After installing the bundle, run
 ## TODO
 
 * Build out front end validations
+* Redirect to thank you page via javascript instead of server for better error notices
 * Sanitize plain text in prompt
 * Branch out when assigned parent is already taken
 * Build contributions index page / thread show page
 * Thread picking logic:
   * Make # of eligible threads inversely proprotional to # of childless prompts
-
+* WRITE TESTS

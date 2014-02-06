@@ -2,11 +2,14 @@ class Contribution < ActiveRecord::Base
   CATEGORIES = ["picture", "sentence"]
   validates :category, inclusion: CATEGORIES
   validates :author, :thread, :blob, presence: true
+  validates_uniqueness_of :parent_id, scope: :thread_id
 
   belongs_to :author, class_name: Player, foreign_key: :author_id
   belongs_to :thread, class_name: Conversation, foreign_key: :thread_id
   belongs_to :parent, class_name: Contribution, foreign_key: :parent_id
   has_many :children, class_name: Contribution, foreign_key: :parent_id
+
+  before_validation :branch_out_maybe
 
   def set_associations
     self.thread = pick_thread
@@ -34,5 +37,14 @@ class Contribution < ActiveRecord::Base
   def pick_category
     ( (!!parent && parent.category == CATEGORIES.first) ?
           CATEGORIES.last : CATEGORIES.first )
+  end
+
+  def branch_out_maybe
+    thread = Conversation.new if beaten_to_the_punch?
+  end
+
+  def beaten_to_the_punch?
+    return false unless parent
+    Contribution.where("parent_id = ? AND id != ?", parent.id, id).any?
   end
 end

@@ -12,13 +12,13 @@ class Conversation < ActiveRecord::Base
     longest.first
   end
 
+  def as_json(options = {})
+    super(options.merge({ include: :contributions }))
+  end
+
   # Useless for now
   def self.s3_connection
     @s3_connection ||= AWS::S3.new(access_key_id: ENV["AWS_ACCESS_KEY_ID"],
       secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"])    
-  end
-
-  def as_json(options = {})
-    super(options.merge({ include: :contributions }))
   end
 end
