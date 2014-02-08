@@ -14,8 +14,10 @@ $green: #31ba00;
 $blue: #e7fdff;
 $blue-trans: rgba(102, 181, 251, 0.73);
 
-$vert-space: 8px;
+$brand-fb: #3B5998;
+$brand-tw: #00A0D1;
 
+$vert-space: 8px;
 $font-main: 'special_eliteregular', arial, sans-serif;
 
 //*    Reset  -------------------------------------------- */
@@ -38,36 +40,36 @@ $font-main: 'special_eliteregular', arial, sans-serif;
    figure, figcaption, footer, header, hgroup,
    menu, nav, output, ruby, section, summary,
    time, mark, audio, video {
-       margin: 0;
-       padding: 0;
-       border: 0;
-       font-size: 100%;
-       font: inherit;
-       vertical-align: baseline;
-   }
-   /* HTML5 display-role reset for older browsers */
-   article, aside, details, figcaption, figure,
-   footer, header, hgroup, menu, nav, section {
-       display: block;
-   }
-   body {
-       line-height: 1;
-   }
-   ol, ul {
-       list-style: none;
-   }
-   blockquote, q {
-       quotes: none;
-   }
-   blockquote:before, blockquote:after,
-   q:before, q:after {
-       content: '';
-       content: none;
-   }
-   table {
-       border-collapse: collapse;
-       border-spacing: 0;
-   }
+     margin: 0;
+     padding: 0;
+     border: 0;
+     font-size: 100%;
+     font: inherit;
+     vertical-align: baseline;
+ }
+ /* HTML5 display-role reset for older browsers */
+ article, aside, details, figcaption, figure,
+ footer, header, hgroup, menu, nav, section {
+     display: block;
+ }
+ body {
+     line-height: 1;
+ }
+ ol, ul {
+     list-style: none;
+ }
+ blockquote, q {
+     quotes: none;
+ }
+ blockquote:before, blockquote:after,
+ q:before, q:after {
+     content: '';
+     content: none;
+ }
+ table {
+     border-collapse: collapse;
+     border-spacing: 0;
+ }
 
 /**
  * For modern browsers
@@ -97,15 +99,15 @@ $font-main: 'special_eliteregular', arial, sans-serif;
 }
 
 /*     Fonts
-    ------------------------------------------------------- */
+------------------------------------------------------- */
 
 @font-face {
     font-family: 'special_eliteregular';
     src: font-url('specialelite_regular_macroman/SpecialElite-webfont.eot');
     src: font-url('specialelite_regular_macroman/SpecialElite-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('specialelite_regular_macroman/SpecialElite-webfont.woff') format('woff'),
-         font-url('specialelite_regular_macroman/SpecialElite-webfont.ttf') format('truetype'),
-         font-url('specialelite_regular_macroman/SpecialElite-webfont.svg#special_eliteregular') format('svg');
+    font-url('specialelite_regular_macroman/SpecialElite-webfont.woff') format('woff'),
+    font-url('specialelite_regular_macroman/SpecialElite-webfont.ttf') format('truetype'),
+    font-url('specialelite_regular_macroman/SpecialElite-webfont.svg#special_eliteregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -116,22 +118,22 @@ $font-main: 'special_eliteregular', arial, sans-serif;
 ------------------------------------------------------- */
 
 .loading-animate {
-   width: 30px;
-   animation: spin-back-and-forth .5s infinite linear;
-   -webkit-animation: spin-back-and-forth .5s infinite linear;   animation-direction: alternate;
-   -webkit-animation-direction: alternate;
-   -webkit-transform-origin: 0 50%;
-   margin-left: 30px;
+ width: 30px;
+ animation: spin-back-and-forth .5s infinite linear;
+ -webkit-animation: spin-back-and-forth .5s infinite linear;   animation-direction: alternate;
+ -webkit-animation-direction: alternate;
+ -webkit-transform-origin: 0 50%;
+ margin-left: 30px;
 }
 
 @-webkit-keyframes spin-back-and-forth {
-   from {
-      -webkit-transform: rotateZ(0deg);
-      -webkit-transition-timing-function: ease-in;
-  }
-  to {
-      -webkit-transform: rotateZ(180deg);
-  }
+ from {
+  -webkit-transform: rotateZ(0deg);
+  -webkit-transition-timing-function: ease-in;
+}
+to {
+  -webkit-transform: rotateZ(180deg);
+}
 }
 
 /*    Mixins
@@ -141,70 +143,107 @@ $font-main: 'special_eliteregular', arial, sans-serif;
 
   $bp-med-min: "(min-width: 501px)";
 
-    @if $point == med-min {
-        @media #{$bp-med-min} { @content; }
-    }
+  @if $point == med-min {
+    @media #{$bp-med-min} { @content; }
+}
 
-    @if $point == retina {
-        @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-        only screen and (-o-min-device-pixel-ratio: 3/2),
-        only screen and (min--moz-device-pixel-ratio: 1.5),
-        only screen and (min-device-pixel-ratio: 1.5) {
-            @content;
-        }
+@if $point == retina {
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (-o-min-device-pixel-ratio: 3/2),
+    only screen and (min--moz-device-pixel-ratio: 1.5),
+    only screen and (min-device-pixel-ratio: 1.5) {
+        @content;
     }
+}
 }
 
 @mixin big-enough {
-   @media screen and (min-height: 700px) and (min-width: 500px)  {
-      @content;
-  }
+ @media screen and (min-height: 700px) and (min-width: 500px)  {
+  @content;
+}
 }
 
 @mixin size-1 {
-   font-size: 40px;
-   line-height: 55px;
+ font-size: 40px;
+ line-height: 55px;
 }
 
 @mixin size-2 {
-   font-size: 34px;
-   line-height: 46px;
+ font-size: 34px;
+ line-height: 46px;
 }
 
 @mixin size-3 {
-   font-size: 28px;
-   line-height: 38.5px;
+ font-size: 28px;
+ line-height: 38.5px;
 }
 
 @mixin size-4 {
-   font-size: 20px;
-   line-height: 27.5px;
+ font-size: 20px;
+ line-height: 27.5px;
 }
 
 @mixin size-5 {
-   font-size: 16px;
-   line-height: 22px;
+ font-size: 16px;
+ line-height: 22px;
 }
 
 @mixin size-6 {
-   font-size: 10px;
-   line-height: 14px;
+ font-size: 10px;
+ line-height: 14px;
 }
 
 %bg-draw {
-     background-image: url("noisy_grid.png");
+   background-image: url("noisy_grid.png");
 
-     @include bp(retina) {
-        background-image: url("noisy_grid_@2X.png");
-        background-size: 150px auto;
-    }
+   @include bp(retina) {
+    background-image: url("noisy_grid_@2X.png");
+    background-size: 150px auto;
+}
 }
 
 %inset {
-    box-shadow: 0 0px 11px -4px #5D5D5D inset;
+    @include bp(med-min) {
+        box-shadow: 0 2px 8px #999;
+    }
 }
 
+/*     Header sizes
+------------------------------------------------------- */
 
+h1 {
+    @include size-2;
+    @include bp(med-min) {
+        @include size-1;
+    }
+}
+h2 {
+    @include size-3;
+    @include bp(med-min) {
+        @include size-2
+    }
+}
+h3 {
+    @include size-4;
+    @include bp(med-min) {
+        @include size-3;
+    }
+}
+h4 {
+    @include size-5;
+    @include bp(med-min) {
+        @include size-4;
+    }
+}
+h5 {
+    @include size-6;
+    @include bp(med-min) {
+        @include size-5;
+    }
+}
+h6 {
+    @include size-6;
+}
 
 /*    Utility
 ------------------------------------------------------- */
@@ -225,26 +264,35 @@ $font-main: 'special_eliteregular', arial, sans-serif;
 ------------------------------------------------------- */
 
 body {
-   font-family: $font-main;
-   color: #010101;
+ font-family: $font-main;
+ color: #010101;
+}
+
+em {
+    text-decoration: underline;
 }
 
 .wrapper {
-   margin: auto;
-   width: 500px;
-   max-width: 100%;
-   position: relative;
-   height: 100%;
-   padding-bottom: $vert-space;
-   @extend .cf;
+ margin: auto;
+ width: 500px;
+ max-width: 100%;
+ position: relative;
+ height: 100%;
+ padding-bottom: $vert-space;
+ @extend .cf;
+}
+
+
+.button {
+    display: block;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px 0px #000;
+    cursor: pointer;
 }
 
 .button-green {
-  display: block;
-  border: none;
-  border-radius: 2px;
+  @extend .button;
   background-color: $green;
-  box-shadow: 0 1px 1px 0px #000;
   padding: 2px 12px 0px;
-  cursor: pointer;
 }

@@ -3,6 +3,65 @@
 /*    Thankyou page
    ------------------------------------------------------- */
 
+/*    Thanks you message
+   ------------------------------------------------------- */
+
+.thank-you-message {
+   text-align: center;
+   padding: 4px;
+   margin-top: 18px;
+
+   @include bp(med-min) {
+      margin-top: 60px;
+   }
+}
+
+.cta-share {
+   margin-top: 14px;
+}
+
+.cta-primary {
+   margin-top: $vert-space;
+}
+
+.cta-secondary {
+   margin-top: $vert-space;
+}
+
+%share-link {
+   text-decoration: none;
+   @extend .button;
+   display: inline-block;
+   @include size-4;
+   padding: 12px 18px;
+
+   @include bp(med-min) {
+      @include size-3;
+   }
+}
+
+.share-fb {
+   @extend %share-link;
+   background-color: $brand-fb;
+   color: $white;
+}
+
+.share-tw {
+   @extend %share-link;
+   background-color: $brand-tw;
+   color: $white;
+}
+
+.share-email {
+}
+
+.share-copy {
+}
+
+
+/*   Submission list
+   ------------------------------------------------------- */
+
 .wrapper-saved {
    background-color: $white;
    border: 1px solid $gray;
@@ -40,6 +99,7 @@
    @include bp(med-min) {
       line-height: 24px;
       font-size: 16px;
+      margin-bottom: 8px;
    }
 }
 
