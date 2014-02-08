@@ -54,6 +54,5 @@ WebTelephone.FormHandler.prototype.flashBlankSubmissionError = function () {
 };
 
 WebTelephone.FormHandler.prototype.submit = function () {
-  // this.$serverForm.submit();
-  console.log("submitted")
+  this.$serverForm.submit();
 };
