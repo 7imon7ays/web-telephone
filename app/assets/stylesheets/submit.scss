@@ -5,7 +5,7 @@
 
 %direction {
    margin: $vert-space 0;
-   @include size-3;
+   @include size-1;
 }
 
 /*    Sentence  -------------------------------------------- */
@@ -31,6 +31,7 @@
    width: 80%;
    float: left;
    @include size-5;
+   font-family: inherit;
 
    @include bp(med-min) {
       @include size-4;
@@ -88,7 +89,7 @@
 }
 
 .prompt-picture {
-   @include size-5;
+   @include size-3;
    text-align: center;
    padding: 0 4px;
 }

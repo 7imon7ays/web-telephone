@@ -16,7 +16,7 @@ WebTelephone.NodeLoad.prototype.buildLinks = function() {
 };
 
 WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
-	var new_node;
+	var new_node, meta;
 	if (contribution.category === "sentence") {
 		new_node = this.$blank_sentence.clone();
 		this.getFromServer(contribution.id , function(data) {
@@ -29,7 +29,8 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 		});
 	}
 	new_node.attr("id", contribution.id);
-	new_node.children('.node-number').html(contribution.id);
+	meta = new_node.children('.node-meta');
+	meta.find('.node-number').html(contribution.id);
 	this.$container.prepend(new_node);
 }
 

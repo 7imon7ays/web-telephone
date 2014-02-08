@@ -13,21 +13,15 @@
    width: 100%;
 }
 
-.node-number {
+.node-meta {
    color: $gray;
    position: absolute;
-   top: 0px;
-   left: 0px;
-   padding-top: 4px;
-   padding-left: 4px;
-   @include size-4;
-
-
-   @include bp(med-min) {
-      padding-top: 8px;
-      padding-left: 8px;
-      @include size-3;
-   }
+   bottom: 0px;
+   right: 0px;
+   padding-bottom: 4px;
+   padding-right: 4px;
+   @include size-6;
+   text-align: right;
 }
 
 #blank-picture, #blank-sentence {
@@ -38,7 +32,7 @@
 
 .holder-sentence {
    padding-top: 16px;
-   padding-bottom: 16px;
+   padding-bottom: 22px;
    line-height: 19px;
    font-size: 14px;
    background-color: $gray-l;
@@ -50,13 +44,17 @@
 }
 
 .saved-sentence {
-   max-width: 70%;
-   text-align: left;
+   max-width: 90%;
+   text-align: justify;
    margin: auto;
    display: block;
 }
 
 /*    Drawing  -------------------------------------------- */
+
+.holder-picture {
+   background-color: $white;
+}
 
 .saved-picture {
    width: 100%;
