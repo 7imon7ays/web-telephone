@@ -20,8 +20,8 @@
    max-width: 100%;
    margin: 0 auto $vert-space;
    display: block;
-   background-color: $white;
-   box-shadow: 0 0px 11px -4px #5D5D5D inset;
+   @extend %bg-draw;
+   @extend %inset;
 }
 
 .sentence-field {
@@ -216,8 +216,8 @@ $tool-space: 10px;
  .scribble-canvas-holder {
    position: relative;
    margin: 0 auto $vert-space;
-   background-color: $white;
-   box-shadow: 0 0px 11px -4px #5D5D5D inset;
+   @extend %bg-draw;
+   @extend %inset;
  }
 
  .scribble-canvas-holder canvas {

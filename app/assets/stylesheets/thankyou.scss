@@ -32,10 +32,10 @@
 
 .holder-sentence {
    padding-top: 16px;
-   padding-bottom: 22px;
+   padding-bottom: 24px;
    line-height: 19px;
    font-size: 14px;
-   background-color: $gray-l;
+   background-color: ba(213, 213, 213, 0.19);
 
    @include bp(med-min) {
       line-height: 24px;
@@ -45,15 +45,18 @@
 
 .saved-sentence {
    max-width: 90%;
-   text-align: justify;
+   text-align: center;
    margin: auto;
    display: block;
+   &:before { content:"\"";}
+   &:after { content:"\"";}
 }
 
 /*    Drawing  -------------------------------------------- */
 
 .holder-picture {
-   background-color: $white;
+   @extend %bg-draw;
+   @extend %inset;
 }
 
 .saved-picture {

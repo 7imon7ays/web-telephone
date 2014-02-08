@@ -191,6 +191,19 @@ $font-main: 'special_eliteregular', arial, sans-serif;
    line-height: 14px;
 }
 
+%bg-draw {
+     background-image: url("noisy_grid.png");
+
+     @include bp(retina) {
+        background-image: url("noisy_grid_@2X.png");
+        background-size: 150px auto;
+    }
+}
+
+%inset {
+    box-shadow: 0 0px 11px -4px #5D5D5D inset;
+}
+
 
 
 /*    Utility
@@ -212,14 +225,8 @@ $font-main: 'special_eliteregular', arial, sans-serif;
 ------------------------------------------------------- */
 
 body {
-   background-image: url("noisy_grid.png");
    font-family: $font-main;
    color: #010101;
-
-   @include bp(retina) {
-      background-image: url("noisy_grid_@2X.png");
-      background-size: 150px auto;
-  }
 }
 
 .wrapper {

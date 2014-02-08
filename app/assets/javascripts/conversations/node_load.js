@@ -20,16 +20,16 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 	if (contribution.category === "sentence") {
 		new_node = this.$blank_sentence.clone();
 		this.getFromServer(contribution.id , function(data) {
-			new_node.children('.saved-sentence').html(data);
+			new_node.find('.saved-sentence').html(data);
 		});
 	} else {
 		new_node = this.$blank_picture.clone();
 		this.getFromServer(contribution.id , function(data) {
-			new_node.children('.saved-picture').attr("src", data);
+			new_node.find('.saved-picture').attr("src", data);
 		});
 	}
 	new_node.attr("id", contribution.id);
-	meta = new_node.children('.node-meta');
+	meta = new_node.find('.node-meta');
 	meta.find('.node-number').html(contribution.id);
 	this.$container.prepend(new_node);
 }
