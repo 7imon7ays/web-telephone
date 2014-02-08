@@ -4,8 +4,11 @@
    ------------------------------------------------------- */
 
 %direction {
-   margin: $vert-space 0;
-   @include size-1;
+   margin: 26px 0 0px;
+   @include size-2;
+   @include bp(med-min) {
+      @include size-1;
+   }
 }
 
 /*    Sentence  -------------------------------------------- */
@@ -18,7 +21,7 @@
 
 .prompt-sentence {
    max-width: 100%;
-   margin: 0 auto $vert-space;
+   margin: 18px auto;
    display: block;
    @extend %bg-draw;
    @extend %inset;
@@ -89,9 +92,12 @@
 }
 
 .prompt-picture {
-   @include size-3;
    text-align: center;
-   padding: 0 4px;
+   padding: 12px 4px;
+   @include size-4;
+   @include bp(med-min) {
+      @include size-3;
+   }
 }
 
 .cta-draw {
@@ -218,6 +224,10 @@ $tool-space: 10px;
    margin: 0 auto $vert-space;
    @extend %bg-draw;
    @extend %inset;
+
+   @include bp(med-min) {
+      margin-bottom: 14px;
+   }
  }
 
  .scribble-canvas-holder canvas {

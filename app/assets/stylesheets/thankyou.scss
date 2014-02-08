@@ -17,7 +17,10 @@
 }
 
 .cta-share {
-   margin-top: 14px;
+   margin: 20px auto;
+   @include bp(med-min) {
+      margin: 50px auto;
+   }
 }
 
 .cta-primary {
@@ -28,34 +31,48 @@
    margin-top: $vert-space;
 }
 
-%share-link {
+%share-link-primary {
    text-decoration: none;
    @extend .button;
    display: inline-block;
    @include size-4;
    padding: 12px 18px;
+   width: 300px;
+   max-width: 100%;
+   margin: 4px;
 
    @include bp(med-min) {
       @include size-3;
    }
 }
 
+%share-link-secondary {
+   color: $blue-d;
+   display: inline-block;
+
+   &:visited {
+      color: $blue-d;
+   }
+}
+
 .share-fb {
-   @extend %share-link;
+   @extend %share-link-primary;
    background-color: $brand-fb;
    color: $white;
 }
 
 .share-tw {
-   @extend %share-link;
+   @extend %share-link-primary;
    background-color: $brand-tw;
    color: $white;
 }
 
 .share-email {
+   @extend %share-link-secondary;
 }
 
 .share-copy {
+   @extend %share-link-secondary;
 }
 
 
