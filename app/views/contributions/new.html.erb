@@ -1,6 +1,11 @@
 <div id="js-init-submit" class="wrapper">
-	<%= render "#{@contribution.category}_prompt",
-    locals: { parent_blob: @parent_blob } %>
-	<%= render "#{@contribution.category}_form" %>
-	<%= render "server_form" %>
+  <div class="hidden blank-error-overlay">
+    <div class="blank-error-flash">
+      <p class="blank-error-message">Don't leave it blank!</p>
+    </div>
+  </div>
+  	<%= render "#{@contribution.category}_prompt",
+      locals: { parent_blob: @parent_blob } %>
+  	<%= render "#{@contribution.category}_form" %>
+  	<%= render "server_form" %>
 </div>
