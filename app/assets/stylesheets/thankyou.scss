@@ -39,6 +39,7 @@
    padding: 12px 18px;
    width: 300px;
    max-width: 100%;
+   box-sizing: border-box;
    margin: 4px;
 
    @include bp(med-min) {
@@ -125,6 +126,7 @@
    text-align: center;
    margin: auto;
    display: block;
+   word-break: break-word;
    &:before { content:"\"";}
    &:after { content:"\"";}
 }
