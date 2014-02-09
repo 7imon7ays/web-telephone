@@ -13,7 +13,10 @@ class Conversation < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options.merge({ include: :contributions }))
+    include_contribution_options = {
+      include: { contributions: { include: :author } }
+    }
+    super(options.merge(include_contribution_options))
   end
 
   # Useless for now
