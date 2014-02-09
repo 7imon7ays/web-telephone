@@ -1,8 +1,10 @@
 class Contribution < ActiveRecord::Base
+  attr_accessor :empty_canvas_value
   CATEGORIES = ["picture", "sentence"]
   validates :category, inclusion: CATEGORIES
   validates :author, :thread, :blob, presence: true
   validates_uniqueness_of :parent_id, scope: :thread_id
+  validate :contribution_is_not_default
 
   belongs_to :author, class_name: Player, foreign_key: :author_id
   belongs_to :thread, class_name: Conversation, foreign_key: :thread_id
@@ -40,11 +42,19 @@ class Contribution < ActiveRecord::Base
   end
 
   def branch_out_maybe
-    thread = Conversation.new if beaten_to_the_punch?
+    self.thread = Conversation.new if beaten_to_the_punch?
   end
 
   def beaten_to_the_punch?
     return false unless parent
     Contribution.where("parent_id = ? AND id != ?", parent.id, id).any?
+  end
+
+  private
+
+  def contribution_is_not_default
+    if blob == "" || blob == empty_canvas_value
+      errors.add(:blob, "can't be the default!")
+    end
   end
 end

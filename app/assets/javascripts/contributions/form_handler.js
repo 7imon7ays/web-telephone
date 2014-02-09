@@ -3,7 +3,7 @@ WebTelephone.FormHandler = function ($canvasWrapper) {
     this.$canvasWrapper = $canvasWrapper;
     this.emptyCanvasValue = $canvasWrapper[0].toDataURL();
   }
-  this.$blankErrorOverlay = $(".blank-error-overlay");
+  this.$errorOverlay = $(".error-overlay");
   this.$formField = $("input[name='contribution[blob]']");
   this.$serverForm = $("#server-form");
 };
@@ -19,9 +19,9 @@ WebTelephone.FormHandler.prototype.handleSubmission = function() {
 
   this.fillBlob();
   if ( this.submissionIsBlank() ) {
-    this.flashBlankSubmissionError();
+    this.flashBlankSubmissionError("Don't leave it blank!");
   } else {
-    this.submit();
+    this.submitContribution();
   }
 };
 
@@ -45,14 +45,27 @@ WebTelephone.FormHandler.prototype.submissionIsBlank = function () {
   return false;
 };
 
-WebTelephone.FormHandler.prototype.flashBlankSubmissionError = function () {
-  var $blankErrorOverlay = this.$blankErrorOverlay;
-  $blankErrorOverlay.removeClass("hidden");
+WebTelephone.FormHandler.prototype.flashBlankSubmissionError = function (errorMsg) {
+  var $errorOverlay = this.$errorOverlay
+    , $errorMessageTag = $errorOverlay.find(".error-message")
+    , errorMessage = errorMsg || "Error!";
+  $errorMessageTag.html(errorMessage);
+  $errorOverlay.removeClass("hidden");
   setTimeout(function () {
-    $blankErrorOverlay.addClass("hidden");
+    $errorOverlay.addClass("hidden");
   }, 1500)
 };
 
-WebTelephone.FormHandler.prototype.submit = function () {
-  this.$serverForm.submit();
+WebTelephone.FormHandler.prototype.submitContribution = function () {
+  var self = this;
+  var submissionData = this.$serverForm.serializeJSON();
+  submissionData['contribution'].emptyCanvasValue = this.emptyCanvasValue;
+  var jqhr = $.post("/contributions", submissionData)
+  .done(function (data) {
+    location.href = location.origin + "/thank-you" +
+      "?" + "thread_id=" + data.thread_id;
+  })
+  .fail(function (response) {
+    self.flashBlankSubmissionError(response);
+  })
 };
