@@ -14,7 +14,9 @@ class Conversation < ActiveRecord::Base
 
   def as_json(options = {})
     include_contribution_options = {
-      include: { contributions: { include: :author } }
+      include: { contributions:
+        { include: { author: { only: :location } } }
+      }
     }
     super(options.merge(include_contribution_options))
   end
