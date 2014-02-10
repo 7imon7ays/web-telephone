@@ -1,10 +1,14 @@
 class ConversationsController < ApplicationController
-  def show
-    if params[:thread_id]
-      thread_id = params[:thread_id]
+  def thank_you
+    if thread_id = params[:thread_id]
       @thread = Conversation.find(thread_id)
     else
       @thread = Conversation.longest_one
     end
+  end
+
+  def show
+    @thread = Conversation.find(params[:id])
+    render json: @thread
   end
 end
