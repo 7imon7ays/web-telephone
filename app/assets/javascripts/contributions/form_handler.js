@@ -26,15 +26,15 @@ WebTelephone.FormHandler.prototype.handleSubmission = function() {
 };
 
 WebTelephone.FormHandler.prototype.fillBlob = function() {
+  var submission;
   
   if (this.$canvasWrapper) {
     canvas = this.$canvasWrapper[0];
-    var dataURL = canvas.toDataURL('image/png');
-    this.$formField.val(dataURL);
+    submission = canvas.toDataURL('image/png');
   } else {
-    var description = $("#sentence_field").val();
-    this.$formField.val(description);
+    submission = $("#sentence_field").val();
   }
+  this.$formField.val(submission);
 };
 
 WebTelephone.FormHandler.prototype.submissionIsBlank = function () {
@@ -57,15 +57,16 @@ WebTelephone.FormHandler.prototype.flashBlankSubmissionError = function (errorMs
 };
 
 WebTelephone.FormHandler.prototype.submitContribution = function () {
-  var self = this;
-  var submissionData = this.$serverForm.serializeJSON();
+  var self = this
+    , submissionData = this.$serverForm.serializeJSON();
   submissionData['contribution'].emptyCanvasValue = this.emptyCanvasValue;
+
   var jqhr = $.post("/contributions", submissionData)
   .done(function (data) {
     location.href = location.origin + "/thank-you" +
       "?" + "thread_id=" + data.thread_id;
   })
-  .fail(function (response) {
-    self.flashBlankSubmissionError(response);
-  })
+  .fail(function (data) {
+    self.flashBlankSubmissionError(data.responseJSON[0]);
+  });
 };

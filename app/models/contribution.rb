@@ -4,7 +4,7 @@ class Contribution < ActiveRecord::Base
   validates :category, inclusion: CATEGORIES
   validates :author, :thread, :blob, presence: true
   validates_uniqueness_of :parent_id, scope: :thread_id
-  validate :contribution_is_not_default
+  validate :blob_is_not_default, :blob_is_not_dangerous
 
   belongs_to :author, class_name: Player, foreign_key: :author_id
   belongs_to :thread, class_name: Conversation, foreign_key: :thread_id
@@ -52,9 +52,15 @@ class Contribution < ActiveRecord::Base
 
   private
 
-  def contribution_is_not_default
+  def blob_is_not_default
     if blob == "" || blob == empty_canvas_value
-      errors.add(:blob, "can't be the default!")
+      errors.add(:submission, "can't be left blank!")
+    end
+  end
+
+  def blob_is_not_dangerous
+    if blob != Sanitize.clean(blob)
+      errors.add(:submission, "contains restricted elements!")
     end
   end
 end
