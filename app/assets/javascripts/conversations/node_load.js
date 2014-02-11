@@ -29,8 +29,11 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 		});
 	}
 	new_node.attr("id", contribution.id);
+  new_node.find('.node-share').attr("href", "/?parent_id=" + contribution.id);
 	meta = new_node.find('.node-meta');
 	meta.find('.node-number').html(contribution.id);
+  var location = contribution.author.location.replace(", ", "<br>"); // Eww.
+  meta.find('.node-region').html(location);
 	this.$container.prepend(new_node);
 }
 

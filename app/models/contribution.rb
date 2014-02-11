@@ -13,9 +13,14 @@ class Contribution < ActiveRecord::Base
 
   before_validation :branch_out_maybe
 
-  def set_associations
-    self.thread = pick_thread
-    self.parent = pick_parent
+  def initialize(options = {})
+    super(options)
+    set_associations(options)
+  end
+
+  def set_associations(options = {})
+    self.thread_id = pick_thread_id(options)
+    self.parent = pick_parent(options)
     self.category = pick_category
   end
 
@@ -26,14 +31,18 @@ class Contribution < ActiveRecord::Base
 
   private
 
-  def pick_thread
-    Conversation.longest(5).sample ||
-      Conversation.last ||
-      Conversation.create
+  def pick_thread_id(options = {})
+    if options[:parent_id] && parent = Contribution.find_by_id(options[:parent_id])
+      return parent.thread_id
+    end
+    Conversation.longest(5).sample.id ||
+      Conversation.last.id ||
+      Conversation.create.id
   end
 
-  def pick_parent
-    Contribution.where(thread_id: thread.id).last
+  def pick_parent(options)
+    Contribution.find_by_id(options[:parent_id]) ||
+      Contribution.where(thread_id: thread.id).last
   end
 
   def pick_category
@@ -49,8 +58,6 @@ class Contribution < ActiveRecord::Base
     return false unless parent
     Contribution.where("parent_id = ? AND id != ?", parent.id, id).any?
   end
-
-  private
 
   def blob_is_not_default
     if blob == "" || blob == empty_canvas_value
