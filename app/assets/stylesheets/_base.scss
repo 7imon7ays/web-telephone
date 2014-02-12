@@ -218,6 +218,7 @@ h1 {
         @include size-1;
     }
 }
+
 h2 {
     @include size-3;
     @include bp(med-min) {
@@ -304,7 +305,7 @@ em {
 
 /*   Overlays
   ------------------------------------------------------- */
-.error-overlay {
+.overlay {
   z-index: 10;
   background-color: $blue-trans;
   position: fixed;
@@ -314,24 +315,32 @@ em {
   right: 0;
   text-align: center;
   color: $white;
+  overflow: auto;
 }
 
-.error-flash {
-  @include size-2;
-  padding: 60px 4px 0;
+.overlay__content {
+  @include size-3;
+  margin: auto;
+  max-width: 98%;
 
   @include bp(med-min) {
-    @include size-1;
-    padding: 200px 20px 0;
+    @include size-2;
+    max-width: 800px;
+  }
+
+  &.error {
+    padding: 60px 4px 0;
+    @include bp(med-min) {
+      padding: 200px 20px 0;
+    }
   }
 }
 
 /*   What is this
   ------------------------------------------------------- */
 
-.what-is-this-toggle {
+.about-toggle {
   position: absolute;
-  padding: 0 4px;
   text-decoration: none;
   display: block;
   cursor: pointer;
@@ -343,5 +352,51 @@ em {
 
   @include bp(med-min) {
     font-size: 32px;
+  }
+}
+
+.overlay-about {
+  font-family: Arial, sans-serif;
+  letter-spacing: .5px;
+  margin: auto;
+  text-align: left;
+  padding-top: 38px;
+  padding: 38px 4px;
+
+  h1 {
+    margin-bottom: 18px;
+    @include bp(med-min) {
+      margin-bottom: 24px;
+    }
+  }
+
+  p {
+    margin-bottom: 12px;
+    @include size-4;
+
+    @include bp(med-min) {
+      margin-bottom: 18px;
+      @include size-3;
+    }
+  }
+}
+
+.overlay-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 14px;
+  cursor: pointer;
+}
+
+.overlay-close-x {
+  color: $white;
+  height: 24px;
+  width: 24px;
+  fill: $white;
+
+  @include bp(med-min) {
+    height: 52px;
+    width: 52px;
   }
 }

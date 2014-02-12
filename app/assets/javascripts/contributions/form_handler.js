@@ -66,7 +66,7 @@ WebTelephone.FormHandler.prototype.drawingIsBad = function () {
 
 WebTelephone.FormHandler.prototype.flashBlankSubmissionError = function (errorMsg) {
   var $errorOverlay = this.$errorOverlay
-    , $errorMessageTag = $errorOverlay.find(".error-message")
+    , $errorMessageTag = $errorOverlay.find(".js-error-message")
     , errorMessage = errorMsg || "Error!";
   $errorMessageTag.html(errorMessage);
   $errorOverlay.removeClass("hidden");
