@@ -17,12 +17,14 @@ WebTelephone.runSubmissionsPage = function () {
 
 WebTelephone.runThankYouPage = function () {
  	var thread = $.parseJSON($('#bootstrapped-thread-json').html());
- 	new WebTelephone.NodeLoad(thread).buildLinks();
+ 	new WebTelephone.NodeLoad(thread).buildNodesFromThread();
 };
 
 jQuery(document).ready(function($) {
 	// If submission page
-  if ($("#js-init-submit").length) { WebTelephone.runSubmissionsPage(); }
+  if ($("#js-init-submit").length) {
+    WebTelephone.runSubmissionsPage();
+  }
 	// If thank-you page
 	else if ($("#js-init-thankyou").length) { WebTelephone.runThankYouPage(); }
 });

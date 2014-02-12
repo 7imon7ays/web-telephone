@@ -35,7 +35,7 @@ class Contribution < ActiveRecord::Base
     if options[:parent_id] && parent = Contribution.find_by_id(options[:parent_id])
       return parent.thread_id
     end
-    Conversation.longest(5).sample.id ||
+      Conversation.longest(5).sample.id ||
       Conversation.last.id ||
       Conversation.create.id
   end

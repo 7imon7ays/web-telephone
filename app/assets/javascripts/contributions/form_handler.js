@@ -27,7 +27,7 @@ WebTelephone.FormHandler.prototype.handleSubmission = function() {
 
 WebTelephone.FormHandler.prototype.fillBlob = function() {
   var submission;
-  
+
   if (this.$canvasWrapper) {
     canvas = this.$canvasWrapper[0];
     submission = canvas.toDataURL('image/png');
