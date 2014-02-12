@@ -14,7 +14,12 @@ WebTelephone.CanvasDrawer = function ($canvasWrapper) {
 		  ]
     }
   };
-  this.currentOptions = { weight: 6, color: "529eff" },
+
+  // Set current color randomly
+  var random_color = Math.floor(Math.random() * this.config.drawingOptions.color.length);
+  random_color = this.config.drawingOptions.color[random_color];
+
+  this.currentOptions = { weight: 6, color: random_color },
   this.scribbleFidel = {};
   this.canvasSizeIsSet = false;
 };
@@ -71,8 +76,9 @@ WebTelephone.CanvasDrawer.prototype.updateCurrentOptions = function( new_options
 
 WebTelephone.CanvasDrawer.prototype.scribbleSetDefaults = function() {
 	$('.draw-weight')
-    .removeClass("light medium heavy")
-    .addClass(this.assignWeightClass(this.currentOptions.weight));
+    	.removeClass("light medium heavy")
+    	.addClass(this.assignWeightClass(this.currentOptions.weight));
+
 	$('.draw-color').css({ 'background-color':('#'+this.currentOptions.color) });
 	this.scribbleFidel.changeColor(this.currentOptions.color);
 	this.scribbleFidel.changeSize(this.currentOptions.weight);
