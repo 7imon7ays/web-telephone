@@ -313,15 +313,35 @@ em {
   left: 0;
   right: 0;
   text-align: center;
+  color: $white;
 }
 
 .error-flash {
-  color: $white;
   @include size-2;
   padding: 60px 4px 0;
 
   @include bp(med-min) {
     @include size-1;
     padding: 200px 20px 0;
+  }
+}
+
+/*   What is this
+  ------------------------------------------------------- */
+
+.what-is-this-toggle {
+  position: absolute;
+  padding: 0 4px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  font-size: 18px;
+  padding: 4px;
+  color: $blue-trans;
+
+  @include bp(med-min) {
+    font-size: 32px;
   }
 }
