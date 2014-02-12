@@ -13,7 +13,7 @@ $green: #31ba00;
 
 $blue: #e7fdff;
 $blue-d: #5c809c;
-$blue-trans: rgba(102, 181, 251, 0.73);
+$blue-trans: rgba(102, 181, 251, 0.92);
 
 $brand-fb: #3B5998;
 $brand-tw: #00A0D1;
@@ -261,6 +261,10 @@ h6 {
   }
 }
 
+.hidden {
+  display: none;
+}
+
 /*    Global
 ------------------------------------------------------- */
 
@@ -296,4 +300,27 @@ em {
   @extend .button;
   background-color: $green;
   padding: 2px 12px 0px;
+}
+
+/*   Overlays
+  ------------------------------------------------------- */
+.error-overlay {
+  z-index: 10;
+  background-color: $blue-trans;
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.error-flash {
+  padding-top: 60px;
+  color: $white;
+  @include size-2;
+
+  @include bp(med-min) {
+    @include size-1;
+  }
 }

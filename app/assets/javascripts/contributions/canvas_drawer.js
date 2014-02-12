@@ -149,16 +149,16 @@ WebTelephone.CanvasDrawer.prototype.nextOption = function( option_type ) {
 
 WebTelephone.CanvasDrawer.prototype.handleOrientation = function(self) {
 	// TODO don't reset this every time function is called
-	var $alert = $('.orientation-alert');
+	var $alert = $('.js-error-orientation');
 
 	if(window.orientation === 90 || window.orientation === -90) {
-		$alert.show();
+		$alert.removeClass('hidden');
 	}
 	else {
 		if (!self.canvasSizeIsSet) {
 			self.setCanvasSize();
 		}
-		$alert.hide();
+		$alert.addClass('hidden');
 	}
 };
 

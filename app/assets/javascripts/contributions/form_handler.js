@@ -3,7 +3,7 @@ WebTelephone.FormHandler = function ($canvasWrapper) {
     this.$canvasWrapper = $canvasWrapper;
     this.emptyCanvasValue = $canvasWrapper[0].toDataURL();
   }
-  this.$errorOverlay = $(".error-overlay");
+  this.$errorOverlay = $(".js-error-form");
   this.$formField = $("input[name='contribution[blob]']");
   this.$serverForm = $("#server-form");
 };

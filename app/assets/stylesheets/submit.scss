@@ -3,47 +3,12 @@
 /*   Submit
    ------------------------------------------------------- */
 
+/*    Sentence  -------------------------------------------- */
+
+
 %direction {
    margin: 26px 0 0px;
 }
-
-.error-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 10;
-  background-color: rgba(0,0,0,0.5);
-}
-
-.error-flash {
-  color: white;
-  background-color: rgba(228, 122, 7, 0.8);
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  line-height: 100px;
-  height: 100px;
-  width: 20%;
-  margin: 0 auto;
-  margin-top: 100px;
-  text-align: center;
-}
-
-.error-message {
-  font-size: 28px;
-  font-family: helvetica;
-  vertical-align: middle;
-  line-height: normal;
-  display: inline-block;
-}
-
-.hidden {
-  display: none;
-}
-
-/*    Sentence  -------------------------------------------- */
 
 .prompt-direction-sentence {
    display: block;
@@ -294,23 +259,3 @@ $tool-space: 10px;
    bottom: 0;
    top: 0;
  }
-
-/*    Orientation alert (only for drawing form)
-   ------------------------------------------------------- */
-
-.orientation-alert {
-   display: none;
-   position: fixed;
-   bottom: 0;
-   top: 0;
-   left: 0;
-   right: 0;
-   background-color: $blue-trans;
-   text-align: center;
-}
-
-.alert-msg {
-   padding-top: 60px;
-   @include size-1;
-   color: $white;
-}
