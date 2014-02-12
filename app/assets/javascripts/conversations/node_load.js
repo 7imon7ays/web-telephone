@@ -1,7 +1,6 @@
 // So-named because we can.
 
 WebTelephone.NodeLoad = function( object ) {
-	console.log(object);
 	this.thread = object;
 	this.$container = $('.js-node-sack');
 	this.$blank_picture = $('#blank-picture');
@@ -18,7 +17,6 @@ WebTelephone.NodeLoad.prototype.buildNodesFromThread = function() {
 
 WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 	var new_node, meta;
-	console.log(contribution);
 	// Build things specific to a sentence node
 	if (contribution.category === "sentence") {
 		new_node = this.$blank_sentence.clone();
