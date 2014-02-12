@@ -2,6 +2,7 @@ WebTelephone.FormHandler = function ($canvasWrapper) {
   if ($canvasWrapper) {
     this.$canvasWrapper = $canvasWrapper;
     this.emptyCanvasValue = $canvasWrapper[0].toDataURL();
+    this.submissionIsADrawing = true;
   }
   this.$errorOverlay = $(".js-error-form");
   this.$formField = $("input[name='contribution[blob]']");
@@ -18,10 +19,22 @@ WebTelephone.FormHandler.prototype.listenForSubmission = function() {
 WebTelephone.FormHandler.prototype.handleSubmission = function() {
 
   this.fillBlob();
-  if ( this.submissionIsBlank() ) {
-    this.flashBlankSubmissionError("Don't leave it blank!");
-  } else {
-    this.submitContribution();
+
+  if (this.submissionIsADrawing) {
+    if (this.drawingIsBad()) {
+      this.flashBlankSubmissionError("Don't leave it blank!");
+    }
+    else {
+      this.submitContribution();
+    }
+  }
+  else {
+    if (this.sentenceIsBad()) {
+      this.flashBlankSubmissionError("Describe the picture in at least 2 words.");
+    }
+    else {
+      this.submitContribution();
+    }
   }
 };
 
@@ -37,9 +50,15 @@ WebTelephone.FormHandler.prototype.fillBlob = function() {
   this.$formField.val(submission);
 };
 
-WebTelephone.FormHandler.prototype.submissionIsBlank = function () {
-  var submission = this.$formField.val();
-  if (submission == "" || submission == this.emptyCanvasValue) {
+WebTelephone.FormHandler.prototype.sentenceIsBad = function () {
+  if (this.$formField.val().split(' ').length <= 1  ) {
+    return true;
+  }
+  return false;
+};
+
+WebTelephone.FormHandler.prototype.drawingIsBad = function () {
+  if (this.$formField.val() === this.emptyCanvasValue) {
     return true;
   }
   return false;

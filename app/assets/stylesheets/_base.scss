@@ -316,11 +316,12 @@ em {
 }
 
 .error-flash {
-  padding-top: 60px;
   color: $white;
   @include size-2;
+  padding: 60px 4px 0;
 
   @include bp(med-min) {
     @include size-1;
+    padding: 200px 20px 0;
   }
 }
