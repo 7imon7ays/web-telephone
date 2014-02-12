@@ -35,12 +35,13 @@ class Contribution < ActiveRecord::Base
     if options[:parent_id] && parent = Contribution.find_by_id(options[:parent_id])
       return parent.thread_id
     end
-      Conversation.longest(5).sample.id ||
-      Conversation.last.id ||
-      Conversation.create.id
+
+    (Conversation.longest(5).sample ||
+      Conversation.last ||
+      Conversation.create).id
   end
 
-  def pick_parent(options)
+  def pick_parent(options = {})
     Contribution.find_by_id(options[:parent_id]) ||
       Contribution.where(thread_id: thread.id).last
   end
