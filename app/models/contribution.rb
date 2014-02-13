@@ -57,7 +57,7 @@ class Contribution < ActiveRecord::Base
 
   def beaten_to_the_punch?
     return false unless parent
-    Contribution.where("parent_id = ? AND id != ?", parent.id, id).any?
+    Contribution.where(parent_id: parent.id).count > 0
   end
 
   def blob_is_not_default
