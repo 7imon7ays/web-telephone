@@ -20,11 +20,23 @@ WebTelephone.runThankYouPage = function () {
  	new WebTelephone.NodeLoad(thread).buildNodesFromThread();
 };
 
+WebTelephone.initAboutOverlay = function() {
+  $('.js-about-show').on('click touchend', function() {
+    $('.js-about').removeClass('hidden');
+  });
+
+  // When a hide button of any overlay is clicked.
+  $('.overlay').on('mouseup touchend', $('.js-overlay-close'), function() {
+    $(this).addClass('hidden');
+  })
+}
+
 jQuery(document).ready(function($) {
 	// If submission page
-  if ($("#js-init-submit").length) {
-    WebTelephone.runSubmissionsPage();
-  }
+  if ($("#js-init-submit").length) { WebTelephone.runSubmissionsPage(); }
 	// If thank-you page
 	else if ($("#js-init-thankyou").length) { WebTelephone.runThankYouPage(); }
+
+  WebTelephone.initAboutOverlay();
+
 });
