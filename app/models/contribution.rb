@@ -4,6 +4,7 @@ class Contribution < ActiveRecord::Base
   validates :category, inclusion: CATEGORIES
   validates :author, :thread, :blob, presence: true
   validates_uniqueness_of :parent_id, scope: :thread_id
+  validates_uniqueness_of :rank, scope: :thread_id
   validate :blob_is_not_default, :blob_is_not_dangerous
 
   belongs_to :author, class_name: Player, foreign_key: :author_id
