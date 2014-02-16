@@ -7,12 +7,35 @@ WebTelephone.FormHandler = function ($canvasWrapper) {
   this.$errorOverlay = $(".js-error-form");
   this.$formField = $("input[name='contribution[blob]']");
   this.$serverForm = $("#server-form");
+  this.$submitButton = $("#submit");
+  this.keysPressed = {};
 };
 
 WebTelephone.FormHandler.prototype.listenForSubmission = function() {
+  k = this.keysPressed;
+  var boundedSubmissionHandler = this.handleSubmission.bind(this);
+
+  this.listenForClick(boundedSubmissionHandler);
+  this.listenForCmdEnter(boundedSubmissionHandler);
+};
+
+WebTelephone.FormHandler.prototype.listenForClick = function (handleSubmission) {
+  this.$submitButton.on("click", function (event) {
+    handleSubmission();
+  });
+};
+
+WebTelephone.FormHandler.prototype.listenForCmdEnter = function (handleSubmission) {
   var self = this;
-  $("#submit").on("click", function (event) {
-    self.handleSubmission();
+
+  $(window).on("keydown", function (event) {
+    self.keysPressed[event.which] = true;
+    if (event.which == 13 && self.keysPressed[91]) {
+      handleSubmission();
+    }
+  });
+  $(window).on("keyup", function (event) {
+    delete self.keysPressed[event.which];
   });
 };
 
