@@ -44,6 +44,7 @@ WebTelephone.NodeLoad.prototype._getStartNode = function () {
 
 WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 	var new_node, meta;
+	console.log(contribution);
 	// Build things specific to a sentence node
 	if (contribution.category === "sentence") {
 		new_node = this.$blank_sentence.clone();

@@ -2,11 +2,13 @@
 
 ## Setup
 
-After installing the bundle, run
+Install:
+
     bundle install
     rails g figaro:install
 
-To refresh the db
+To refresh the db:
+
 	rake db:drop
 	rake db:create
 	rake db:migrate

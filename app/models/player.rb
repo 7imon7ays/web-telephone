@@ -4,7 +4,7 @@ class Player < ActiveRecord::Base
   if location_data = results.first
     city = location_data.city
     state_or_country = location_data.state ||
-      location_data.country
+    location_data.country
     player.location = "#{city}, #{state_or_country}"
   end
 end
