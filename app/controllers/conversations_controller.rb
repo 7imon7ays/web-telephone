@@ -11,4 +11,9 @@ class ConversationsController < ApplicationController
     @thread = Conversation.find(params[:id])
     render json: @thread
   end
+
+  def for_contribution
+    @contribution = Contribution.find(params[:id])
+    render json: @contribution.thread
+  end
 end
