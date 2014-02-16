@@ -11,7 +11,7 @@ class Contribution < ActiveRecord::Base
   belongs_to :parent, class_name: Contribution, foreign_key: :parent_id
   has_many :children, class_name: Contribution, foreign_key: :parent_id
 
-  before_validation :branch_out_maybe
+  before_validation :branch_out_maybe, :set_rank
 
   def initialize(options = {})
     super(options)
@@ -58,6 +58,11 @@ class Contribution < ActiveRecord::Base
   def beaten_to_the_punch?
     return false unless parent
     Contribution.where(parent_id: parent.id).count > 0
+  end
+
+  def set_rank
+    parent = Contribution.find_by_id(self.parent_id)
+    self.rank = ( parent ? parent.rank + 1 : 1 )
   end
 
   def blob_is_not_default

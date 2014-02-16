@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140209235304) do
+ActiveRecord::Schema.define(version: 20140216033831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140209235304) do
     t.integer  "parent_id"
     t.integer  "thread_id",  null: false
     t.binary   "blob",       null: false
+    t.integer  "rank",       null: false
   end
 
   create_table "conversations", force: true do |t|
