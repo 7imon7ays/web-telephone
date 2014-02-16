@@ -36,7 +36,7 @@ class Contribution < ActiveRecord::Base
       return parent.thread_id
     end
 
-    (Conversation.longest(5).sample ||
+    (Conversation.longest(3).sample ||
       Conversation.last ||
       Conversation.create).id
   end

@@ -22,10 +22,4 @@ class Conversation < ActiveRecord::Base
     }
     super(options.merge(include_contribution_options))
   end
-
-  # Useless for now
-  def self.s3_connection
-    @s3_connection ||= AWS::S3.new(access_key_id: ENV["AWS_ACCESS_KEY_ID"],
-      secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"])    
-  end
 end
