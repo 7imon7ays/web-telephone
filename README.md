@@ -16,6 +16,12 @@ To refresh the db:
 	Conversation.create!
 	exit
 
+To seed some locations:
+
+	rake db:seed
+	rails c
+	Contribution.all.each { |c| c.author_id = 3; c.save }
+
 
 ## TODO
 

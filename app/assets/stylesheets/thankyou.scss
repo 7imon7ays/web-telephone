@@ -90,9 +90,8 @@
    width: 100%;
 }
 
-.node-share, .node-link {
-  text-decoration: none;
-  font-size: 12px;
+.node-share {
+   display: block;
 }
 
 .node-meta {
@@ -104,6 +103,14 @@
    padding-right: 4px;
    @include size-6;
    text-align: right;
+   background-color: $white;
+   padding: 4px;
+}
+
+.node-link {
+   color: $gray;
+   text-decoration: none;
+   font-size: inherit;
 }
 
 #blank-picture, #blank-sentence {

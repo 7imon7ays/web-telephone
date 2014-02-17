@@ -1,58 +1,36 @@
 <script id="bootstrapped-thread-json" type="application/json">
-  <%= @thread.to_json.html_safe %>
+<%= @thread.to_json.html_safe %>
 </script>
 
 <div class="thank-you-message">
-	<h4>You just became part of <em> the world's biggest game of pictionary ever.</em>
+    <h4>You just became part of <em> the world's biggest game of pictionary ever.</em>
     </h4>
     <div class="cta-share">
-	    <h3>To keep it going, send your submission to a buddy, your bff, your followers, anybody.</h3>
-	    <div class="cta-primary">
-	    	<a href="" class="share-fb">Post on Facebook</a>
-	    	<a href="" class="share-tw">Tweet on Twitter</a>
-	    </div>
-	    <div class="cta-secondary">
-	    	<span>or</span>
-		    <a href="" class="share-email">share it by email</a>
-	    	<span>or</span>
-			<a href="" class="share-copy">copy this url</a>
-	    </div>
+        <h3>To keep it going, send your submission to a buddy, your bff, your followers, anybody.</h3>
+        <div class="cta-primary">
+            <a href="" class="share-fb">Post on Facebook</a>
+            <a href="" class="share-tw">Tweet on Twitter</a>
+        </div>
+        <div class="cta-secondary">
+            <span>or</span>
+            <a href="" class="share-email">share it by email</a>
+            <span>or</span>
+            <a href="" class="share-copy">copy this url</a>
+        </div>
     </div>
 </div>
 
 <div id="js-init-thankyou" class="wrapper">
-	<div class="js-node-sack wrapper-thin">
-		<figure class="holder-sentence" id="blank-sentence">
-			<p class="saved-sentence"></p>
-      <div>
-        <a class="node-share" target="_new">Branch out from here</a>
-      </div>
+    <div class="js-node-sack wrapper-thin">
+        <figure class="holder-sentence" id="blank-sentence">
+            <p class="saved-sentence"></p>
+            <%= render "conversations/node_actions" %>
+        </figure>
 
-			<figcaption class="node-meta">
-				<div>
-					<a class="node-link">#<span class="node-rank"></span></a>
-				</div>
-				<div>
-					<span class="node-region"></span>
-				</div>
-			</figcaption>
-		</figure>
-
-		<figure class="holder-picture" id="blank-picture">
-			<img class="saved-picture" />
-      <div>
-        <a class="node-share" target="_new">Branch out from here</a>
-      </div>
-
-			<figcaption class="node-meta">
-				<div>
-					<a class="node-link">#<span class="node-rank"></span></a>
-				</div>
-				<div>
-					<span class="node-region"></span>
-				</div>
-			</figcaption>
-		</figure>
-		<a href="" class="holder-sentence show-start">Go to the beginning of the chain</a>
-	</div>
+        <figure class="holder-picture" id="blank-picture">
+            <img class="saved-picture" />
+            <%= render "conversations/node_actions" %>
+        </figure>
+        <a href="" class="holder-sentence show-start">Go to the beginning of the chain</a>
+    </div>
 </div>
