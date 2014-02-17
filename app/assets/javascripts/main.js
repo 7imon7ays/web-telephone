@@ -17,7 +17,7 @@ WebTelephone.runSubmissionsPage = function () {
 
 WebTelephone.runThankYouPage = function () {
  	var thread = $.parseJSON($('#bootstrapped-thread-json').html());
- 	new WebTelephone.NodeLoad(thread).buildNodesFromThread();
+ 	new WebTelephone.NodeLoad(thread).buildNodesFromThread(thread.contributions);
 };
 
 WebTelephone.initAboutOverlay = function() {
