@@ -81,6 +81,7 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 WebTelephone.NodeLoad.prototype.getThreadFromServer = function( id ){
   $.get("/conversations/for-contribution/" + id)
   .done(function (thread) {
+    console.log(thread);
     this.rankNodes(thread.contributions);
     this.buildNodesFromThread(thread.contributions);
   }.bind(this))
@@ -89,6 +90,7 @@ WebTelephone.NodeLoad.prototype.getThreadFromServer = function( id ){
   })
 };
 
+// Function is for dev only, this will be converted to an infinite load script
 WebTelephone.NodeLoad.prototype.lazyLoader = function() {
   $('.show-start').on('click', function(e){
     e.preventDefault();
