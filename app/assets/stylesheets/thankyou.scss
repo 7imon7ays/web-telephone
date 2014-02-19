@@ -17,9 +17,15 @@
 }
 
 .cta-share {
-   margin: 20px auto;
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   z-index: 1;
+   background-color: #fff;
+   padding: 10px;
+   box-shadow: 0 -1px 0 #aaa;
    @include bp(med-min) {
-      margin: 50px auto;
    }
 }
 
