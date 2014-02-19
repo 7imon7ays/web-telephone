@@ -14,6 +14,12 @@ class Contribution < ActiveRecord::Base
 
   before_validation :branch_out_maybe, :set_rank
 
+  def self.ancestors_of(contribution)
+    Contribution.where(thread_id: contribution.thread_id)
+    .where("rank < ?", contribution.rank)
+    .includes(:author)
+  end
+
   def initialize(options = {})
     super(options)
     set_associations(options)

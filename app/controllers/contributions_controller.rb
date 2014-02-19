@@ -3,6 +3,17 @@ class ContributionsController < ApplicationController
     render json: Contribution.find(params[:id])
   end
 
+  def index
+    if params[:top_id]
+      @top_contribution = Contribution.find(params[:top_id])
+      @prior_contributions = Contribution.ancestors_of(@top_contribution)
+
+      render json: @prior_contributions.to_json(include: :author)
+    else
+      render json: Contribution.all
+    end
+  end
+
   def new
     @contribution = Contribution.new({ parent_id: params[:parent_id] })
     @parent_blob = (@contribution.parent ? @contribution.parent.blob : nil)
@@ -23,6 +34,8 @@ class ContributionsController < ApplicationController
   private
 
   def contribution_params
-    params.require(:contribution).permit(:thread_id, :category, :blob, :parent_id)
+    params.require(:contribution).permit(
+    :thread_id, :category, :blob, :parent_id, :empty_canvas_value
+    )
   end
 end

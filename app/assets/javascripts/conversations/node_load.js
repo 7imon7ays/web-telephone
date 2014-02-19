@@ -22,7 +22,6 @@ WebTelephone.NodeLoad.prototype.rankNodes = function (thread) {
     contribution = contributions[i];
     this.nodeRanking[contribution.rank] = contribution;
   }
-  console.log(this.nodeRanking);
 };
 
 WebTelephone.NodeLoad.prototype.buildNodesFromThread = function( thread ) {
@@ -51,7 +50,6 @@ WebTelephone.NodeLoad.prototype._getStartNode = function ( thread ) {
 
 WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   var new_node, meta;
-
   // Build things specific to a sentence node
   if (contribution.category === "sentence") {
     new_node = this.$blank_sentence.clone();
@@ -78,12 +76,15 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 };
 
 // Gets a thread from server.
-WebTelephone.NodeLoad.prototype.getThreadFromServer = function( id ){
-  $.get("/conversations/for-contribution/" + id)
-  .done(function (thread) {
-    console.log(thread);
-    this.rankNodes(thread.contributions);
-    this.buildNodesFromThread(thread.contributions);
+WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
+  $.get(
+    "/contributions/" +
+    "?top_id=" +
+    id)
+  .done(function (priorContributions) {
+    console.log(priorContributions);
+    this.rankNodes(priorContributions);
+    this.buildNodesFromThread(priorContributions);
   }.bind(this))
   .fail(function (error) {
     console.log(error);
@@ -94,6 +95,6 @@ WebTelephone.NodeLoad.prototype.getThreadFromServer = function( id ){
 WebTelephone.NodeLoad.prototype.lazyLoader = function() {
   $('.show-start').on('click', function(e){
     e.preventDefault();
-    this.getThreadFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
+    this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
   }.bind(this));
 }

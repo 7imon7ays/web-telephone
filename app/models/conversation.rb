@@ -1,6 +1,10 @@
 class Conversation < ActiveRecord::Base
   has_many :contributions, class_name: Contribution, foreign_key: :thread_id
 
+  def self.with_associations
+    includes(contributions: :author)
+  end
+
   def self.longest(n = 1)
     joins(:contributions)
     .group("conversations.id, contributions.thread_id")
