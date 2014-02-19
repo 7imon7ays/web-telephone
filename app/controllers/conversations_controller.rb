@@ -1,9 +1,10 @@
 class ConversationsController < ApplicationController
   def thank_you
+    eager_loaded_conversation = Conversation.includes(contributions: :author)
     if thread_id = params[:thread_id]
-      @thread = Conversation.find(thread_id)
+      @thread = eager_loaded_conversation.find(thread_id)
     else
-      @thread = Conversation.longest_one
+      @thread = eager_loaded_conversation.longest_one
     end
   end
 
