@@ -83,12 +83,15 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 
 // Gets a thread from server.
 WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
+  if (!id) {
+    console.info('Reached top of thread');
+    return;
+  }
   $.get(
     "/contributions/" +
     "?top_id=" +
     id)
   .done(function (priorContributions) {
-    console.log(priorContributions);
     this.rankNodes(priorContributions);
     this.buildNodesFromThread(priorContributions);
   }.bind(this))
@@ -99,8 +102,12 @@ WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
 
 // Function is for dev only, this will be converted to an infinite load script
 WebTelephone.NodeLoad.prototype.lazyLoader = function() {
-  $('.show-start').on('click', function(e){
-    e.preventDefault();
-    this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
-  }.bind(this));
+  var nearToBottom = 300;
+
+  var pollForScroll = window.setInterval(function() {
+    if ($(window).scrollTop() + $(window).height() >
+        $(document).height() - nearToBottom) {
+      this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
+    }
+  }.bind(this), 2000);
 }
