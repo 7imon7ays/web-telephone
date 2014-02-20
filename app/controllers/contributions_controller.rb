@@ -31,11 +31,21 @@ class ContributionsController < ApplicationController
     end
   end
 
+  def update
+    @contribution = Contribution.find(params[:id])
+    if @contribution.update_attributes(contribution_params)
+      render json: @contribution
+    else
+      render json: @contribution.errors.full_messages, status: 422
+    end
+  end
+
   private
 
   def contribution_params
     params.require(:contribution).permit(
-    :thread_id, :category, :blob, :parent_id, :empty_canvas_value
+    :thread_id, :category, :blob,
+    :parent_id, :empty_canvas_value, :signature
     )
   end
 end

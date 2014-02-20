@@ -27,13 +27,13 @@ WebTelephone.NodeLoad.prototype.rankNodes = function (thread) {
 
 WebTelephone.NodeLoad.prototype.buildNodesFromThread = function( thread ) {
   var node;
-
   for (node = this._getStartNode( thread );
-    !!node && !node.visible;
-    node = this.nodeRanking[node.rank + 1] ) {
-      node.visible = true;
-      this.appendNode(node);
-    }
+      !!node && !node.visible;
+      node = this.nodeRanking[node.rank + 1] ) {
+        node.visible = true;
+        this.appendNode(node);
+      }
+  this.listenForSignature();
 };
 
 // Returns the oldest node in thread
@@ -74,6 +74,7 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   meta.find('.node-rank').html(contribution.rank);
   var location = contribution.author.location;
   meta.find('.node-region').html(location);
+  meta.find(".node-signature").html(this.signatureForm(contribution.id));
 
   // Will: "It's a bit intense on the dom, but could be a simple way of dealing with the craziness of infinite load"
   var parent_node = $('*[data-rank="' + (contribution.rank - 1) + '"]');
@@ -84,6 +85,36 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
     $(parent_node).before(new_node);
   }
 
+};
+
+WebTelephone.NodeLoad.prototype.listenForSignature = function () {
+  var self = this;
+
+  $(".signature-input").on("focus", function () {
+    $(document).on("keyup", function (event) {
+      if (event.which == 13) { self.submitSignature(event); }
+    });
+  });
+};
+
+WebTelephone.NodeLoad.prototype.submitSignature = function (event) {
+  var $inputField = $(event.target)
+    , contributionID = $inputField.data("id")
+    , signatureData = { contribution: {
+      signature: $inputField.val()
+    }
+  };
+
+  $.ajax({
+    url: "contributions/" + contributionID,
+    type: "PUT",
+    data: signatureData
+  }).done(function(response) {
+    console.log(response);
+  })
+  .error(function (error) {
+    console.log(error);
+  });
 };
 
 // Gets a thread from server.
@@ -117,3 +148,19 @@ WebTelephone.NodeLoad.prototype.lazyLoader = function() {
     }
   }.bind(this), 1000);
 }
+  $('.show-start').on('click', function(e){
+    e.preventDefault();
+    this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
+  }.bind(this));
+};
+
+WebTelephone.NodeLoad.prototype.signatureForm = function (id) {
+  var formString = "" +
+    "<label for='contribution-" + id + "' " +
+    "class='signature-label'>Sign it</label>" +
+    "<input id='contribution-" + id + "' " +
+    "data-id='" + id + "' " +
+    "class='signature-input'>"
+
+  return formString;
+};
