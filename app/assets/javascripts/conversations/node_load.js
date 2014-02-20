@@ -10,7 +10,6 @@ WebTelephone.NodeLoad = function( conversationObject ) {
   this.server_url = "/contributions/";
   this.pollForScroll;
   this.lazyLoader();
-  console.log(this.lazyLoader());
   this.oldestNodeRank;
 };
 
@@ -63,6 +62,7 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   }
 
   // Build things common to any node
+  new_node.attr("id", contribution.id);
   new_node.attr("data-rank", contribution.rank);
   new_node.find('.node-share').
   attr("href", "/?parent_id=" + contribution.id);
@@ -76,11 +76,14 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   meta.find('.node-region').html(location);
 
   // Will: "It's a bit intense on the dom, but could be a simple way of dealing with the craziness of infinite load"
-  var parent_node = $('div').data("rank", (contribution.rank-1));
-  if ($(parent_node).length === 0) {
+  var parent_node = $('*[data-rank="' + (contribution.rank - 1) + '"]');
+  if (parent_node.length === 0) {
     this.$container.append(new_node);
   }
-  $(parent_node).before(new_node);
+  else {
+    $(parent_node).before(new_node);
+  }
+
 };
 
 // Gets a thread from server.
@@ -110,7 +113,8 @@ WebTelephone.NodeLoad.prototype.lazyLoader = function() {
   this.pollForScroll = setInterval(function() {
     if ($(window).scrollTop() + $(window).height() >
         $(document).height() - nearToBottom) {
+      console.log('bang');
       this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
     }
-  }.bind(this), 2000);
+  }.bind(this), 1000);
 }
