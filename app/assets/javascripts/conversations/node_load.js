@@ -8,7 +8,9 @@ WebTelephone.NodeLoad = function( conversationObject ) {
   this.$blank_picture = $('#js-blank-picture');
   this.$blank_sentence = $('#js-blank-sentence');
   this.server_url = "/contributions/";
+  this.pollForScroll;
   this.lazyLoader();
+  console.log(this.lazyLoader());
   this.oldestNodeRank;
 };
 
@@ -61,7 +63,7 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   }
 
   // Build things common to any node
-  new_node.attr("id", "rank-" + contribution.rank);
+  new_node.attr("data-rank", contribution.rank);
   new_node.find('.node-share').
   attr("href", "/?parent_id=" + contribution.id);
   new_node.find('.node-link')
@@ -74,8 +76,8 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   meta.find('.node-region').html(location);
 
   // Will: "It's a bit intense on the dom, but could be a simple way of dealing with the craziness of infinite load"
-  var parent_node = '#rank-' + (contribution.rank-1);
-  if ($(parent_node).length < 1) {
+  var parent_node = $('div').data("rank", (contribution.rank-1));
+  if ($(parent_node).length === 0) {
     this.$container.append(new_node);
   }
   $(parent_node).before(new_node);
@@ -85,6 +87,7 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
   if (!id) {
     console.info('Reached top of thread');
+    clearInterval(this.pollForScroll);
     return;
   }
   $.get(
@@ -104,7 +107,7 @@ WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
 WebTelephone.NodeLoad.prototype.lazyLoader = function() {
   var nearToBottom = 300;
 
-  var pollForScroll = window.setInterval(function() {
+  this.pollForScroll = setInterval(function() {
     if ($(window).scrollTop() + $(window).height() >
         $(document).height() - nearToBottom) {
       this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
