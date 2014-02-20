@@ -16,7 +16,7 @@ class Contribution < ActiveRecord::Base
 
   def self.ancestors_of(contribution)
     Contribution.where(thread_id: contribution.thread_id)
-    .where("rank < ?", contribution.rank)
+    .where("rank <= ?", contribution.rank)
     .includes(:author)
   end
 
