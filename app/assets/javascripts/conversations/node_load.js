@@ -5,8 +5,6 @@ WebTelephone.NodeLoad = function( conversationObject ) {
   this.nodeRanking = {};
   this._rankNodes(this.initialNodesArray);
   this.$container = $('.js-node-sack');
-  this.$blank_picture = $('#js-blank-picture');
-  this.$blank_sentence = $('#js-blank-sentence');
   this.server_url = "/contributions/";
   this.pollForScroll;
   this.lazyLoader();
@@ -74,37 +72,8 @@ WebTelephone.NodeLoad.prototype._getContributionIds = function () {
 };
 
 WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
-  var new_node, meta;
-  // Build things specific to a sentence node
-  if (contribution.category === "sentence") {
-    new_node = this.$blank_sentence.clone();
-    new_node.find('.saved-sentence').html(contribution.blob);
-  // Build things specific to a picture node
-  } else {
-    new_node = this.$blank_picture.clone();
-    new_node.find('.saved-picture').attr("src", contribution.blob);
-  }
-
-  // Build things common to any node
-  new_node.attr("id", contribution.id);
-  new_node.attr("data-rank", contribution.rank);
-  new_node.find('.node-share').
-  attr("href", "/?parent_id=" + contribution.id);
-  new_node.find('.node-link')
-  .attr("href", "/thank-you?thread_id=" +
-    contribution.thread_id +
-    "#" + contribution.id);
-  meta = new_node.find('.node-meta');
-  meta.find('.node-rank').html(contribution.rank);
-  var location = contribution.author.location;
-  meta.find('.node-region').html(location);
-  var signatureField = meta.find(".node-signature");
-  var playerIsAuthor = this.playerSubmissionIds[contribution.id];
-  if (contribution.signature) {
-    signatureField.html(contribution.signature);
-  } else if (playerIsAuthor) {
-    signatureField.html(this.signatureForm(contribution.id));
-  }
+  var nodeBuilder = new WebTelephone.NodeBuilder(contribution, this.playerSubmissionIds)
+    , new_node = nodeBuilder.build();
 
   // Will: "It's a bit intense on the dom, but could be a simple way of dealing with the craziness of infinite load"
   var parent_node = $('*[data-rank="' + (contribution.rank - 1) + '"]');
@@ -114,7 +83,6 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   else {
     $(parent_node).before(new_node);
   }
-
 };
 
 WebTelephone.NodeLoad.prototype.listenForSignature = function () {
@@ -178,19 +146,4 @@ WebTelephone.NodeLoad.prototype.lazyLoader = function() {
       this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
     }
   }.bind(this), 1000);
-};
-
-WebTelephone.NodeLoad.prototype.signatureForm = function (id) {
-  var formString = "" +
-    "<span id='contribution-" +
-    id +
-    "-signature'>" +
-    "<label for='contribution-" + id + "' " +
-    "class='signature-label'>Sign it</label>" +
-    "<input id='contribution-" + id + "' " +
-    "data-id='" + id + "' " +
-    "class='signature-input'>" +
-    "</span>"
-
-  return formString;
 };
