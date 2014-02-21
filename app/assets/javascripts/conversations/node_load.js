@@ -113,7 +113,6 @@ WebTelephone.NodeLoad.prototype.lazyLoader = function() {
   this.pollForScroll = setInterval(function() {
     if ($(window).scrollTop() + $(window).height() >
         $(document).height() - nearToBottom) {
-      console.log('bang');
       this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
     }
   }.bind(this), 1000);
