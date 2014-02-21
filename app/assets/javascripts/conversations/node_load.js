@@ -3,7 +3,7 @@
 WebTelephone.NodeLoad = function( conversationObject ) {
   this.initialNodesArray = conversationObject.contributions;
   this.nodeRanking = {};
-  this.rankNodes(this.initialNodesArray);
+  this._rankNodes(this.initialNodesArray);
   this.$container = $('.js-node-sack');
   this.$blank_picture = $('#js-blank-picture');
   this.$blank_sentence = $('#js-blank-sentence');
@@ -11,9 +11,10 @@ WebTelephone.NodeLoad = function( conversationObject ) {
   this.pollForScroll;
   this.lazyLoader();
   this.oldestNodeRank;
+  this.playerSubmissionIds = this._getContributionIds();
 };
 
-WebTelephone.NodeLoad.prototype.rankNodes = function (thread) {
+WebTelephone.NodeLoad.prototype._rankNodes = function (thread) {
   var contributions = thread
   , length = contributions.length
   , contribution
@@ -49,6 +50,29 @@ WebTelephone.NodeLoad.prototype._getStartNode = function ( thread ) {
   return lowest;
 };
 
+WebTelephone.NodeLoad.prototype._getContributionIds = function () {
+  var idsString = window.sessionStorage.getItem("contributions");
+  if (!idsString) { return {}; }
+
+  var length = idsString.length
+    , ids = {}
+    , id = ""
+    , i = 0;
+
+  while (i < length) {
+    if (idsString[i] == ",") {
+      ids[id] = true;
+      id = "";
+    } else {
+      id += idsString[i];
+    }
+    i++;
+  }
+  ids[id] = true;
+
+  return ids;
+};
+
 WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   var new_node, meta;
   // Build things specific to a sentence node
@@ -75,9 +99,10 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   var location = contribution.author.location;
   meta.find('.node-region').html(location);
   var signatureField = meta.find(".node-signature");
+  var playerIsAuthor = this.playerSubmissionIds[contribution.id];
   if (contribution.signature) {
     signatureField.html(contribution.signature);
-  } else {
+  } else if (playerIsAuthor) {
     signatureField.html(this.signatureForm(contribution.id));
   }
 
@@ -118,7 +143,7 @@ WebTelephone.NodeLoad.prototype.submitSignature = function (event) {
     var $field = $("#contribution-" + contribution.id + "-signature" );
     $field.html(contribution.signature);
   })
-  .error(function (error) {
+  .fail(function (error) {
     console.log(error);
   });
 };
@@ -135,7 +160,7 @@ WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
     "?top_id=" +
     id)
   .done(function (priorContributions) {
-    this.rankNodes(priorContributions);
+    this._rankNodes(priorContributions);
     this.buildNodesFromThread(priorContributions);
   }.bind(this))
   .fail(function (error) {

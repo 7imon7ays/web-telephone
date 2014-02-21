@@ -25,6 +25,8 @@ class ContributionsController < ApplicationController
     @contribution.register_author(client_ip)
 
     if @contribution.save
+      session[:contributions] ||= Set.new
+      session[:contributions].add @contribution.id
       render json: @contribution
     else
       render json: @contribution.errors.full_messages, status: 422
@@ -33,7 +35,9 @@ class ContributionsController < ApplicationController
 
   def update
     @contribution = Contribution.find(params[:id])
-    if @contribution.update_attributes(contribution_params)
+    if !session[:contributions].include? @contribution.id
+      render json: ["Not your submission!"], status: 401
+    elsif @contribution.update_attributes(contribution_params)
       render json: @contribution
     else
       render json: @contribution.errors.full_messages, status: 422

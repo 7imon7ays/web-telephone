@@ -101,10 +101,13 @@ WebTelephone.FormHandler.prototype.flashBlankSubmissionError = function (errorMs
 WebTelephone.FormHandler.prototype.submitContribution = function () {
   var self = this
     , submissionData = this.$serverForm.serializeJSON();
-  submissionData['contribution'].emptyCanvasValue = this.emptyCanvasValue;
+  submissionData['contribution'].empty_canvas_value = this.emptyCanvasValue;
 
-  var jqhr = $.post("/contributions", submissionData)
+  $.post("/contributions", submissionData)
   .done(function (data) {
+    var previousSession = window.sessionStorage.getItem("contributions");
+    window.sessionStorage.setItem("contributions", previousSession + "," + data.id);
+
     location.href = location.origin + "/thank-you" +
       "?" + "thread_id=" + data.thread_id;
   })
