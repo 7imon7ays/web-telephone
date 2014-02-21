@@ -105,8 +105,11 @@ WebTelephone.FormHandler.prototype.submitContribution = function () {
 
   $.post("/contributions", submissionData)
   .done(function (data) {
-    var previousSession = window.sessionStorage.getItem("contributions");
-    window.sessionStorage.setItem("contributions", previousSession + "," + data.id);
+    var previousSession =
+      (window.sessionStorage.getItem("contributions") || "");
+    window.sessionStorage.setItem(
+      "contributions", previousSession + "," + data.id
+    );
 
     location.href = location.origin + "/thank-you" +
       "?" + "thread_id=" + data.thread_id;

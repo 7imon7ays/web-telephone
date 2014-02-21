@@ -72,8 +72,8 @@ WebTelephone.NodeLoad.prototype._getContributionIds = function () {
 };
 
 WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
-  var nodeBuilder = new WebTelephone.NodeBuilder(contribution, this.playerSubmissionIds)
-    , new_node = nodeBuilder.build();
+  var nodeConstructor = new WebTelephone.NodeConstructor(contribution, this.playerSubmissionIds)
+    , new_node = nodeConstructor.build();
 
   // Will: "It's a bit intense on the dom, but could be a simple way of dealing with the craziness of infinite load"
   var parent_node = $('*[data-rank="' + (contribution.rank - 1) + '"]');

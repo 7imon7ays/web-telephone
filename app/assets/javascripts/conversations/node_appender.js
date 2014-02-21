@@ -1,11 +1,11 @@
-WebTelephone.NodeBuilder = function (contribution, playerSubmissionIds) {
+WebTelephone.NodeConstructor = function (contribution, playerSubmissionIds) {
   this.contribution = contribution;
   this.$blank_picture = $('#js-blank-picture');
   this.$blank_sentence = $('#js-blank-sentence');
   this.playerSubmissionIds = playerSubmissionIds;
 };
 
-WebTelephone.NodeBuilder.prototype.build = function() {
+WebTelephone.NodeConstructor.prototype.build = function() {
   var contribution = this.contribution
     , new_node
     , meta;
@@ -44,7 +44,7 @@ WebTelephone.NodeBuilder.prototype.build = function() {
   return new_node;
 };
 
-WebTelephone.NodeBuilder.prototype.signatureForm = function (id) {
+WebTelephone.NodeConstructor.prototype.signatureForm = function (id) {
   var formString = "" +
     "<span id='contribution-" +
     id +
