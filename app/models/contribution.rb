@@ -63,16 +63,10 @@ class Contribution < ActiveRecord::Base
   end
 
   def beaten_to_the_punch?
-    return false unless parent
-    if self.try(:id)
-      Contribution.where("id != ?", id)
-        .where(parent_id: parent_id, thread_id: thread_id)
-        .any?
-    else
-      Contribution.where(
-        parent_id: parent_id, thread_id: thread_id
-      ).any?
-    end
+    return false if id || parent.nil?
+    Contribution.where(
+      parent_id: parent_id, thread_id: thread_id
+    ).any?
   end
 
   def set_rank
