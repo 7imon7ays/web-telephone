@@ -94,7 +94,7 @@ WebTelephone.FormHandler.prototype.drawingIsBad = function () {
 WebTelephone.FormHandler.prototype.submitContribution = function () {
   var self = this
     , submissionData = this.$serverForm.serializeJSON();
-  submissionData['contribution'].empty_canvas_value = this.emptyCanvasValue;
+  submissionData["contribution"]["empty_canvas_value"] = this.emptyCanvasValue;
 
   $.post("/contributions", submissionData)
   .done(function (data) {
