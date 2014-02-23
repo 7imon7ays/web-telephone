@@ -12,11 +12,15 @@ WebTelephone.FormHandler = function ($canvasWrapper) {
 };
 
 WebTelephone.FormHandler.prototype.listenForSubmission = function() {
-  k = this.keysPressed;
   var boundedSubmissionHandler = this.handleSubmission.bind(this);
 
   this.listenForClick(boundedSubmissionHandler);
   this.listenForCmdEnter(boundedSubmissionHandler);
+
+  $("form").on("submit", function (event) {
+    event.preventDefault();
+    boundedSubmissionHandler();
+  });
 };
 
 WebTelephone.FormHandler.prototype.listenForClick = function (handleSubmission) {
