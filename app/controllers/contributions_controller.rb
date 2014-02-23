@@ -48,8 +48,8 @@ class ContributionsController < ApplicationController
 
   def contribution_params
     params.require(:contribution).permit(
-    :thread_id, :category, :blob,
-    :parent_id, :empty_canvas_value, :signature
+      :thread_id, :category, :blob,
+      :parent_id, :empty_canvas_value, :signature
     )
   end
 end

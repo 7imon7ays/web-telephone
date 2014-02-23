@@ -32,7 +32,6 @@ WebTelephone.NodeLoad.prototype.buildNodesFromThread = function( thread ) {
         node.visible = true;
         this.appendNode(node);
       }
-  this.listenForSignature();
 };
 
 // Returns the oldest node in thread
@@ -83,37 +82,6 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
   else {
     $(parent_node).before(new_node);
   }
-};
-
-WebTelephone.NodeLoad.prototype.listenForSignature = function () {
-  var self = this;
-
-  $(".signature-input").on("focus", function () {
-    $(document).on("keyup", function (event) {
-      if (event.which == 13) { self.submitSignature(event); }
-    });
-  });
-};
-
-WebTelephone.NodeLoad.prototype.submitSignature = function (event) {
-  var $inputField = $(event.target)
-    , contributionID = $inputField.data("id")
-    , signatureData = { contribution: {
-      signature: $inputField.val()
-    }
-  };
-
-  $.ajax({
-    url: "contributions/" + contributionID,
-    type: "PUT",
-    data: signatureData
-  }).done(function(contribution) {
-    var $field = $("#contribution-" + contribution.id + "-signature" );
-    $field.html(contribution.signature);
-  })
-  .fail(function (error) {
-    console.log(error);
-  });
 };
 
 // Gets a thread from server.

@@ -4,7 +4,7 @@ WebTelephone.FormHandler = function ($canvasWrapper) {
     this.emptyCanvasValue = $canvasWrapper[0].toDataURL();
     this.submissionIsADrawing = true;
   }
-  this.$errorOverlay = $(".js-error-form");
+  this.errorHandler = new WebTelephone.ErrorHandler($(".js-error-form"));
   this.$formField = $("input[name='contribution[blob]']");
   this.$serverForm = $("#server-form");
   this.$submitButton = $("#submit");
@@ -45,7 +45,7 @@ WebTelephone.FormHandler.prototype.handleSubmission = function() {
 
   if (this.submissionIsADrawing) {
     if (this.drawingIsBad()) {
-      this.flashBlankSubmissionError("Don't leave it blank!");
+      this.errorHandler.flash("Don't leave it blank!");
     }
     else {
       this.submitContribution();
@@ -53,7 +53,7 @@ WebTelephone.FormHandler.prototype.handleSubmission = function() {
   }
   else {
     if (this.sentenceIsBad()) {
-      this.flashBlankSubmissionError("Describe the picture in at least 2 words.");
+      this.errorHandler.flash("Describe the picture in at least 2 words.");
     }
     else {
       this.submitContribution();
@@ -87,17 +87,6 @@ WebTelephone.FormHandler.prototype.drawingIsBad = function () {
   return false;
 };
 
-WebTelephone.FormHandler.prototype.flashBlankSubmissionError = function (errorMsg) {
-  var $errorOverlay = this.$errorOverlay
-    , $errorMessageTag = $errorOverlay.find(".js-error-message")
-    , errorMessage = errorMsg || "Error!";
-  $errorMessageTag.html(errorMessage);
-  $errorOverlay.removeClass("hidden");
-  setTimeout(function () {
-    $errorOverlay.addClass("hidden");
-  }, 1500)
-};
-
 WebTelephone.FormHandler.prototype.submitContribution = function () {
   var self = this
     , submissionData = this.$serverForm.serializeJSON();
@@ -115,6 +104,6 @@ WebTelephone.FormHandler.prototype.submitContribution = function () {
       "?" + "thread_id=" + data.thread_id;
   })
   .fail(function (data) {
-    self.flashBlankSubmissionError(data.responseJSON[0]);
+    self.errorHandler.flash(data.responseJSON[0]);
   });
 };

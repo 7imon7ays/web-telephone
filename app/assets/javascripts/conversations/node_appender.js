@@ -35,7 +35,7 @@ WebTelephone.NodeConstructor.prototype.build = function() {
   meta.find('.node-region').html(location);
   var signatureField = meta.find(".node-signature");
   var playerIsAuthor = this.playerSubmissionIds[contribution.id];
-  if (contribution.signature) {
+  if (contribution.signature && contribution.signature != "") {
     signatureField.html(contribution.signature);
   } else if (playerIsAuthor) {
     signatureField.html(this.signatureForm(contribution.id));

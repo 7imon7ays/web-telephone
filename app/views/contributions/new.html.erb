@@ -1,9 +1,5 @@
 <div id="js-init-submit" class="wrapper">
-  <div class="hidden overlay js-error-form">
-  	<div class="overlay__content error">
-  		<p class="js-error-message"></p>
-  	</div>
-  </div>
+  <%= render "/error_overlay" %>
   	<%= render "#{@contribution.category}_prompt",
       locals: { parent_blob: @parent_blob } %>
   	<%= render "#{@contribution.category}_form" %>

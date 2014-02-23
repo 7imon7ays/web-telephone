@@ -5,7 +5,7 @@ class Contribution < ActiveRecord::Base
   validates :author, :thread, :blob, presence: true
   validates_uniqueness_of :parent_id, scope: :thread_id
   validates_uniqueness_of :rank, scope: :thread_id
-  validate :blob_is_not_default, :blob_is_not_dangerous
+  validate :blob_is_not_default, :blob_is_not_dangerous, :signature_is_not_dangerous
 
   belongs_to :author, class_name: Player, foreign_key: :author_id
   belongs_to :thread, class_name: Conversation, foreign_key: :thread_id
@@ -83,6 +83,12 @@ class Contribution < ActiveRecord::Base
   def blob_is_not_dangerous
     if blob != Sanitize.clean(blob)
       errors.add(:submission, "contains restricted elements!")
+    end
+  end
+
+  def signature_is_not_dangerous
+    if signature != Sanitize.clean(signature)
+      errors.add(:signature, "contrains restricted elements!")
     end
   end
 end
