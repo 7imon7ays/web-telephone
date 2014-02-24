@@ -93,17 +93,15 @@
 }
 
 .holder-main {
-   margin-bottom: $vert-space*2;
    position: relative;
+   @include bp(med-min) {
+      margin-bottom: $vert-space*2;
+   }
 }
 
 .holder-sentence, .holder-picture {
    position: relative;
    width: 100%;
-}
-
-.node-share {
-   display: block;
 }
 
 .node-meta {
@@ -133,14 +131,39 @@
    height: 0;
    overflow: hidden;
    position: relative;
+   box-shadow: 0 4px 8px #999;
+   box-sizing: border-box;
 }
 
 .node-meta-more {
    // display: none;
    width: 100%;
-   background-color: red;
+   background-color: $white;
+   color: $gray-dd;
+   border-top: 1px dashed $gray;
+   padding: 4px;
    position: absolute;
    bottom: 0;
+   border-bottom-right-radius: 2px;
+   border-bottom-left-radius: 2px;
+   box-sizing: border-box;
+
+   @include bp(med-min) {
+      padding: 8px;
+   }
+}
+
+.meta-map {
+   float: left;
+   max-width: 50%;
+   margin-right: 8px;
+}
+
+.meta-details {
+   text-align: left;
+   li {
+      margin-bottom: 8px;
+   }
 }
 
 .node-link {
@@ -160,12 +183,12 @@
    padding-bottom: 24px;
    line-height: 19px;
    font-size: 14px;
-   background-color: $white;
+   @extend %bg-write;
+   @extend %inset;
 
    @include bp(med-min) {
       line-height: 24px;
       font-size: 16px;
-      margin-bottom: 8px;
    }
 }
 

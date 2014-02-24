@@ -7,6 +7,7 @@ $white: #fefefe;
 
 $gray: #bababa;
 $gray-d: #979797;
+$gray-dd: #686868;
 $gray-l: #f5f5f5;
 
 $green: #31ba00;
@@ -200,7 +201,16 @@ to {
    @include bp(retina) {
     background-image: url("noisy_grid_@2X.png");
     background-size: 150px auto;
+  }
 }
+
+%bg-write {
+   background-image: url("linedpaper.png");
+
+   @include bp(retina) {
+    background-image: url("linedpaper_@2x.png");
+    background-size: 150px auto;
+  }
 }
 
 %inset {

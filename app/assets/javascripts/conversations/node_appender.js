@@ -8,7 +8,8 @@ WebTelephone.NodeConstructor = function (contribution, playerSubmissionIds) {
 WebTelephone.NodeConstructor.prototype.build = function() {
   var contribution = this.contribution
     , new_node
-    , meta;
+    , meta
+    , more;
 
   // Build things specific to a sentence node
   if (contribution.category === "sentence") {
@@ -30,9 +31,11 @@ WebTelephone.NodeConstructor.prototype.build = function() {
     contribution.thread_id +
     "#" + contribution.id);
   meta = new_node.find('.node-meta');
+  more = new_node.find('.node-meta-more');
   meta.find('.node-rank').html(contribution.rank);
   var location = contribution.author.location;
   meta.find('.node-region').html(location);
+  more.find('.meta-map').attr('src', ('https://api.tiles.mapbox.com/v3/willthefirst.hc1k6ngp/pin-s+cc4400(' + contribution.author.longitude + ',' + contribution.author.latitude+ ')/' + contribution.author.longitude + ',' + contribution.author.latitude + ',3/250x200.png'));
   var signatureField = meta.find(".node-signature");
   var playerIsAuthor = this.playerSubmissionIds[contribution.id];
   if (contribution.signature && contribution.signature != "") {
