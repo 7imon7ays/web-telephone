@@ -19,14 +19,19 @@
 
 <div id="js-init-thankyou" class="wrapper">
     <div class="js-node-sack wrapper-thin">
-        <figure class="holder-sentence js-holder" id="js-blank-sentence" data-rank>
-            <p class="saved-sentence"></p>
-            <%= render "conversations/node_actions" %>
+        <figure class="holder-main js-holder" id="js-blank-sentence" data-rank>
+            <div class="holder-sentence">
+                <p class="saved-sentence"></p>
+                <%= render "conversations/node_actions" %>
+            </div>
+            <%= render "conversations/node_more" %>
         </figure>
 
-        <figure class="holder-picture js-holder" id="js-blank-picture" data-rank>
-            <img class="saved-picture" />
-            <%= render "conversations/node_actions" %>
+        <figure class="holder-main js-holder" id="js-blank-picture" data-rank>
+            <div class="holder-picture"><img class="saved-picture" />
+                <%= render "conversations/node_actions" %>
+            </div>
+            <%= render "conversations/node_more" %>
         </figure>
     </div>
 </div>

@@ -92,6 +92,11 @@
    border: 1px solid $gray;
 }
 
+.holder-main {
+   margin-bottom: $vert-space*2;
+   position: relative;
+}
+
 .holder-sentence, .holder-picture {
    position: relative;
    width: 100%;
@@ -114,6 +119,30 @@
    padding: 4px;
 }
 
+.node-more {
+   border: none;
+   font-family: inherit;
+   background: none;
+   color: $blue-d;
+   padding: 0;
+   cursor: pointer;
+   text-decoration: underline;
+}
+
+.node-meta-more-container {
+   height: 0;
+   overflow: hidden;
+   position: relative;
+}
+
+.node-meta-more {
+   // display: none;
+   width: 100%;
+   background-color: red;
+   position: absolute;
+   bottom: 0;
+}
+
 .node-link {
    color: $gray;
    text-decoration: none;
@@ -131,7 +160,7 @@
    padding-bottom: 24px;
    line-height: 19px;
    font-size: 14px;
-   background-color: ba(213, 213, 213, 0.19);
+   background-color: $white;
 
    @include bp(med-min) {
       line-height: 24px;

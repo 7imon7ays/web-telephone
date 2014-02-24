@@ -10,6 +10,7 @@ WebTelephone.NodeLoad = function( conversationObject ) {
   this.lazyLoader();
   this.oldestNodeRank;
   this.playerSubmissionIds = this._getContributionIds();
+  this.moreToggle();
 };
 
 WebTelephone.NodeLoad.prototype._rankNodes = function (thread) {
@@ -115,3 +116,19 @@ WebTelephone.NodeLoad.prototype.lazyLoader = function() {
     }
   }.bind(this), 1000);
 };
+
+WebTelephone.NodeLoad.prototype.moreToggle = function() {
+  $(document).on('mouseup touchend', '.js-more-toggle', function(e){
+    var $node_more = $(this).closest('.holder-main').find($('.js-node-more'));
+    var h = $node_more.children('.node-meta-more').height();
+    if($node_more.hasClass('js-is-visible')) {
+      $node_more.animate({
+        height: 0
+      }).removeClass('js-is-visible');
+    } else {
+      $node_more.animate({
+        height: h
+      }).addClass('js-is-visible');
+    }
+  });
+}
