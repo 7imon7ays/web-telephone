@@ -124,11 +124,11 @@ WebTelephone.NodeLoad.prototype.moreToggle = function() {
     if($node_more.hasClass('js-is-visible')) {
       $node_more.animate({
         height: 0
-      }).removeClass('js-is-visible');
+      }, 200).removeClass('js-is-visible');
     } else {
       $node_more.animate({
         height: h
-      }).addClass('js-is-visible');
+      }, 200).addClass('js-is-visible');
     }
   });
 }

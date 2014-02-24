@@ -35,8 +35,7 @@ WebTelephone.NodeConstructor.prototype.build = function() {
   meta.find('.node-rank').html(contribution.rank);
   var location = contribution.author.location;
   meta.find('.node-region').html(location);
-  more.find('.meta-map').attr('src', ('https://api.tiles.mapbox.com/v3/willthefirst.hc1k6ngp/pin-s+cc4400(' + contribution.author.longitude + ',' + contribution.author.latitude+ ')/' + contribution.author.longitude + ',' + contribution.author.latitude + ',3/250x200.png'));
-  var signatureField = meta.find(".node-signature");
+  var signatureField = more.find(".node-signature");
   var playerIsAuthor = this.playerSubmissionIds[contribution.id];
   if (contribution.signature && contribution.signature != "") {
     signatureField.html(contribution.signature);

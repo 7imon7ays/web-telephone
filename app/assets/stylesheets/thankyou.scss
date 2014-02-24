@@ -10,14 +10,17 @@
    text-align: center;
    padding: 4px;
    margin-top: 18px;
+   margin-bottom: 18px;
+   display: block;
 
    @include bp(med-min) {
       margin-top: 60px;
+      margin-bottom: 40px;
    }
 }
 
 .cta-share {
-   display: none;
+   text-align: center;
    position: fixed;
    bottom: 0;
    left: 0;
@@ -87,13 +90,20 @@
 /*   Submission list
    ------------------------------------------------------- */
 
-.wrapper-saved {
-   background-color: $white;
-   border: 1px solid $gray;
+.wrapper-thin-container {
+   text-align: center;
+}
+
+.wrapper-thin {
+   padding-bottom: 60px;
+   width: auto;
+   display: inline-block
 }
 
 .holder-main {
    position: relative;
+   @extend .cf;
+   clear: both;
    @include bp(med-min) {
       margin-bottom: $vert-space*2;
    }
@@ -102,6 +112,8 @@
 .holder-sentence, .holder-picture {
    position: relative;
    width: 100%;
+   max-width: 500px;
+   float: left;
 }
 
 .node-meta {
@@ -127,42 +139,44 @@
    text-decoration: underline;
 }
 
-.node-meta-more-container {
-   height: 0;
-   overflow: hidden;
-   position: relative;
-   box-shadow: 0 4px 8px #999;
-   box-sizing: border-box;
-}
-
 .node-meta-more {
-   // display: none;
-   width: 100%;
-   background-color: $white;
-   color: $gray-dd;
-   border-top: 1px dashed $gray;
-   padding: 4px;
-   position: absolute;
-   bottom: 0;
-   border-bottom-right-radius: 2px;
-   border-bottom-left-radius: 2px;
-   box-sizing: border-box;
-
-   @include bp(med-min) {
-      padding: 8px;
-   }
-}
-
-.meta-map {
    float: left;
-   max-width: 50%;
-   margin-right: 8px;
+   color: $gray-dd;
+   position: relative;
+   @include bp(med-min) {
+      padding-left: 8px;
+   }
 }
 
 .meta-details {
    text-align: left;
+   padding-left: 8px;
+   color: $gray-d;
+   font-size: 0;
+   // position: absolute;
+   // bottom: 0;
+
    li {
-      margin-bottom: 8px;
+      @include size-6;
+      display: inline-block;
+      padding: 0 4px 0;
+      border-right: 1px solid $gray;
+
+      &:last-child {
+         border-right: none;
+      }
+   }
+
+   @include bp(med-min) {
+      max-width: 180px;
+      border-left: 2px solid $blue-d;
+      position: static;
+
+      li {
+         display: block;
+         padding: 0;
+         border-right: none;
+      }
    }
 }
 
