@@ -8,8 +8,7 @@ WebTelephone.NodeConstructor = function (contribution, playerSubmissionIds) {
 WebTelephone.NodeConstructor.prototype.build = function() {
   var contribution = this.contribution
     , new_node
-    , meta
-    , more;
+    , meta;
 
   // Build things specific to a sentence node
   if (contribution.category === "sentence") {
@@ -31,11 +30,10 @@ WebTelephone.NodeConstructor.prototype.build = function() {
     contribution.thread_id +
     "#" + contribution.id);
   meta = new_node.find('.node-meta');
-  more = new_node.find('.node-meta-more');
   meta.find('.node-rank').html(contribution.rank);
   var location = contribution.author.location;
   meta.find('.node-region').html(location);
-  var signatureField = more.find(".node-signature");
+  var signatureField = meta.find(".node-signature");
   var playerIsAuthor = this.playerSubmissionIds[contribution.id];
   if (contribution.signature && contribution.signature != "") {
     signatureField.html(contribution.signature);
@@ -51,11 +49,9 @@ WebTelephone.NodeConstructor.prototype.signatureForm = function (id) {
     "<span id='contribution-" +
     id +
     "-signature'>" +
-    "<label for='contribution-" + id + "' " +
-    "class='signature-label'>Sign it</label>" +
     "<input id='contribution-" + id + "' " +
     "data-id='" + id + "' " +
-    "class='signature-input'>" +
+    "class='signature-input' placeholder='sign it!'>" +
     "</span>"
 
   return formString;

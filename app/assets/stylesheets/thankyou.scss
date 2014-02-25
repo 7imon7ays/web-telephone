@@ -104,8 +104,10 @@
    position: relative;
    @extend .cf;
    clear: both;
+   overflow: hidden;
    @include bp(med-min) {
       margin-bottom: $vert-space*2;
+      overflow: visible;
    }
 }
 
@@ -117,50 +119,65 @@
 }
 
 .node-meta {
-   color: $gray;
    position: absolute;
-   bottom: 0px;
-   right: 0px;
-   padding-bottom: 4px;
-   padding-right: 4px;
-   @include size-6;
-   text-align: right;
-   background-color: $white;
-   padding: 4px;
+   top: 100%;
+   background-color: $blue-trans;
+   color: $white;
+   padding: 2px 4px;
+   width: 100%;
+   box-sizing: border-box;
+
+   &.js-is-visible {
+      right: auto;
+      top: auto;
+      bottom: 0;
+   }
+
+   @include bp(med-min) {
+      color: $gray-dd;
+      bottom: 0;
+      left: 100%;
+      top: auto;
+      padding-left: 8px;
+      max-width: 180px;
+      color: $gray-d;
+      background-color: transparent;
+   }
 }
 
-.node-more {
+.node-meta-toggle {
    border: none;
    font-family: inherit;
    background: none;
-   color: $blue-d;
+   color: $white;
    padding: 0;
    cursor: pointer;
    text-decoration: underline;
-}
+   padding: 4px 8px;
+   clear: both;
+   float: right;
+   margin: 0;
+   top: -23px;
+   right: 0;
+   position: absolute;
+   background-color: $blue-trans;
 
-.node-meta-more {
-   float: left;
-   color: $gray-dd;
-   position: relative;
    @include bp(med-min) {
-      padding-left: 8px;
+      display: none;
    }
 }
 
 .meta-details {
+   clear: both;
+   display: block;
    text-align: left;
-   padding-left: 8px;
-   color: $gray-d;
-   font-size: 0;
-   // position: absolute;
-   // bottom: 0;
+   font-size: 12px;
+   line-height: 18px;
 
    li {
-      @include size-6;
-      display: inline-block;
-      padding: 0 4px 0;
-      border-right: 1px solid $gray;
+      float: left;
+      padding: 0 8px 0;
+      border-right: 1px solid $white;
 
       &:last-child {
          border-right: none;
@@ -169,10 +186,14 @@
 
    @include bp(med-min) {
       max-width: 180px;
-      border-left: 2px solid $blue-d;
+      border-left: 1px solid;
       position: static;
+      @include size-6;
+      padding-bottom: 0;
+      padding-left: 8px;
 
       li {
+         float: none;
          display: block;
          padding: 0;
          border-right: none;
@@ -180,8 +201,15 @@
    }
 }
 
+.node-signature {
+   font-family: inherit;
+   font-size: inherit;
+   padding: 0 2px;
+   margin: 0;
+}
+
 .node-link {
-   color: $gray;
+   color: inherit;
    text-decoration: none;
    font-size: inherit;
 }

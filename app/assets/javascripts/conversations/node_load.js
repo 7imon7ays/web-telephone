@@ -118,17 +118,8 @@ WebTelephone.NodeLoad.prototype.lazyLoader = function() {
 };
 
 WebTelephone.NodeLoad.prototype.moreToggle = function() {
-  $(document).on('mouseup touchend', '.js-more-toggle', function(e){
-    var $node_more = $(this).closest('.holder-main').find($('.js-node-more'));
-    var h = $node_more.children('.node-meta-more').outerHeight();
-    if($node_more.hasClass('js-is-visible')) {
-      $node_more.animate({
-        height: 0
-      }, 200).removeClass('js-is-visible');
-    } else {
-      $node_more.animate({
-        height: h
-      }, 200).addClass('js-is-visible');
-    }
+  $(document).on('click', '.js-meta-toggle', function(e){
+    var $node_more = $(this).closest('.holder-main').find($('.node-meta'));
+    $node_more.toggleClass('js-is-visible');
   });
 }
