@@ -10,82 +10,72 @@
    text-align: center;
    padding: 4px;
    margin-top: 18px;
-   margin-bottom: 18px;
    display: block;
+   margin: auto;
+   margin-bottom: 18px;
 
    @include bp(med-min) {
       margin-top: 60px;
+      max-width: 680px;
       margin-bottom: 40px;
    }
 }
 
 .cta-share {
-   text-align: center;
-   position: fixed;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   z-index: 1;
+   text-align: left;
    background-color: #fff;
    padding: 10px;
-   box-shadow: 0 -1px 0 #aaa;
-   @include bp(med-min) {
+   margin: auto;
+   border: 1px solid $gray;
+   color: $gray-dd;
+   @extend %inset;
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+   z-index: 1;
+
+   @include min-screen(780px) {
+      width: 10%;
+      top: 30%;
+      left: 0;
+      bottom: auto;
+      margin-left: 3%;
+      z-index: 1;
+      border-bottom: 1px solid $gray-d;
    }
 }
 
-.cta-primary {
-   margin-top: $vert-space;
+.cta-sentence {
+   @include size-5;
+   display: inline;
+
+   @include min-screen(780px) {
+      margin-bottom: 8px;
+      display: block;
+   }
 }
 
-.cta-secondary {
-   margin-top: $vert-space;
-}
-
-%share-link-primary {
-   text-decoration: none;
-   @extend .button;
+.cta-actions {
    display: inline-block;
-   @include size-4;
-   padding: 12px 18px;
-   width: 300px;
-   max-width: 100%;
-   box-sizing: border-box;
-   margin: 4px;
 
-   @include bp(med-min) {
-      @include size-3;
+   li {
+      display: inline-block;
+      a {
+         padding: 0 4px;
+      }
+   }
+
+   @include min-screen(780px) {
+      li {
+         display: block;
+         a {
+            padding: 6px 0;
+            display: block;
+            width: 100%;
+         }
+      }
    }
 }
-
-%share-link-secondary {
-   color: $blue-d;
-   display: inline-block;
-
-   &:visited {
-      color: $blue-d;
-   }
-}
-
-.share-fb {
-   @extend %share-link-primary;
-   background-color: $brand-fb;
-   color: $white;
-}
-
-.share-tw {
-   @extend %share-link-primary;
-   background-color: $brand-tw;
-   color: $white;
-}
-
-.share-email {
-   @extend %share-link-secondary;
-}
-
-.share-copy {
-   @extend %share-link-secondary;
-}
-
 
 /*   Submission list
    ------------------------------------------------------- */
@@ -105,7 +95,7 @@
    @extend .cf;
    clear: both;
    overflow: hidden;
-   @include bp(med-min) {
+   @include min-screen(780px) {
       margin-bottom: $vert-space*2;
       overflow: visible;
    }
@@ -133,7 +123,7 @@
       bottom: 0;
    }
 
-   @include bp(med-min) {
+   @include min-screen(780px) {
       color: $gray-dd;
       bottom: 0;
       left: 100%;
@@ -162,7 +152,7 @@
    position: absolute;
    background-color: $blue-trans;
 
-   @include bp(med-min) {
+   @include min-screen(780px) {
       display: none;
    }
 }
@@ -184,7 +174,7 @@
       }
    }
 
-   @include bp(med-min) {
+   @include min-screen(780px) {
       max-width: 180px;
       border-left: 1px solid;
       position: static;

@@ -141,13 +141,17 @@ to {
 /*    Mixins
 ------------------------------------------------------- */
 
+@import "media-queries";
+
 @mixin bp($point) {
 
   $bp-med-min: "(min-width: 501px)";
 
   @if $point == med-min {
     @media #{$bp-med-min} { @content; }
-}
+  } @else {
+    @media #{$point} { @content; }
+  }
 
 @if $point == retina {
     @media only screen and (-webkit-min-device-pixel-ratio: 1.5),

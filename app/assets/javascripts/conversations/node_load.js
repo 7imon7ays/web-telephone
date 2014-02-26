@@ -11,6 +11,7 @@ WebTelephone.NodeLoad = function( conversationObject ) {
   this.oldestNodeRank;
   this.playerSubmissionIds = this._getContributionIds();
   this.moreToggle();
+  this.clipboardCopier();
 };
 
 WebTelephone.NodeLoad.prototype._rankNodes = function (thread) {
@@ -123,3 +124,15 @@ WebTelephone.NodeLoad.prototype.moreToggle = function() {
     $node_more.toggleClass('js-is-visible');
   });
 }
+
+WebTelephone.NodeLoad.prototype.clipboardCopier = function() {
+  $(document).on('click', '.js-copy-to-clip', function(e) {
+    this.copyToClipboard(e, e.target.href);
+  }.bind(this));
+}
+
+WebTelephone.NodeLoad.prototype.copyToClipboard = function(e, text) {
+  e.preventDefault();
+  window.prompt("Copy this link, then pass it to somebody:", text);
+}
+
