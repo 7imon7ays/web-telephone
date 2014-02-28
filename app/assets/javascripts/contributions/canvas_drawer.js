@@ -127,7 +127,10 @@ WebTelephone.CanvasDrawer.prototype.scribbleAddListeners = function() {
 
 	$('.draw-reset').on('click touchend', function(e){
 		e.preventDefault();
-		self.scribbleFidel.clear();
+		var do_it = confirm('Do you really want to completely trash your drawing?');
+		if (do_it) {
+			self.scribbleFidel.clear();
+		}
 	});
 };
 
