@@ -9,6 +9,7 @@ WebTelephone.NodeLoad = function( conversationObject ) {
   this.pollForScroll;
   this.lazyLoader();
   this.oldestNodeRank;
+  this.adjustThankYouMessage();
   this.playerSubmissionIds = this._getContributionIds();
   this.moreToggle();
   this.clipboardCopier();
@@ -24,6 +25,11 @@ WebTelephone.NodeLoad.prototype._rankNodes = function (thread) {
     contribution = contributions[i];
     this.nodeRanking[contribution.rank] = contribution;
   }
+};
+
+WebTelephone.NodeLoad.prototype.adjustThankYouMessage = function () {
+  if (sessionStorage.getItem("contributions")) { return; }
+  $(".thank-you-message").html("Welcome to the world's biggest game of telephone ever.");
 };
 
 WebTelephone.NodeLoad.prototype.buildNodesFromThread = function( thread ) {
