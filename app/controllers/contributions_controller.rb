@@ -16,7 +16,7 @@ class ContributionsController < ApplicationController
 
   def new
     @contribution = Contribution.new(parent_id: params[:parent_id])
-    @contribution.set_associations
+    @contribution.set_associations(last_thread_id: session[:last_thread_id])
     @parent_blob = (@contribution.parent ? @contribution.parent.blob : nil)
   end
 
@@ -28,6 +28,7 @@ class ContributionsController < ApplicationController
     if @contribution.save
       session[:contributions] ||= Set.new
       session[:contributions].add @contribution.id
+      session[:last_thread_id] = @contribution.thread_id
       render json: @contribution
     else
       render json: @contribution.errors.full_messages, status: 422

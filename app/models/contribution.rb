@@ -20,8 +20,8 @@ class Contribution < ActiveRecord::Base
     .includes(:author)
   end
 
-  def set_associations
-    self.thread_id = pick_thread_id
+  def set_associations(options = {})
+    self.thread_id = pick_thread_id(options)
     self.parent = pick_parent
     self.category = pick_category
     self
@@ -34,12 +34,19 @@ class Contribution < ActiveRecord::Base
 
   private
 
-  def pick_thread_id
+  def pick_thread_id(options = {})
     if parent_id && parent = Contribution.find_by_id(parent_id)
       return parent.thread_id
     end
 
-    (Conversation.longest(3).sample ||
+    # sample the three longest threads
+    # that the player did not contribute to last
+    sample_thread = Conversation
+      .longest(3)
+      .where.not(id: options[:last_thread_id])
+      .sample
+
+    ( sample_thread ||
       Conversation.last ||
       Conversation.create).id
   end
