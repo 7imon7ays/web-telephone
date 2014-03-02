@@ -6,12 +6,13 @@ WebTelephone.CanvasDrawer = function ($canvasWrapper) {
     drawingOptions: {
 		weight: [2 , 6, 12],
 		color: [
-		"ff199c" // red
-		,"ff9e00" // orange
-		,"b7f300" // green
-		,"529eff" // blue
-		,"272727" // black
-		,"fff" // white
+		"FF0000" // red
+		,"FFFF00" // yellow
+		,"50E555" // green
+		,"06A3FD" // blue
+		,"AE00FF" // purple
+		,"745000" // brown
+		,"030303" // black
 		  ]
     }
   };
