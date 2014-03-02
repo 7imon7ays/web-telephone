@@ -152,6 +152,10 @@
    position: absolute;
    background-color: $blue-trans;
 
+   &:focus {
+      outline: none;
+   }
+
    @include min-screen(780px) {
       display: none;
    }

@@ -11,6 +11,7 @@ WebTelephone.CanvasDrawer = function ($canvasWrapper) {
 		,"b7f300" // green
 		,"529eff" // blue
 		,"272727" // black
+		,"fff" // white
 		  ]
     }
   };
@@ -79,7 +80,7 @@ WebTelephone.CanvasDrawer.prototype.scribbleSetDefaults = function() {
     	.removeClass("light medium heavy")
     	.addClass(this.assignWeightClass(this.currentOptions.weight));
 
-	$('.draw-color').css({ 'background-color':('#'+this.currentOptions.color) });
+	$('.draw-color').css({ 'background-color':(this.currentOptions.color) });
 	this.scribbleFidel.changeColor(this.currentOptions.color);
 	this.scribbleFidel.changeSize(this.currentOptions.weight);
 };
@@ -123,6 +124,12 @@ WebTelephone.CanvasDrawer.prototype.scribbleAddListeners = function() {
 	$('.draw-redo').on('click touchend', function(e){
 		e.preventDefault();
 		self.scribbleFidel.redo();
+	});
+
+	$('.draw-mode').on('click touchend', function(e){
+		e.preventDefault();
+		self.scribbleFidel.changeTool('erase');
+		$(this).toggleClass('erase');
 	});
 
 	$('.draw-reset').on('click touchend', function(e){
