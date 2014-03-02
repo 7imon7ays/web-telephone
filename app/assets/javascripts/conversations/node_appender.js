@@ -3,10 +3,9 @@ WebTelephone.NodeConstructor = function (contribution, playerSubmissionIds) {
   this.$blank_picture = $('#js-blank-picture');
   this.$blank_sentence = $('#js-blank-sentence');
   this.playerSubmissionIds = playerSubmissionIds;
+  this.months = [ "January", "February", "March", "April", "May", "June",
+                  "July", "August", "September", "October", "November", "December" ];
 };
-
-var months = [ "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December" ];
 
 WebTelephone.NodeConstructor.prototype.build = function() {
   var contribution = this.contribution
@@ -46,13 +45,13 @@ WebTelephone.NodeConstructor.prototype.build = function() {
 
   // Date
   var date = new Date(contribution.created_at);
-  meta.find('.node-date').html(months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear());
+  meta.find('.node-date').html(this.months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear());
 
   // Signature
   var signatureField = meta.find(".node-signature");
   var playerIsAuthor = this.playerSubmissionIds[contribution.id];
   if (contribution.signature && contribution.signature != "") {
-    signatureField.html(contribution.signature);
+    signatureField.html("by: " + contribution.signature);
   } else if (playerIsAuthor) {
     signatureField.html(this.signatureForm(contribution.id));
   }
