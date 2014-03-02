@@ -100,7 +100,9 @@ WebTelephone.CanvasDrawer.prototype.assignWeightClass = function( number ) {
 };
 
 WebTelephone.CanvasDrawer.prototype.scribbleAddListeners = function() {
-  var self = this;
+	var self = this;
+	var is_erasing = false;
+
 	$('.draw-weight').on('click touchend', function(e){
 		e.preventDefault();
 		var weight = self.nextOption('weight');
@@ -121,15 +123,17 @@ WebTelephone.CanvasDrawer.prototype.scribbleAddListeners = function() {
 		self.scribbleFidel.undo();
 	});
 
-	$('.draw-redo').on('click touchend', function(e){
-		e.preventDefault();
-		self.scribbleFidel.redo();
-	});
-
 	$('.draw-mode').on('click touchend', function(e){
 		e.preventDefault();
-		self.scribbleFidel.changeTool('erase');
-		$(this).toggleClass('erase');
+		if (is_erasing) {
+			self.scribbleFidel.changeTool('pencil');
+			$(this).addClass('erase');
+			is_erasing = false;
+		} else {
+			self.scribbleFidel.changeTool('eraser');
+			$(this).removeClass('erase');
+			is_erasing = true;
+		}
 	});
 
 	$('.draw-reset').on('click touchend', function(e){

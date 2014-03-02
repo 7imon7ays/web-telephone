@@ -141,7 +141,6 @@
 }
 
 $tool_height: 28px;
-$tool-space: 10px;
 
 %tool-button {
    &:focus, :active {
@@ -152,7 +151,11 @@ $tool-space: 10px;
    cursor: pointer;
    height: $tool_height;
    display: block;
-   margin: 4px $tool-space;
+   margin: 4px 6px;
+
+   @include bp(med-min) {
+      margin: 4px 10px;
+   }
 }
 
 %draw-tool-l {
@@ -210,7 +213,31 @@ $tool-space: 10px;
 }
 
 .draw-undo {
-   -webkit-transform: rotate(180deg);
+   @extend %draw-tool-l;
+   @extend %tool-button;
+}
+
+.draw-mode {
+   @extend %draw-tool-l;
+   @extend %tool-button;
+
+   .erase-img {
+      display: none;
+   }
+
+   .draw-img {
+      margin-top: -1px;
+   }
+
+   &.erase {
+      .erase-img {
+         display: block
+      }
+
+      .draw-img {
+         display: none;
+      }
+   }
 }
 
 .draw-reset {
