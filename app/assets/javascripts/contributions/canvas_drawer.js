@@ -6,13 +6,13 @@ WebTelephone.CanvasDrawer = function ($canvasWrapper) {
     drawingOptions: {
 		weight: [2 , 6, 12],
 		color: [
-		"FF0000" // red
-		,"FFFF00" // yellow
-		,"50E555" // green
-		,"06A3FD" // blue
-		,"AE00FF" // purple
-		,"745000" // brown
-		,"030303" // black
+		"rgba(255,0,0,0.9)" // red
+		,"rgba(255,255,0, 0.9)" // yellow
+		,"rgba(80,229,85, 0.9)" // green
+		,"rgba(6,163,253, 0.9)" // blue
+		,"rgba(174,0,255, 0.9)" // purple
+		,"rgba(116,80,0, 0.9)" // brown
+		,"rgba(3,3,3, 0.9)" // black
 		  ]
     }
   };
@@ -116,7 +116,7 @@ WebTelephone.CanvasDrawer.prototype.scribbleAddListeners = function() {
 		e.preventDefault();
 		var color = self.nextOption('color')
 		self.scribbleFidel.changeColor(color);
-		$(this).css( {'background-color':('#'+color) });
+		$(this).css( {'background-color':(color) });
 	});
 
 	$('.draw-undo').on('click touchend', function(e){
