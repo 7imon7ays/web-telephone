@@ -20,15 +20,11 @@ class Contribution < ActiveRecord::Base
     .includes(:author)
   end
 
-  def initialize(options = {})
-    super(options)
-    set_associations(options)
-  end
-
-  def set_associations(options = {})
-    self.thread_id = pick_thread_id(options)
-    self.parent = pick_parent(options)
+  def set_associations
+    self.thread_id = pick_thread_id
+    self.parent = pick_parent
     self.category = pick_category
+    self
   end
 
   def register_author(client_ip)
@@ -38,8 +34,8 @@ class Contribution < ActiveRecord::Base
 
   private
 
-  def pick_thread_id(options = {})
-    if options[:parent_id] && parent = Contribution.find_by_id(options[:parent_id])
+  def pick_thread_id
+    if parent_id && parent = Contribution.find_by_id(parent_id)
       return parent.thread_id
     end
 
@@ -48,8 +44,8 @@ class Contribution < ActiveRecord::Base
       Conversation.create).id
   end
 
-  def pick_parent(options = {})
-    Contribution.find_by_id(options[:parent_id]) ||
+  def pick_parent
+    Contribution.find_by_id(parent_id) ||
       Contribution.where(thread_id: thread.id).last
   end
 

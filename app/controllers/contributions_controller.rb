@@ -15,7 +15,8 @@ class ContributionsController < ApplicationController
   end
 
   def new
-    @contribution = Contribution.new({ parent_id: params[:parent_id] })
+    @contribution = Contribution.new(parent_id: params[:parent_id])
+    @contribution.set_associations
     @parent_blob = (@contribution.parent ? @contribution.parent.blob : nil)
   end
 
