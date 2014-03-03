@@ -191,12 +191,12 @@ WebTelephone.CanvasDrawer.prototype.togglePrompt = function() {
 	else {
 		var $prompt = $(".js-picture-prompt");
 
-		$prompt.on('touchend mouseup', function(e){
+		$prompt.on('click touchend', function(e){
 			e.preventDefault();
 			$(this).hide();
 		});
 
-		$(".prompt-toggle").on('touchend mouseup', function(e){
+		$(".prompt-toggle").on('click touchend', function(e){
 			e.preventDefault();
 			$prompt.toggle();
 		});

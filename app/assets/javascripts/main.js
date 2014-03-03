@@ -30,7 +30,7 @@ WebTelephone.initAboutOverlay = function() {
   });
 
   // When a hide button of any overlay is clicked.
-  $('.overlay').on('mouseup touchend', $('.js-overlay-close'), function() {
+  $('.overlay').on('click touchend', $('.js-overlay-close'), function() {
     $(this).addClass('hidden');
   })
 }

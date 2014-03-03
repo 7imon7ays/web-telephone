@@ -26,13 +26,15 @@
    background-color: #fff;
    padding: 10px;
    margin: auto;
-   border: 1px solid $gray;
+   border-top: 1px solid $gray;
    color: $gray-dd;
    @extend %inset;
    position: fixed;
    bottom: 0;
    width: 100%;
    z-index: 1;
+   background-color: $gray-l;
+
 
    @include min-screen(780px) {
       width: 10%;
@@ -41,7 +43,7 @@
       bottom: auto;
       margin-left: 3%;
       z-index: 1;
-      border-bottom: 1px solid $gray-d;
+      border: none;
    }
 }
 

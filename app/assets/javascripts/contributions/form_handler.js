@@ -24,7 +24,7 @@ WebTelephone.FormHandler.prototype.listenForSubmission = function() {
 };
 
 WebTelephone.FormHandler.prototype.listenForClick = function (handleSubmission) {
-  this.$submitButton.on("click", function (event) {
+  this.$submitButton.on("click touchend", function (event) {
     handleSubmission();
   });
 };
