@@ -128,11 +128,11 @@ WebTelephone.CanvasDrawer.prototype.scribbleAddListeners = function() {
 		e.preventDefault();
 		if (is_erasing) {
 			self.scribbleFidel.changeTool('pencil');
-			$(this).addClass('erase');
+			$(this).removeClass('is-erasing');
 			is_erasing = false;
 		} else {
 			self.scribbleFidel.changeTool('eraser');
-			$(this).removeClass('erase');
+			$(this).addClass('is-erasing');
 			is_erasing = true;
 		}
 	});
