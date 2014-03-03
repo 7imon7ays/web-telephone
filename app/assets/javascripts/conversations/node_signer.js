@@ -1,5 +1,5 @@
-WebTelephone.NodeSigner = function ($signatureField, $errorOverlay) {
-  this.$signatureField = $signatureField;
+WebTelephone.NodeSigner = function ($signatureForm, $errorOverlay) {
+  this.$signatureForm = $signatureForm;
   this.$errorOverlay = $errorOverlay;
   this.errorHandler = new WebTelephone.ErrorHandler($errorOverlay);
 };
@@ -7,15 +7,15 @@ WebTelephone.NodeSigner = function ($signatureField, $errorOverlay) {
 WebTelephone.NodeSigner.prototype.listenForSignature = function () {
   var self = this;
 
-  this.$signatureField.on("focus", function () {
-    $(document).on("keyup", function (event) {
-      if (event.which == 13) { self.submitSignature(event); }
-    });
+  this.$signatureForm.on("submit", function (event) {
+    event.preventDefault();
+    console.log(event);
+    self.submitSignature(event);
   });
 };
 
 WebTelephone.NodeSigner.prototype.submitSignature = function (event) {
-  var $inputField = $(event.target)
+  var $inputField = $(event.target[0])
     , contributionID = $inputField.data("id")
     , signatureData = { contribution: {
       signature: $inputField.val()

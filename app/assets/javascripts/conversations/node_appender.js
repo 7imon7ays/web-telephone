@@ -64,9 +64,9 @@ WebTelephone.NodeConstructor.prototype.signatureForm = function (id) {
     "<span id='contribution-" +
     id +
     "-signature'>" +
-    "<input id='contribution-" + id + "' " +
+    "<form id='new-signature'><input id='contribution-" + id + "' " +
     "data-id='" + id + "' " +
-    "class='signature-input' placeholder='sign it!'>" +
+    "class='signature-input' placeholder='sign it!' /><input type='submit' value='sign' /></form>" +
     "</span>"
 
   return formString;

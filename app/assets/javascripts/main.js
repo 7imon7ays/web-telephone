@@ -20,7 +20,7 @@ WebTelephone.runThankYouPage = function () {
  	new WebTelephone.NodeLoad(thread)
     .buildNodesFromThread(thread.contributions);
   new WebTelephone.NodeSigner(
-      $(".signature-input"), $(".js-error-form")
+      $("#new-signature"), $(".js-error-form")
     ).listenForSignature();
 };
 
