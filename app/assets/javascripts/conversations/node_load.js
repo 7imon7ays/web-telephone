@@ -5,6 +5,7 @@ WebTelephone.NodeLoad = function( conversationObject ) {
   this.nodeRanking = {};
   this._rankNodes(this.initialNodesArray);
   this.$container = $('.js-node-sack');
+  this. $sub_loading = $('.submission-loading');
   this.server_url = "/contributions/";
   this.pollForScroll;
   this.lazyLoader();
@@ -95,7 +96,7 @@ WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
 // Gets a thread from server.
 WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
   if (!id) {
-    console.info('Reached top of thread');
+    this.$sub_loading.html("You've reached the top. Go eat a sandwich.");
     clearInterval(this.pollForScroll);
     return;
   }
