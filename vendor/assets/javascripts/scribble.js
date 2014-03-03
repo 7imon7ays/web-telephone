@@ -349,15 +349,23 @@
     _getXY : function(e){
       var x, y, touchEvent = { pageX : 0, pageY : 0};
 
+      // For touch events
       if (typeof e.changedTouches !== 'undefined'){
         touchEvent = e.changedTouches[0];
       }
       else if ( typeof e.originalEvent !== 'undefined' && typeof e.originalEvent.changedTouches !== 'undefined'){
         touchEvent = e.originalEvent.changedTouches[0];
       }
-
-      x = e.offsetX || e.layerX || touchEvent.pageX - e.originalEvent.target.offsetParent.offsetLeft;
-      y = e.offsetY || e.layerY || touchEvent.pageY - e.originalEvent.target.offsetParent.offsetTop;
+      x = e.offsetX
+      || e.layerX
+      || e.pageX - e.originalEvent.target.offsetParent.offsetParent.offsetLeft
+      || touchEvent.pageX - e.originalEvent.target.offsetParent.clientLeft
+      ;
+      y = e.offsetY
+      || e.layerY
+      || e.pageY - e.originalEvent.target.offsetParent.offsetTop
+      || touchEvent.pageY - e.originalEvent.target.offsetParent.clientTop
+      ;
 
       return {
         x : x,
