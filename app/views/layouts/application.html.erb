@@ -2,8 +2,14 @@
 <html>
 <head>
   <title>WebTelephone</title>
+  <%= favicon_link_tag '/favicon.png' %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta property="og:title" content="The World's Biggest Game Of Telephone Ever" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://www.theworldsbiggestgameoftelephoneever.com" />
+  <meta property="og:description" content="Draw a picture or write a sentence, and become part of the biggest game of telephone the world has ever seen since the very beginning of time as we well know it." />
+  <meta property="og:image" content="http://ia.media-imdb.com/images/rock.jpg" />
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
