@@ -1,5 +1,6 @@
 class Conversation < ActiveRecord::Base
-  has_many :contributions, class_name: Contribution, foreign_key: :thread_id
+  has_many :contributions, -> { order(:created_at) },
+    class_name: Contribution, foreign_key: :thread_id
 
   def self.with_associations
     includes(contributions: :author)

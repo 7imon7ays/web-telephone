@@ -1,6 +1,8 @@
 class Contribution < ActiveRecord::Base
   attr_accessor :empty_canvas_value
+
   CATEGORIES = ["picture", "sentence"]
+
   validates :category, inclusion: CATEGORIES
   validates :author, :thread, :blob, presence: true
   validates_uniqueness_of :parent_id, scope: :thread_id
@@ -12,7 +14,7 @@ class Contribution < ActiveRecord::Base
   belongs_to :parent, class_name: Contribution, foreign_key: :parent_id
   has_many :children, class_name: Contribution, foreign_key: :parent_id
 
-  before_validation :branch_out_maybe, :set_rank
+  before_validation :set_thread, :set_rank
 
   def self.ancestors_of(contribution)
     Contribution.where(thread_id: contribution.thread_id)
@@ -21,8 +23,7 @@ class Contribution < ActiveRecord::Base
   end
 
   def set_associations(options = {})
-    self.thread_id = pick_thread_id(options)
-    self.parent = pick_parent
+    self.parent = pick_parent(options)
     self.category = pick_category
     self
   end
@@ -34,9 +35,9 @@ class Contribution < ActiveRecord::Base
 
   private
 
-  def pick_thread_id(options = {})
+  def pick_parent(options = {})
     if parent_id && parent = Contribution.find_by_id(parent_id)
-      return parent.thread_id
+      return parent
     end
 
     # sample the three longest threads
@@ -46,14 +47,8 @@ class Contribution < ActiveRecord::Base
       .where.not(id: options[:last_thread_id])
       .sample
 
-    ( sample_thread ||
-      Conversation.last ||
-      Conversation.create).id
-  end
-
-  def pick_parent
-    Contribution.find_by_id(parent_id) ||
-      Contribution.where(thread_id: thread.id).last
+    return sample_thread.contributions.last if sample_thread
+    nil
   end
 
   def pick_category
@@ -61,15 +56,12 @@ class Contribution < ActiveRecord::Base
           CATEGORIES.last : CATEGORIES.first )
   end
 
-  def branch_out_maybe
-    self.thread = Conversation.new if beaten_to_the_punch?
-  end
-
-  def beaten_to_the_punch?
-    return false if id || parent.nil?
-    Contribution.where(
-      parent_id: parent_id, thread_id: thread_id
-    ).any?
+  def set_thread
+    if parent_id.nil? || parent.children.any?
+      self.thread = Conversation.new
+    else
+      self.thread_id = parent.thread_id
+    end
   end
 
   def set_rank
