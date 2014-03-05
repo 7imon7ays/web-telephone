@@ -13,7 +13,7 @@ class Contribution < ActiveRecord::Base
   belongs_to :thread, class_name: Conversation, foreign_key: :thread_id
   belongs_to :parent, class_name: Contribution, foreign_key: :parent_id
   has_many :children, class_name: Contribution, foreign_key: :parent_id
-  has_many :flags, depdent: :destroy
+  has_many :flags, dependent: :destroy
 
   before_validation :set_thread, :set_rank
 
