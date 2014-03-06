@@ -91,3 +91,18 @@ WebTelephone.NodeConstructor.prototype.flagForm = function (id) {
 
   return formString;
 }
+
+WebTelephone.NodeConstructor.prototype.unFlagForm = function (id) {
+  var formString = "" +
+    "<span id='contribution-" +
+    id +
+    "-unflag'>" +
+    "<form class='contribution-unflag'>" +
+    "<input type='submit' value='unflag'" +
+    "data-id='" + id + "' " +
+    "class='unflag-button'" +
+    "/></form></span>";
+
+  return formString;
+}
+
