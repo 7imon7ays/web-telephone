@@ -100,7 +100,8 @@ WebTelephone.NodeLoad.prototype.listenForUserInputs = function () {
         .submitSignature();
       break;
     case "contribution-flag":
-      new WebTelephone.NodeFlagger($target); // to build
+      new WebTelephone.NodeFlagger($target, $(".overlay.js-error-form"))
+        .flag();
       break;
     }
   })
