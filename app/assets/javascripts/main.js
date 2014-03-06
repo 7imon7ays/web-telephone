@@ -18,10 +18,11 @@ WebTelephone.runSubmissionsPage = function () {
 WebTelephone.runThankYouPage = function () {
  	var thread = $.parseJSON($('#bootstrapped-thread-json').html());
  	new WebTelephone.NodeLoad(thread)
-    .buildNodesFromThread(thread.contributions);
-  new WebTelephone.NodeSigner(
-      $("#new-signature"), $(".js-error-form")
-    ).listenForSignature();
+    .buildNodesFromThread(thread.contributions)
+    .listenForUserInputs()
+    .lazyLoader()
+    .moreToggle()
+    .clipboardCopier();
 };
 
 WebTelephone.initAboutOverlay = function() {

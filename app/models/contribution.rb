@@ -7,7 +7,8 @@ class Contribution < ActiveRecord::Base
   validates :author, :thread, :blob, presence: true
   validates_uniqueness_of :parent_id, scope: :thread_id
   validates_uniqueness_of :rank, scope: :thread_id
-  validate :blob_is_not_default, :blob_is_not_dangerous, :signature_is_not_dangerous
+  validate(:blob_is_not_default, :blob_is_not_dangerous,
+           :signature_is_not_blank, :signature_is_not_dangerous)
 
   belongs_to :author, class_name: Player, foreign_key: :author_id
   belongs_to :thread, class_name: Conversation, foreign_key: :thread_id
@@ -15,7 +16,7 @@ class Contribution < ActiveRecord::Base
   has_many :children, class_name: Contribution, foreign_key: :parent_id
   has_many :flags, dependent: :destroy
 
-  before_validation :set_thread, :set_rank
+  before_validation :set_thread, :set_rank, on: :create
 
   def self.ancestors_of(contribution)
     Contribution.where(thread_id: contribution.thread_id)
@@ -58,11 +59,12 @@ class Contribution < ActiveRecord::Base
   end
 
   def set_thread
-    if parent_id.nil? || parent.children.any?
-      self.thread = Conversation.new
-    else
-      self.thread_id = parent.thread_id
-    end
+    self.thread_id = parent_thread_available? ?
+      parent.thread_id : Conversation.create!.id
+  end
+
+  def parent_thread_available?
+    parent_id && parent.children.none?
   end
 
   def set_rank
@@ -82,9 +84,14 @@ class Contribution < ActiveRecord::Base
     end
   end
 
+  def signature_is_not_blank
+    errors.add(:signature, "can't be a blank!") if signature && signature == ""
+  end
+
   def signature_is_not_dangerous
     if signature != Sanitize.clean(signature)
       errors.add(:signature, "contrains restricted elements!")
     end
   end
 end
+

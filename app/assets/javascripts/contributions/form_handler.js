@@ -111,3 +111,4 @@ WebTelephone.FormHandler.prototype.submitContribution = function () {
     self.errorHandler.flash(data.responseJSON[0]);
   });
 };
+

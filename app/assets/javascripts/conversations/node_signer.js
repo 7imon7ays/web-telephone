@@ -1,26 +1,22 @@
-WebTelephone.NodeSigner = function ($signatureForm, $errorOverlay) {
-  this.$signatureForm = $signatureForm;
+WebTelephone.NodeSigner = function ($signatureField, $errorOverlay) {
+  this.$signatureField = $signatureField;
   this.$errorOverlay = $errorOverlay;
   this.errorHandler = new WebTelephone.ErrorHandler($errorOverlay);
 };
 
-WebTelephone.NodeSigner.prototype.listenForSignature = function () {
-  var self = this;
-
-  this.$signatureForm.on("submit", function (event) {
-    event.preventDefault();
-    console.log(event);
-    self.submitSignature(event);
-  });
-};
-
-WebTelephone.NodeSigner.prototype.submitSignature = function (event) {
-  var $inputField = $(event.target[0])
-    , contributionID = $inputField.data("id")
+WebTelephone.NodeSigner.prototype.submitSignature = function () {
+  var $field = this.$signatureField
+    , contributionID = $field.data("id")
+    , signature = $field.val()
     , signatureData = { contribution: {
-      signature: $inputField.val()
-    }
+        signature: signature
+      }
   };
+
+  if (signature == "") {
+    this.errorHandler.flash("Don't sign it blank!!");
+    return;
+  }
 
   $.ajax({
     url: "contributions/" + contributionID,
@@ -39,3 +35,4 @@ WebTelephone.NodeSigner.prototype.sign = function (contribution) {
 
   $contributionSpan.html(contribution.signature);
 };
+

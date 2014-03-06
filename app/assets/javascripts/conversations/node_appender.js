@@ -56,6 +56,10 @@ WebTelephone.NodeConstructor.prototype.build = function() {
     signatureField.html(this.signatureForm(contribution.id));
   }
 
+  // Flag
+  var flagField = meta.find(".node-flag");
+  flagField.html(this.flagForm(contribution.id));
+
   return new_node;
 };
 
@@ -64,10 +68,26 @@ WebTelephone.NodeConstructor.prototype.signatureForm = function (id) {
     "<span id='contribution-" +
     id +
     "-signature'>" +
-    "<form id='new-signature'><input id='contribution-" + id + "' " +
-    "data-id='" + id + "' " +
-    "class='signature-input' placeholder='sign it!' /><input type='submit' value='sign' /></form>" +
-    "</span>"
+    "<form class='contribution-signature'>" +
+    "<input id='contribution-" + id + "-signature-input' " +
+    "type='text' data-id='" + id + "' " +
+    "class='signature-input' placeholder='sign it!' />" +
+    "<input type='submit' value='sign' class='signature-button' />" +
+    "</form></span>";
 
   return formString;
 };
+
+WebTelephone.NodeConstructor.prototype.flagForm = function (id) {
+  var formString = "" +
+    "<span id='contribution-" +
+    id +
+    "-flag'>" +
+    "<form class='contribution-flag'>" +
+    "<input type='submit' value='flag'" +
+    "data-id='" + id + "' " +
+    "class='flag-button'" +
+    "/></form></span>";
+
+  return formString;
+}
