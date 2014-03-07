@@ -14,8 +14,8 @@ class FlagsController < ApplicationController
 
   def destroy
     @flag = Flag.find(params[:id])
-    player_registered_and_authorized? =
-      (current_player && @flag.player_id == current_player.id)
+    player_is_registered_and_authorized =
+      current_player && @flag.player_id == current_player.id
 
     if !player_registered_and_authorized?
       render json: "Unauthorized!", status: 401

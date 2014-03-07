@@ -36,8 +36,8 @@ class ContributionsController < ApplicationController
   def update
     @contribution = Contribution.find(params[:id])
 
-    player_registered_and_authorized? =
-      (current_player && @contribution.author_id == current_player.id)
+    player_is_registered_and_authorized =
+    current_player && @contribution.author_id == current_player.id
 
     if !player_registered_and_authorized?
       render json: ["Not your submission!"], status: 401
