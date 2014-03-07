@@ -103,6 +103,10 @@ WebTelephone.NodeLoad.prototype.listenForUserInputs = function () {
       new WebTelephone.NodeFlagger($target, $(".overlay.js-error-form"))
         .flag();
       break;
+    case "contribution-unflag":
+      new WebTelephone.NodeFlagger($target, $(".overlay.js-error-form"))
+        .unflag();
+      break;
     }
   })
 

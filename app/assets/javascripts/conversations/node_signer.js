@@ -6,7 +6,7 @@ WebTelephone.NodeSigner = function ($signatureField, $errorOverlay) {
 
 WebTelephone.NodeSigner.prototype.submitSignature = function () {
   var $field = this.$signatureField
-    , contributionID = $field.data("id")
+    , contributionID = $field.data("contribution-id")
     , signature = $field.val()
     , signatureData = { contribution: {
         signature: signature

@@ -14,15 +14,16 @@ class FlagsController < ApplicationController
   end
 
   def destroy
-    @flag = Flag.find(params[:flag_id])
+    @flag = Flag.find(params[:id])
 
     user_is_authorized = session[:flags].include? @flag.id.hash ||
       request.remote_ip == @flag.player.ip_address
 
     if !user_is_authorized
-      render json: @flag, status: 401
+      render json: "Unauthorized!", status: 401
     elsif @flag.destroy
-      render json: "Flag destroyed"
+      session[:flags].delete @flag.id.hash
+      render json: @flag.contribution
     else
       render @flag.errors.full_messages, status: 422
     end

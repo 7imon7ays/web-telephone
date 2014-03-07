@@ -58,7 +58,13 @@ WebTelephone.NodeConstructor.prototype.build = function() {
 
   // Flag
   var flagField = meta.find(".node-flag");
-  flagField.html(this.flagForm(contribution.id));
+  if (contribution.flags && contribution.flags.length) { // TODO: show unflag form when user has flagged
+    flagField.html(this.unflagForm(
+      contribution.id, contribution.flags[0].id // TODO: select the id of the flag corresponding to the user
+    ));
+  } else {
+    flagField.html(this.flagForm(contribution.id));
+  }
 
   return new_node;
 };
@@ -70,7 +76,7 @@ WebTelephone.NodeConstructor.prototype.signatureForm = function (id) {
     "-signature'>" +
     "<form class='contribution-signature'>" +
     "<input id='contribution-" + id + "-signature-input' " +
-    "type='text' data-id='" + id + "' " +
+    "type='text' data-contribution-id='" + id + "' " +
     "class='signature-input' placeholder='sign it!' />" +
     "<input type='submit' value='sign' class='signature-button' />" +
     "</form></span>";
@@ -85,21 +91,22 @@ WebTelephone.NodeConstructor.prototype.flagForm = function (id) {
     "-flag'>" +
     "<form class='contribution-flag'>" +
     "<input type='submit' value='flag'" +
-    "data-id='" + id + "' " +
+    "data-contribution-id='" + id + "' " +
     "class='flag-button'" +
     "/></form></span>";
 
   return formString;
 }
 
-WebTelephone.NodeConstructor.prototype.unFlagForm = function (id) {
+WebTelephone.NodeConstructor.prototype.unflagForm = function (contributionId, flagId) {
   var formString = "" +
     "<span id='contribution-" +
-    id +
+    contributionId +
     "-unflag'>" +
     "<form class='contribution-unflag'>" +
     "<input type='submit' value='unflag'" +
-    "data-id='" + id + "' " +
+    "data-contribution-id='" + contributionId + "' " +
+    "data-flag-id='" + flagId + "' " +
     "class='unflag-button'" +
     "/></form></span>";
 

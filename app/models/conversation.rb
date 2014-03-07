@@ -21,7 +21,10 @@ class Conversation < ActiveRecord::Base
     include_contribution_options = {
       include: { contributions:
         { include:
-          { author: { only: [:location, :longitude, :latitude] } },
+          {
+          flags: { only: [:id, :contribution_id] },
+            author: { only: [:location, :longitude, :latitude] }
+          }
         }
       }
     }
