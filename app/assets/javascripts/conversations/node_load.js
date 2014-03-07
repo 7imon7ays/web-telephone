@@ -1,7 +1,8 @@
 // So-named because we can.
 
-WebTelephone.NodeLoad = function( conversationObject ) {
+WebTelephone.NodeLoad = function( conversationObject, flagMap ) {
   this.initialNodesArray = conversationObject.contributions;
+  this.flagMap = flagMap;
   this.nodeRanking = {};
   this._rankNodes(this.initialNodesArray);
   this.$container = $('.js-node-sack');
@@ -17,9 +18,10 @@ WebTelephone.NodeLoad.prototype.adjustThankYouMessage = function () {
 };
 
 WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
-  var nodeConstructor = new WebTelephone.NodeConstructor(contribution, this.playerSubmissionIds)
+  var nodeConstructor = new WebTelephone.NodeConstructor(
+      contribution, this.playerSubmissionIds, this.flagMap
+    )
     , new_node = nodeConstructor.build();
-
   // Will: "It's a bit intense on the dom, but could be a simple way of dealing with the craziness of infinite load"
   var parent_node = $('*[data-rank="' + (contribution.rank - 1) + '"]');
   if (parent_node.length === 0) {

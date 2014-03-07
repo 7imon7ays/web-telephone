@@ -1,4 +1,5 @@
-WebTelephone.NodeConstructor = function (contribution, playerSubmissionIds) {
+WebTelephone.NodeConstructor = function (contribution, playerSubmissionIds, flagMap) {
+  this.flagMap = flagMap;
   this.contribution = contribution;
   this.$blank_picture = $('#js-blank-picture');
   this.$blank_sentence = $('#js-blank-sentence');
@@ -58,10 +59,8 @@ WebTelephone.NodeConstructor.prototype.build = function() {
 
   // Flag
   var flagField = meta.find(".node-flag");
-  if (contribution.flags && contribution.flags.length) { // TODO: show unflag form when user has flagged
-    flagField.html(this.unflagForm(
-      contribution.id, contribution.flags[0].id // TODO: select the id of the flag corresponding to the user
-    ));
+  if (this.flagMap && this.flagMap[contribution.id]) {
+    flagField.html(this.unflagForm(contribution.id, contribution.id));
   } else {
     flagField.html(this.flagForm(contribution.id));
   }

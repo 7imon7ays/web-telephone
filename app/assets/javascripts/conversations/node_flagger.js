@@ -27,12 +27,11 @@ WebTelephone.NodeFlagger.prototype.unflag = function () {
     type: "DELETE",
     url: "/contributions/" + contributionId + "/flags/" + flagId
   })
-  .done(function (contribution) {
-    var flagForm = WebTelephone.NodeConstructor.prototype.flagForm(contribution.id);
+  .done(function (contributionId) {
+    var flagForm = WebTelephone.NodeConstructor.prototype.flagForm(contributionId);
     this.$flagForm.replaceWith(flagForm);
   }.bind(this))
   .fail(function (error) {
-    console.log(error);
     this.errorHandler.flash(error.responseJSON[0]);
   }.bind(this));
 };

@@ -1,5 +1,9 @@
 <script id="bootstrapped-thread-json" type="application/json">
-<%= @thread.to_json.html_safe %>
+  <%= @thread.to_json.html_safe %>
+</script>
+
+<script id="bootstrapped-flags-json" type="application/json">
+  <%= @flag_map.to_json.html_safe %>
 </script>
 
 <%= render "/error_overlay" %>

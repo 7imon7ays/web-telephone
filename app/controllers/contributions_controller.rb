@@ -37,7 +37,7 @@ class ContributionsController < ApplicationController
 
   def update
     @contribution = Contribution.find(params[:id])
-    if !session[:contributions].include? @contribution.id
+    if session[:contributions] && !(session[:contributions].include? @contribution.id)
       render json: ["Not your submission!"], status: 401
     elsif @contribution.update_attributes(contribution_params)
       render json: @contribution
