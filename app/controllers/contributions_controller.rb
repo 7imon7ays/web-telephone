@@ -15,6 +15,7 @@ class ContributionsController < ApplicationController
   end
 
   def new
+    Player.deferred_register!(cookies.permanent, request.remote_ip)
     @contribution = Contribution.new(parent_id: params[:parent_id])
     @contribution.set_associations(last_thread_id: session[:last_thread_id])
     @parent_blob = (@contribution.parent ? @contribution.parent.blob : nil)
@@ -22,12 +23,9 @@ class ContributionsController < ApplicationController
 
   def create
     @contribution = Contribution.new(contribution_params)
-    client_ip = request.remote_ip
-    @contribution.register_author(client_ip)
+    @contribution.register_author!(cookies.permanent, request.remote_ip)
 
     if @contribution.save
-      session[:contributions] ||= Set.new
-      session[:contributions].add @contribution.id
       session[:last_thread_id] = @contribution.thread_id
       render json: @contribution
     else
@@ -37,7 +35,11 @@ class ContributionsController < ApplicationController
 
   def update
     @contribution = Contribution.find(params[:id])
-    if session[:contributions] && !(session[:contributions].include? @contribution.id)
+
+    player_registered_and_authorized? =
+      (current_player && @contribution.author_id == current_player.id)
+
+    if !player_registered_and_authorized?
       render json: ["Not your submission!"], status: 401
     elsif @contribution.update_attributes(contribution_params)
       render json: @contribution

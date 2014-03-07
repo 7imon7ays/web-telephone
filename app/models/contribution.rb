@@ -30,8 +30,14 @@ class Contribution < ActiveRecord::Base
     self
   end
 
-  def register_author(client_ip)
-    player = Player.find_or_create_by_ip(client_ip)
+  def register_author!(cookies, client_ip)
+    if cookies[:token].nil?
+      new_token = SecureRandom::base64(32)
+      cookies[:token] = new_token
+      player = Player.create!(cookie: new_token, ip_address: client_ip)
+    else
+      player = Player.current(cookies)
+    end
     self.author = player
   end
 

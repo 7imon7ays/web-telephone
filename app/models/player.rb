@@ -13,13 +13,24 @@ end
   before_save :geocode, :reverse_geocode
 
   has_many :contributions, foreign_key: :author_id
+  has_many :flags
 
-  def self.find_or_create_by_ip(ip_address)
-    player = find_by_ip_address(ip_address)
-    unless player
-      player = new(ip_address: ip_address)
-      player.save
+  def self.current(cookies)
+    return nil unless token = cookies[:token]
+    @current_player ||= self.find_by_cookie(token)
+  end
+
+  def self.deferred_register!(cookies, client_ip)
+    Thread.new do
+      current_player = Player.current(cookies[:token])
+      if current_player.nil?
+        new_token = SecureRandom::base64(32)
+        cookies[:token] = new_token
+        Player.create!(cookie: new_token, ip_address: client_ip)
+      else
+        client_ip == current_player.ip_address ?
+          current_player : current_player.save!(ip_address: client_ip)
+      end
     end
-    player
   end
 end
