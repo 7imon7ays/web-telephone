@@ -22,7 +22,7 @@ class Conversation < ActiveRecord::Base
       include: { contributions:
         { include:
           {
-          flags: { only: [:id, :contribution_id] },
+          flags: { only: :id },
             author: { only: [:location, :longitude, :latitude] }
           }
         }

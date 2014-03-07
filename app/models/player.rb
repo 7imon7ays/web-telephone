@@ -22,7 +22,7 @@ end
 
   def self.deferred_register!(cookies, client_ip)
     Thread.new do
-      current_player = Player.current(cookies[:token])
+      current_player = Player.current(cookies)
       if current_player.nil?
         new_token = SecureRandom::base64(32)
         cookies[:token] = new_token
@@ -32,5 +32,9 @@ end
           current_player : current_player.save!(ip_address: client_ip)
       end
     end
+  end
+
+  def flagged_contributions
+    Hash[flags.map { |flag| [flag.contribution_id, flag.id] }]
   end
 end

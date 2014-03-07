@@ -59,8 +59,10 @@ WebTelephone.NodeConstructor.prototype.build = function() {
 
   // Flag
   var flagField = meta.find(".node-flag");
-  if (this.flagMap && this.flagMap[contribution.id]) {
-    flagField.html(this.unflagForm(contribution.id, contribution.id));
+  if (this.flagMap[contribution.id]) {
+    flagField.html(this.unflagForm(contribution.id,
+      this.flagMap[contribution.id])
+    );
   } else {
     flagField.html(this.flagForm(contribution.id));
   }
