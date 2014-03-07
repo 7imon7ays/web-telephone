@@ -17,7 +17,7 @@ class FlagsController < ApplicationController
     player_is_registered_and_authorized =
       current_player && @flag.player_id == current_player.id
 
-    if !player_registered_and_authorized?
+    if !player_is_registered_and_authorized
       render json: "Unauthorized!", status: 401
     elsif @flag.destroy
       contribution_id = @flag.contribution_id

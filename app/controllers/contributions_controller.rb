@@ -39,7 +39,7 @@ class ContributionsController < ApplicationController
     player_is_registered_and_authorized =
     current_player && @contribution.author_id == current_player.id
 
-    if !player_registered_and_authorized?
+    if !player_is_registered_and_authorized
       render json: ["Not your submission!"], status: 401
     elsif @contribution.update_attributes(contribution_params)
       render json: @contribution
