@@ -302,7 +302,7 @@ em {
  max-width: 100%;
  position: relative;
  height: 100%;
- padding-bottom: 40px;
+ padding-bottom: 16px;
  @extend .cf;
 }
 
@@ -358,18 +358,15 @@ em {
   ------------------------------------------------------- */
 
 .about-toggle {
-  position: absolute;
-  text-decoration: none;
+  text-decoration: underline;
   display: block;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  font-size: 18px;
-  padding: 4px;
-  color: $blue-trans;
+  @include size-5;
+  padding-left: 4px;
+  float: left;
 
   @include bp(med-min) {
-    font-size: 32px;
+    font-size: 16px;
   }
 }
 
@@ -378,8 +375,13 @@ em {
   letter-spacing: .5px;
   margin: auto;
   text-align: left;
-  padding-top: 38px;
   padding: 38px 4px;
+
+  @include bp(med-min) {
+    padding-left: 8px;
+    padding-right: 8px;
+    @include size-3;
+  }
 
   h1 {
     margin-bottom: 18px;
