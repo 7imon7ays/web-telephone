@@ -6,19 +6,54 @@
 /*    Thanks you message
    ------------------------------------------------------- */
 
+.full-page-response {
+   margin: auto;
+   padding: 4px;
+   padding-top: 18px;
+   @include size-2;
+
+   @include bp(med-min) {
+      max-width: 680px;
+      padding-top: 60px;
+   }
+}
+
 .thank-you-message {
    text-align: center;
-   padding: 4px;
-   margin-top: 18px;
    display: block;
    margin: auto;
    margin-bottom: 18px;
-
    @include bp(med-min) {
-      margin-top: 60px;
-      max-width: 680px;
       margin-bottom: 40px;
    }
+}
+
+.next-steps-share {
+   padding-top: 8px;
+   li {
+      display: inline-block;
+      padding-right: 8px;
+      a {
+         display: block;
+      }
+   }
+}
+
+.next-steps-list {
+   @include size-4;
+   width: 80%;
+   margin: auto;
+   list-style-type: decimal;
+
+   li {
+      margin-bottom: 18px;
+   }
+}
+
+.scroll-prompt {
+   padding: 80px 0;
+   text-align: center;
+   @include size-3;
 }
 
 .cta-share {

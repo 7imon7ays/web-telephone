@@ -7,6 +7,8 @@ WebTelephone.NodeLoad = function( conversationObject, flagMap ) {
   this._rankNodes(this.initialNodesArray);
   this.$container = $('.js-node-sack');
   this.$sub_loading = $('.submission-loading');
+  this.$share_top = $('#js-share-top');
+  this.cta_share = $('.cta-share');
   this.server_url = "/contributions/";
   this.adjustThankYouMessage();
   this.playerSubmissionIds = this._getContributionIds();
@@ -51,6 +53,15 @@ WebTelephone.NodeLoad.prototype.clipboardCopier = function() {
   return this;
 }
 
+WebTelephone.NodeLoad.prototype.shareToggle = function() {
+  $(document).on('click', '.js-copy-to-clip', function(e) {
+    this.copyToClipboard(e, e.target.href);
+  }.bind(this));
+
+  return this;
+}
+
+
 WebTelephone.NodeLoad.prototype.copyToClipboard = function(e, text) {
   e.preventDefault();
   window.prompt("Copy this link, then pass it to somebody:", text);
@@ -77,13 +88,23 @@ WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
 };
 
 // Function is for dev only, this will be converted to an infinite load script
-WebTelephone.NodeLoad.prototype.lazyLoader = function() {
+WebTelephone.NodeLoad.prototype.pollForScroll = function() {
+  var cta_is_visible = false;
   var nearToBottom = 300;
 
   this.pollForScroll = setInterval(function() {
+
+    // If near bottom, get more nodes
     if ($(window).scrollTop() + $(window).height() >
         $(document).height() - nearToBottom) {
       this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
+    }
+
+    // If below initial call to action (CTA) to share the site, show alternate CTA
+    if (((this.$share_top[0].offsetTop + this.$share_top[0].offsetHeight) < $(window).scrollTop())
+          && !cta_is_visible ){
+      this.cta_share.removeClass('hidden');
+      cta_is_visible = true;
     }
   }.bind(this), 1000);
 
