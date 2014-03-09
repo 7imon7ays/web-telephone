@@ -7,7 +7,10 @@ class ConversationsController < ApplicationController
     end
     @flagged_contributions = current_player ?
       current_player.flagged_contributions : {}
+
+    @this_contribution = @thread.contributions.max_by{|last| last["id"]}
   end
+
 
   def show
     @thread = Conversation.with_associations.find(params[:id])
