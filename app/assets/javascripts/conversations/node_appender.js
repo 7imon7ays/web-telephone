@@ -67,6 +67,14 @@ WebTelephone.NodeConstructor.prototype.build = function() {
     flagField.html(this.flagForm(contribution.id));
   }
 
+  if (contribution.flags.length > 2) {
+    var $content = new_node.find(".saved-sentence, .saved-picture")
+      , $censorOverlay = new_node.find(".censor-overlay");
+
+    $content.removeClass("eclipsing").addClass("eclipsed");
+    $censorOverlay.addClass("eclipsing").removeClass("eclipsed");
+  }
+
   return new_node;
 };
 

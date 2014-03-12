@@ -2,7 +2,7 @@ class FlagsController < ApplicationController
   def create
     @flag = Flag.new(flag_params)
     @flag.player = current_player || Player.create!(
-        token: SecureRandom::base64(32), ip_address: request.remote_ip
+        cookie: SecureRandom::base64(32), ip_address: request.remote_ip
     )
 
     if @flag.save

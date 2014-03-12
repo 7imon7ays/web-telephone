@@ -53,14 +53,20 @@
     <div class="js-node-sack wrapper-thin">
         <figure class="holder-main js-holder" id="js-blank-sentence" data-rank>
             <div class="holder-sentence">
-                <p class="saved-sentence"></p>
+              <div class="censor-overlay eclipsed">
+                <p>Contribution flagged as PG13</p>
+                <p class="saved-sentence eclipsing"></p>
+              </div>
             </div>
             <%= render "conversations/node_more" %>
         </figure>
 
         <figure class="holder-main js-holder" id="js-blank-picture" data-rank>
             <div class="holder-picture">
-                <img class="saved-picture" />
+              <div class="censor-overlay eclipsed">
+                <p>Contribution flagged as PG13</p>
+                <img class="saved-picture eclipsing"/>
+              </div>
             </div>
             <%= render "conversations/node_more" %>
         </figure>

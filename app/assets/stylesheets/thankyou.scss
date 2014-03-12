@@ -307,3 +307,15 @@
   @include size-6;
   float: right;
 }
+
+.eclipsed {
+  visibility: hidden;
+}
+
+.eclipsing {
+  visibility: visible;
+}
+
+.censor-overlay {
+  background: rgb(75, 75, 75);
+}
