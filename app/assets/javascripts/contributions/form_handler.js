@@ -105,7 +105,8 @@ WebTelephone.FormHandler.prototype.submitContribution = function () {
     );
 
     location.href = location.origin + "/thank-you" +
-      "?" + "thread_id=" + data.thread_id;
+      "?" + "thread_id=" + data.thread_id +
+      "&" + "contribution_id=" + data.id;
   })
   .fail(function (data) {
     self.errorHandler.flash(data.responseJSON[0]);
