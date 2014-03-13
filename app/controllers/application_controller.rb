@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_player
-    Player.current(cookies.permanent)
+    @current_player ||= Player.find_by_cookie(cookies.permanent[:token])
   end
 end
 

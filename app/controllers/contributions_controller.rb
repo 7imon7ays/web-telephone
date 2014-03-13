@@ -15,15 +15,33 @@ class ContributionsController < ApplicationController
   end
 
   def new
-    Player.deferred_register!(cookies.permanent, request.remote_ip)
-    @contribution = Contribution.new(parent_id: params[:parent_id])
-    @contribution.set_associations(last_thread_id: session[:last_thread_id])
+    Thread.new do
+      if current_player.nil?
+        new_token = SecureRandom::base64(32)
+        cookies.permanent[:token] = new_token
+        Player.create!(cookie: new_token, ip_address: client_ip)
+      else
+        client_ip == current_player.ip_address ?
+          current_player : current_player.save!(ip_address: client_ip)
+      end
+    end
+
+    @contribution = Contribution
+      .new(parent_id: params[:parent_id])
+      .set_associations(last_thread_id: session[:last_thread_id])
     @parent_blob = (@contribution.parent ? @contribution.parent.blob : nil)
   end
 
   def create
     @contribution = Contribution.new(contribution_params)
-    @contribution.register_author!(cookies.permanent, request.remote_ip)
+
+    if cookies.permanent[:token].nil?
+      new_token = SecureRandom::base64(32)
+      cookies.permanent[:token] = new_token
+      @contribution.author = Player.create!(cookie: new_token, ip_address: client_ip)
+    else
+      @contribution.author = current_player
+    end
 
     if @contribution.save
       session[:last_thread_id] = @contribution.thread_id

@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  def thank_you
+  def index
     if thread_id = params[:thread_id]
       @thread = Conversation.with_associations.find(thread_id)
     else
@@ -11,7 +11,6 @@ class ConversationsController < ApplicationController
     @flagged_contributions = current_player ?
       current_player.flagged_contributions : {}
   end
-
 
   def show
     @thread = Conversation.with_associations.find(params[:id])
