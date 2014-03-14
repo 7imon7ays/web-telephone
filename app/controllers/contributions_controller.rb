@@ -15,17 +15,17 @@ class ContributionsController < ApplicationController
   end
 
   def new
-    ActiveRecord::Base.connection_pool.with_connection do
-      Thread.new do
-        if current_player.nil?
-          new_token = SecureRandom::base64(32)
-          cookies.permanent[:token] = new_token
-          Player.create!(cookie: new_token, ip_address: client_ip)
-        else
-          client_ip == current_player.ip_address ?
-            current_player : current_player.save!(ip_address: client_ip)
-        end
+    Thread.new do
+      abstract_adapter = ActiveRecord::Base.connection_pool.checkout
+      if current_player.nil?
+        new_token = SecureRandom::base64(32)
+        cookies.permanent[:token] = new_token
+        Player.create!(cookie: new_token, ip_address: request.remote_ip)
+      else
+          request.remote_ip == current_player.ip_address ?
+          current_player : current_player.save!(ip_address: request.remote_ip)
       end
+      ActiveRecord::Base.connection_pool.checkin(abstract_adapter)
     end
 
     @contribution = Contribution
