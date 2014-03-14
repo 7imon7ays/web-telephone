@@ -15,14 +15,16 @@ class ContributionsController < ApplicationController
   end
 
   def new
-    Thread.new do
-      if current_player.nil?
-        new_token = SecureRandom::base64(32)
-        cookies.permanent[:token] = new_token
-        Player.create!(cookie: new_token, ip_address: client_ip)
-      else
-        client_ip == current_player.ip_address ?
-          current_player : current_player.save!(ip_address: client_ip)
+    ActiveRecord::Base.connection_pool.with_connection do
+      Thread.new do
+        if current_player.nil?
+          new_token = SecureRandom::base64(32)
+          cookies.permanent[:token] = new_token
+          Player.create!(cookie: new_token, ip_address: client_ip)
+        else
+          client_ip == current_player.ip_address ?
+            current_player : current_player.save!(ip_address: client_ip)
+        end
       end
     end
 
