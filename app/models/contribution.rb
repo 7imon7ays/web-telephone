@@ -40,6 +40,7 @@ class Contribution < ActiveRecord::Base
     # sample the three longest threads
     # that the player did not contribute to last
     sample_thread = Conversation
+      .censored
       .longest(3)
       .where.not(id: options[:last_thread_id])
       .sample
