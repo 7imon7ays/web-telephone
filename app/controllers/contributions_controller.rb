@@ -8,7 +8,7 @@ class ContributionsController < ApplicationController
       @top_contribution = Contribution.find(params[:top_id])
       @prior_contributions = Contribution.ancestors_of(@top_contribution)
 
-      render json: @prior_contributions.to_json(include: :author)
+      render json: @prior_contributions.to_json(include: [:author, :flags])
     else
       render json: Contribution.all
     end

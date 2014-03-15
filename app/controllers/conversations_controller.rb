@@ -14,9 +14,4 @@ class ConversationsController < ApplicationController
 
     @flagged_contributions = current_player.flagged_contributions
   end
-
-  def show
-    @thread = Conversation.with_associations.find(params[:id])
-    render json: @thread
-  end
 end
