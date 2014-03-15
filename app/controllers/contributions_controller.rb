@@ -16,12 +16,9 @@ class ContributionsController < ApplicationController
 
   def new
     if current_player.nil?
-      new_token = SecureRandom::base64(32)
-      cookies.permanent[:token] = new_token
-      Player.create!(cookie: new_token, ip_address: request.remote_ip)
+      register_new_visitor!
     else
-      request.remote_ip == current_player.ip_address ?
-      current_player : current_player.save!(ip_address: request.remote_ip)
+      update_player_location!
     end
 
     @contribution = Contribution
@@ -34,9 +31,7 @@ class ContributionsController < ApplicationController
     @contribution = Contribution.new(contribution_params)
 
     if current_player.nil?
-      new_token = SecureRandom::base64(32)
-      cookies.permanent[:token] = new_token
-      @contribution.author = Player.create!(cookie: new_token, ip_address: request.remote_ip)
+      @contribution.author = register_new_visitor!
     else
       @contribution.author = current_player
     end

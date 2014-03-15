@@ -1,5 +1,9 @@
 class ConversationsController < ApplicationController
   def index
+    if current_player.nil?
+      register_new_visitor!
+    end
+
     if thread_id = params[:thread_id]
       @thread = Conversation.find(thread_id)
     else
@@ -8,8 +12,7 @@ class ConversationsController < ApplicationController
 
     @new_contribution_id = params[:contribution_id]
 
-    @flagged_contributions = current_player ?
-      current_player.flagged_contributions : {}
+    @flagged_contributions = current_player.flagged_contributions
   end
 
   def show
