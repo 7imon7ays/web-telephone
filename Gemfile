@@ -34,6 +34,7 @@ gem 'geocoder'
 gem 'thin'
 gem 'sanitize'
 gem 'figaro'
+gem 'delayed_job_active_record'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

@@ -10,12 +10,16 @@ class Player < ActiveRecord::Base
   end
 
   validates :ip_address, presence: true
-  before_save :geocode, :reverse_geocode
+  after_create :delayed_geocode
 
   has_many :contributions, foreign_key: :author_id
   has_many :flags
 
   def flagged_contributions
     Hash[flags.map { |flag| [flag.contribution_id, flag.id] }]
+  end
+
+  def delayed_geocode
+    Delayed::Job.enqueue GeocodePlayerJob.new(self)
   end
 end
