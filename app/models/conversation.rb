@@ -2,10 +2,6 @@ class Conversation < ActiveRecord::Base
   has_many :contributions, -> { order(:created_at) },
     class_name: Contribution, foreign_key: :thread_id
 
-  def self.with_associations
-    includes(contributions: :author)
-  end
-
   # Join conversations on contributions and flags
   # map flags to contributions and contributions to conversations
   # keep conversations where the count of all flags' unique contribution_ids is less than 3
