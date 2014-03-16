@@ -53,15 +53,6 @@ WebTelephone.NodeLoad.prototype.clipboardCopier = function() {
   return this;
 }
 
-WebTelephone.NodeLoad.prototype.shareToggle = function() {
-  $(document).on('click', '.js-copy-to-clip', function(e) {
-    this.copyToClipboard(e, e.target.href);
-  }.bind(this));
-
-  return this;
-}
-
-
 WebTelephone.NodeLoad.prototype.copyToClipboard = function(e, text) {
   e.preventDefault();
   window.prompt("Copy this link, then pass it to somebody:", text);

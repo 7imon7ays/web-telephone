@@ -20,7 +20,6 @@ WebTelephone.runThankYouPage = function () {
   var flagMap = $.parseJSON($('#bootstrapped-flags-json').html());
   new WebTelephone.NodeLoad(thread, flagMap)
     .buildNodesFromThread(thread.contributions)
-    .shareToggle()
     .listenForUserInputs()
     .pollForScroll()
     .moreToggle()

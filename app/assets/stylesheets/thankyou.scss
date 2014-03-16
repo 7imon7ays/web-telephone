@@ -23,13 +23,19 @@
    display: block;
    margin: auto;
    margin-bottom: 18px;
+   @include size-3;
    @include bp(med-min) {
       margin-bottom: 40px;
    }
 }
 
 .next-steps-share {
-   padding-top: 8px;
+   padding-top: 4px;
+
+   @include bp(med-min) {
+      padding-top: 8px;
+   }
+
    li {
       display: inline-block;
       padding-right: 8px;
@@ -40,20 +46,29 @@
 }
 
 .next-steps-list {
-   @include size-4;
+   @include size-5;
    width: 80%;
    margin: auto;
    list-style-type: decimal;
 
    li {
-      margin-bottom: 18px;
+      margin-bottom: 4px;
+
+      @include bp(med-min) {
+         margin-bottom: 18px;
+      }
    }
 }
 
 .scroll-prompt {
-   padding: 80px 0;
+   padding: 20px 0;
    text-align: center;
-   @include size-3;
+   @include size-4;
+
+   @include bp(med-min) {
+      padding: 80px 0;
+      @include size-3;
+   }
 }
 
 .cta-share {
@@ -266,10 +281,10 @@
    bottom: 0;
    left: 0;
    right: 0;
-   z-index: 1;
    background-color: rgba(255, 255, 255, 0.96);
    display: none;
    padding-top: 12px;
+   box-shadow: 0 0 0px 2px $red inset;
 }
 
 .flagged {
@@ -283,6 +298,11 @@
          display: none;
       }
    }
+}
+
+.button-show-flagged {
+   padding: 4px 8px;
+   margin-top: 8px;
 }
 
 /*    Sentence  -------------------------------------------- */
