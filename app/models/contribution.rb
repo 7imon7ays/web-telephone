@@ -32,21 +32,26 @@ class Contribution < ActiveRecord::Base
 
   private
 
+  def self.top(n)
+    self.order("rank DESC").limit(n)
+  end
+
+  def self.with_fewer_flags_than(n)
+    self.joins("LEFT JOIN flags ON contributions.id = flags.contribution_id")
+      .group("contributions.id")
+      .having("count(flags.contribution_id) < ?", n)
+  end
+
   def pick_parent(options = {})
     if parent_id && parent = Contribution.find_by_id(parent_id)
       return parent
     end
 
-    # sample the three longest threads
-    # that the player did not contribute to last
-    sample_thread = Conversation
-      .censored
-      .longest(3)
-      .where.not(id: options[:last_thread_id])
+    return Contribution
+      .top(3)
+      .with_fewer_flags_than(3)
+      .where.not(thread_id: options[:last_thread_id])
       .sample
-
-    return sample_thread.contributions.last if sample_thread
-    nil
   end
 
   def pick_category
