@@ -117,21 +117,25 @@ WebTelephone.NodeLoad.prototype.listenForUserInputs = function () {
     var $target = $(e.target);
 
     switch($target.attr("class")) {
-    case "contribution-signature":
-      var $signatureField = $target.find("input[type='text']");
-      new WebTelephone.NodeSigner($signatureField, $(".overlay.js-error-form"))
-        .submitSignature();
+      case "contribution-signature":
+        var $signatureField = $target.find("input[type='text']");
+        new WebTelephone.NodeSigner($signatureField, $(".overlay.js-error-form"))
+          .submitSignature();
       break;
-    case "contribution-flag":
-      new WebTelephone.NodeFlagger($target, $(".overlay.js-error-form"))
-        .flag();
+      case "contribution-flag":
+        new WebTelephone.NodeFlagger($target, $(".overlay.js-error-form"))
+          .flag();
       break;
-    case "contribution-unflag":
-      new WebTelephone.NodeFlagger($target, $(".overlay.js-error-form"))
-        .unflag();
+      case "contribution-unflag":
+        new WebTelephone.NodeFlagger($target, $(".overlay.js-error-form"))
+          .unflag();
       break;
     }
-  })
+  });
+
+  $("body").on("click", ".js-reveal-flagged", function (e) {
+    $(this).parents('.holder-main').addClass('flagged-but-revealed');
+  });
 
   return this;
 };

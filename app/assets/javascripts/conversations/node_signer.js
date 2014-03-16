@@ -32,7 +32,6 @@ WebTelephone.NodeSigner.prototype.submitSignature = function () {
 
 WebTelephone.NodeSigner.prototype.sign = function (contribution) {
   var $contributionSpan = $("#contribution-" + contribution.id + "-signature" );
-
   $contributionSpan.html(contribution.signature);
 };
 

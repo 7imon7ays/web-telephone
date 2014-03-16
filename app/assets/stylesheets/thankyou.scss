@@ -249,6 +249,42 @@
    display: none;
 }
 
+.flag-button, .unflag-button {
+   border: none;
+   text-decoration: underline;
+   background: none;
+   font-family: inherit;
+   padding: 0;
+   font-size: inherit;
+   color: $red;
+   cursor: pointer;
+}
+
+.flag-overlay {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   z-index: 1;
+   background-color: rgba(255, 255, 255, 0.96);
+   display: none;
+   padding-top: 12px;
+}
+
+.flagged {
+
+   .flag-overlay {
+      display: block;
+   }
+
+   &.flagged-but-revealed {
+      .flag-overlay {
+         display: none;
+      }
+   }
+}
+
 /*    Sentence  -------------------------------------------- */
 
 .holder-sentence {
@@ -306,16 +342,4 @@
   text-align: right;
   @include size-6;
   float: right;
-}
-
-.eclipsed {
-  visibility: hidden;
-}
-
-.eclipsing {
-  visibility: visible;
-}
-
-.censor-overlay {
-  background: rgb(75, 75, 75);
 }

@@ -63,6 +63,7 @@ WebTelephone.NodeConstructor.prototype.build = function() {
     flagField.html(this.unflagForm(contribution.id,
       this.flagMap[contribution.id])
     );
+    new_node.addClass('flagged');
   } else {
     flagField.html(this.flagForm(contribution.id));
   }
