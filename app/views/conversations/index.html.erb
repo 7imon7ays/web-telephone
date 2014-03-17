@@ -9,25 +9,43 @@
 <%= render "/error_overlay" %>
 
 <div class="full-page-response">
-    <p class="thank-you-message">THAT WAS AN IMMACULATE DRAWING || YOU'RE A VERITABLE STEINBECK. <br /> NOW:</p>
-    <p class="next-steps">
-        <ol  class="next-steps-list">
-            <li>Ask a friend to || DRAW YOUR SENTENCE || DESCRIBE YOUR DRAWING.
-                <ul class="next-steps-share">
-                    <li id="js-share-top"><a href="/?parent_id=<%= @new_contribution_id %>" class="js-copy-to-clip share-copy">copy link</a></li>
-                    <li><a href="mailto:?Subject=you%20should%20add%20to%20this%20giant%20game%20of%20online%20telephone.%20&Body=i%20added%20to%20it%2C%20you%20should%20too%3A%0A%0Ahttp%3A//www.theworldsbiggestgameoftelephoneever.com" target="" class="share-email">email</a></li>
-                    <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.theworldsbiggestgameoftelephoneever.com" target="_blank">fb</a></li>
-                    <li><a href="http://ctt.ec/SU52B" target="_blank">tw</a></li>
-                </ul>
-            </li>
-            <li>Get notified when someone responds to your masterpiece:
-                <form action="">
-                    <input type="email" placeholder="your email"/>
-                    <input type="submit" class="button-green button inherit-font" value="notify me">
-                </form>
-            </li>
-        </ol>
+    <p class="thank-you-message">
+      <% if @new_contribution && @new_contribution.category == "sentence" %>
+        YOU'RE A VERITABLE STEINBECK. 
+      <% elsif @new_contribution && @new_contribution.category == "picture" %>
+        THAT WAS AN IMMACULATE DRAWING
+      <% else %>
+        WELCOME TO THE WORLD'S BIGGEST GAME OF TELEPHONE EVER
+      <% end %>
+      <% if @new_contribution %>
+        <br />NOW:
+      <% end %>
     </p>
+    <% if @new_contribution %>
+      <p class="next-steps">
+          <ol  class="next-steps-list">
+              <li>Ask a friend to 
+                <% if @new_contribution.category == "sentence" %>
+                  draw your sentence.
+                <% else %>
+                  describe your drawing.
+                <% end %>
+                  <ul class="next-steps-share">
+                      <li id="js-share-top"><a href="/?parent_id=<%= @new_contribution.id %>" class="js-copy-to-clip share-copy">copy link</a></li>
+                      <li><a href="mailto:?Subject=you%20should%20add%20to%20this%20giant%20game%20of%20online%20telephone.%20&Body=i%20added%20to%20it%2C%20you%20should%20too%3A%0A%0Ahttp%3A//www.theworldsbiggestgameoftelephoneever.com" target="" class="share-email">email</a></li>
+                      <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.theworldsbiggestgameoftelephoneever.com" target="_blank">fb</a></li>
+                      <li><a href="http://ctt.ec/SU52B" target="_blank">tw</a></li>
+                  </ul>
+              </li>
+              <li>Get notified when someone responds to your masterpiece:
+                  <form action="">
+                      <input type="email" placeholder="your email"/>
+                      <input type="submit" class="button-green button inherit-font" value="notify me">
+                  </form>
+              </li>
+          </ol>
+      </p>
+    <% end %>
     <div class="scroll-prompt">
         Scroll down to see it all:
         <div class="down-arrow">↓</div>

@@ -10,13 +10,7 @@ WebTelephone.NodeLoad = function( conversationObject, flagMap ) {
   this.$share_top = $('#js-share-top');
   this.cta_share = $('.cta-share');
   this.server_url = "/contributions/";
-  this.adjustThankYouMessage();
   this.playerSubmissionIds = this._getContributionIds();
-};
-
-WebTelephone.NodeLoad.prototype.adjustThankYouMessage = function () {
-  if (sessionStorage.getItem("contributions")) { return; }
-  $(".thank-you-message").html("Welcome to the world's biggest game of telephone ever.");
 };
 
 WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){

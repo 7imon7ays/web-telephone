@@ -10,7 +10,9 @@ class ConversationsController < ApplicationController
       @thread = Conversation.longest_one
     end
 
-    @new_contribution_id = params[:contribution_id]
+    if params[:contribution_id]
+      @new_contribution = Contribution.find(params[:contribution_id])
+    end
 
     @flagged_contributions = current_player.flagged_contributions
   end
