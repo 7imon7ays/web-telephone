@@ -32,26 +32,35 @@ class Contribution < ActiveRecord::Base
 
   private
 
-  def self.top(n)
-    self.order("rank DESC").limit(n)
-  end
-
-  def self.with_fewer_flags_than(n)
-    self.joins("LEFT JOIN flags ON contributions.id = flags.contribution_id")
-      .group("contributions.id")
-      .having("count(flags.contribution_id) < ?", n)
-  end
-
   def pick_parent(options = {})
     if parent_id && parent = Contribution.find_by_id(parent_id)
       return parent
     end
 
-    return Contribution
-      .top(3)
-      .with_fewer_flags_than(3)
-      .where.not(thread_id: options[:last_thread_id])
-      .sample
+    self.class.find_by_sql([eligible_parents, {
+      last_thread_id: options[:last_thread_id], flag_limit: 3, sample_size: 3
+    }]).sample
+  end
+
+  def eligible_parents
+    <<-SQL
+    WITH max_rank_per_thread AS (
+      SELECT conversations.id AS thread_id, max(contributions.rank) AS max_rank
+      FROM conversations
+      JOIN contributions ON contributions.thread_id = conversations.id
+      GROUP BY conversations.id
+      HAVING conversations.id IS DISTINCT FROM :last_thread_id
+      ORDER BY max_rank DESC
+      LIMIT :sample_size
+    )
+    SELECT contributions.*
+    FROM contributions
+    JOIN max_rank_per_thread ON max_rank_per_thread.thread_id = contributions.thread_id
+    AND contributions.rank = max_rank_per_thread.max_rank
+    LEFT JOIN flags ON contributions.id = flags.contribution_id
+    GROUP BY contributions.id
+    HAVING count(flags.contribution_id) < :flag_limit
+    SQL
   end
 
   def pick_category
