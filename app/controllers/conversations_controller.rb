@@ -7,7 +7,7 @@ class ConversationsController < ApplicationController
     if thread_id = params[:thread_id]
       @thread = Conversation.find(thread_id)
     else
-      @thread = Conversation.longest_one
+      @thread = Conversation.longest
     end
 
     if params[:contribution_id]

@@ -15,4 +15,11 @@ class Conversation < ActiveRecord::Base
     }
     super(options.merge(include_contribution_options))
   end
+
+  def self.longest
+    Conversation.joins(:contributions)
+      .group("conversations.id")
+      .order("max(contributions.rank) DESC")
+      .limit(1).first
+  end
 end
