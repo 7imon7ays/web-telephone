@@ -37,12 +37,15 @@ WebTelephone.initAboutOverlay = function() {
   })
 }
 
-jQuery(document).ready(function($) {
+function start () {
 	// If submission page
   if ($("#js-init-submit").length) { WebTelephone.runSubmissionsPage(); }
 	// If thank-you page
 	else if ($("#js-init-thankyou").length) { WebTelephone.runThankYouPage(); }
 
   WebTelephone.initAboutOverlay();
+};
 
-});
+jQuery(document).ready(start);
+
+jQuery(document).on("page:load", start);

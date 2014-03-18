@@ -5,7 +5,7 @@ WebTelephone.NodeConstructor = function (node, playerSubmissionIds, flagMap) {
 };
 
 WebTelephone.NodeConstructor.prototype.build = function() {
-  var holderField = this.makeHolderField()
+  var blobField = this.makeBlobField()
     , signatureField = this.makeSignatureField()
     , flagField = this.makeFlagField()
     , node = this.node
@@ -21,7 +21,7 @@ WebTelephone.NodeConstructor.prototype.build = function() {
 
   var new_node = JST["node_main"]({
     node: node,
-    holderField: holderField,
+    blobField: blobField,
     isFlaggedByPlayer: isFlaggedByPlayer,
     date: date,
     signatureField: signatureField,
@@ -31,7 +31,7 @@ WebTelephone.NodeConstructor.prototype.build = function() {
   return new_node;
 };
 
-WebTelephone.NodeConstructor.prototype.makeHolderField = function () {
+WebTelephone.NodeConstructor.prototype.makeBlobField = function () {
   var node = this.node;
 
   if (node.category == "sentence") {

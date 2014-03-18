@@ -3,7 +3,7 @@ class Conversation < ActiveRecord::Base
     class_name: Contribution, foreign_key: :thread_id
 
   def as_json(options = {})
-    include_contribution_options = {
+    include_options = {
       include: { contributions:
         { include:
           {
@@ -13,7 +13,7 @@ class Conversation < ActiveRecord::Base
         }
       }
     }
-    super(options.merge(include_contribution_options))
+    super(options.merge(include_options))
   end
 
   def self.longest
