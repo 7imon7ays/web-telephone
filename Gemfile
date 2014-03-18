@@ -30,11 +30,12 @@ gem 'turbolinks', '>= 2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'geocoder'
-gem 'thin'
-gem 'sanitize'
-gem 'figaro'
 gem 'delayed_job_active_record'
+gem 'ejs'
+gem 'figaro'
+gem 'geocoder'
+gem 'sanitize'
+gem 'thin'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

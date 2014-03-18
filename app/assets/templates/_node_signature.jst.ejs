@@ -1,0 +1,12 @@
+<% if (node.signature && node.signature != "") { %>
+  <span>by: <%= node.signature %></span>
+<% } else if (playerIsAuthor) { %>
+  <span id='contribution-<%= node.id %>-signature'>
+    <form class='contribution-signature'>
+      <input id='contribution-<%= node.id %>-signature-input'
+      type='text' data-contribution-id='<%= node.id %>'
+      class='signature-input' placeholder='sign it!' />
+      <input type='submit' value='sign' class='signature-button button inherit-font' />
+    </form>
+  </span>
+<% } %>

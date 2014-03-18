@@ -1,11 +1,3 @@
-<script id="bootstrapped-thread-json" type="application/json">
-  <%= @thread.to_json.html_safe %>
-</script>
-
-<script id="bootstrapped-flags-json" type="application/json">
-  <%= @flagged_contributions.to_json.html_safe %>
-</script>
-
 <%= render "/error_overlay" %>
 
 <div class="full-page-response">
@@ -64,25 +56,16 @@
     </div>
 </div>
 <div id="js-init-thankyou" class="wrapper-thin-container">
-    <div class="js-node-sack wrapper-thin">
-        <figure class="holder-main js-holder" id="js-blank-sentence" data-rank>
-            <div class="holder-sentence">
-                <p class="saved-sentence"></p>
-                <%= render "conversations/flag_overlay" %>
-            </div>
-            <%= render "conversations/node_more" %>
-        </figure>
-
-        <figure class="holder-main js-holder" id="js-blank-picture" data-rank>
-            <div class="holder-picture">
-                <img class="saved-picture" />
-                <%= render "conversations/flag_overlay" %>
-            </div>
-            <%= render "conversations/node_more" %>
-        </figure>
-    </div>
+    <div class="js-node-sack wrapper-thin"></div>
     <div class="submission-loading">
         <%= render 'shared/loading' %>
     </div>
 </div>
 
+<script id="bootstrapped-thread-json" type="application/json">
+  <%= @thread.to_json.html_safe %>
+</script>
+
+<script id="bootstrapped-flags-json" type="application/json">
+  <%= @flagged_contributions.to_json.html_safe %>
+</script>

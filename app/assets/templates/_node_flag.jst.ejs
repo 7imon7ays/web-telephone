@@ -1,0 +1,18 @@
+<% if (!!nodeFlag) { %>
+  <span id="contribution-<%= nodeId %>-unflag">
+    <form class="contribution-unflag">
+      <input type="submit" value="unflag"
+      data-contribution-id="<%= nodeId %>"
+      data-flag-id="<%= nodeFlag %>"
+      class="unflag-button"/>
+    </form>
+  </span>
+<% } else { %>
+  <span id='contribution-<%= nodeId %>-flag'>
+    <form class='contribution-flag'>
+      <input type='submit' value='flag'
+      data-contribution-id='<%= nodeId %>'
+      class='flag-button'/>
+    </form>
+  </span>
+<% } %>

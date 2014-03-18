@@ -11,7 +11,10 @@ WebTelephone.NodeFlagger.prototype.flag = function () {
 
   $.post("/contributions/" + contributionId + "/flags", { flag: flagData })
   .done(function (flag) {
-    var unflagForm = WebTelephone.NodeConstructor.prototype.unflagForm(contributionId, flag.id);
+    var unflagForm = JST["_node_flag"]({
+      nodeId: contributionId,
+      nodeFlag: flag
+    });
     this.$flagForm.parent().replaceWith(unflagForm);
     this.$holder.addClass('flagged');
   }.bind(this))
@@ -30,7 +33,10 @@ WebTelephone.NodeFlagger.prototype.unflag = function () {
     url: "/contributions/" + contributionId + "/flags/" + flagId
   })
   .done(function (contributionId) {
-    var flagForm = WebTelephone.NodeConstructor.prototype.flagForm(contributionId);
+    var flagForm = JST["_node_flag"]({
+      nodeId: contributionId,
+      nodeFlag: null
+    })
     this.$flagForm.parent().replaceWith(flagForm);
     this.$holder.removeClass('flagged');
   }.bind(this))

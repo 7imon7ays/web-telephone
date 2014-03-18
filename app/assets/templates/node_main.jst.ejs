@@ -1,0 +1,66 @@
+<div class="js-node-sack wrapper-thin">
+    <figure
+      <% if (node.flags.length > 2 || flagMap[node.id]) { %>
+        class="holder-main js-holder flagged"
+      <% } else { %>
+        class="holder-main js-holder"
+      <% } %>
+      id="<%= node.id %>" data-rank="<%= node.rank %>"
+    >
+      <div class="holder-<%= node.category %>">
+        <% if (node.category == "sentence") { %>
+          <p class="saved-sentence">
+            <%= node.blob %>
+          </p>
+        <% } else { %>
+          <img class="saved-picture" src="<%= node.blob %>"/>
+        <% } %>
+          <div class="flag-overlay">
+              <p>This might be PG-13.</p>
+              <button class="js-reveal-flagged button button-show-flagged">Click to show</button>
+          </div>
+      </div>
+
+      <figcaption class="node-meta">
+      	<button class="node-meta-toggle js-meta-toggle">more...</button>
+      	<ul class="meta-details">
+      		<li>
+            <a class="node-link" href="/thank-you?thread_id=<%= node.thread_id %>#<%= node.id %>">
+            <span class="node-rank">#<%= node.rank %></span></a>
+          </li>
+      		<li>
+            <span class="node-signature">
+        		  <%= JST["_node_signature"]({
+                node: node,
+                playerIsAuthor: playerIsAuthor
+              }) %>
+        		</span>
+          </li>
+      		<li>
+            <span class="node-date">
+        		  <% months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() %>
+        		</span>
+          </li>
+      		<li>
+            <span class="node-region">
+              <%= node.author.location %>
+            </span>
+          </li>
+      		<li>
+            <a class="node-share js-copy-to-clip" target="_new" href="/?parent_id=<%= node.id %>">
+              share this
+            </a>
+          </li>
+      		<li>
+            <span class="node-flag">
+        		  <%= JST["_node_flag"]({
+                nodeId: node.id,
+                nodeFlag: nodeFlag
+              }) %>
+            </span>
+          </li>
+      	</ul>
+      </figcaption>
+
+    </figure>
+</div>

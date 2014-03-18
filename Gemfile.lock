@@ -63,6 +63,7 @@ GEM
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
     diff-lcs (1.2.5)
+    ejs (1.1.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
@@ -176,6 +177,7 @@ DEPENDENCIES
   compass-rails
   debugger
   delayed_job_active_record
+  ejs
   figaro
   geocoder
   jbuilder (~> 1.2)
