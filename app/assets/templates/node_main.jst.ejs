@@ -1,26 +1,19 @@
 <div class="js-node-sack wrapper-thin">
-    <figure
-      <% if (node.flags.length > 2 || flagMap[node.id]) { %>
-        class="holder-main js-holder flagged"
-      <% } else { %>
-        class="holder-main js-holder"
+    <figure id="<%= node.id %>" data-rank="<%= node.rank %>"
+      class="holder-main js-holder
+      <% if ( node.flags.length > 2 || isFlaggedByPlayer ) { %>
+        flagged
       <% } %>
-      id="<%= node.id %>" data-rank="<%= node.rank %>"
+      "
     >
-      <div class="holder-<%= node.category %>">
-        <% if (node.category == "sentence") { %>
-          <p class="saved-sentence">
-            <%= node.blob %>
-          </p>
-        <% } else { %>
-          <img class="saved-picture" src="<%= node.blob %>"/>
-        <% } %>
-          <div class="flag-overlay">
-              <p>This might be PG-13.</p>
-              <button class="js-reveal-flagged button button-show-flagged">Click to show</button>
-          </div>
-      </div>
 
+      <div class="holder-<%= node.category %>">
+        <%= holderField %>
+        <div class="flag-overlay">
+            <p>This might be PG-13.</p>
+            <button class="js-reveal-flagged button button-show-flagged">Click to show</button>
+        </div>
+      </div>
       <figcaption class="node-meta">
       	<button class="node-meta-toggle js-meta-toggle">more...</button>
       	<ul class="meta-details">
@@ -30,15 +23,12 @@
           </li>
       		<li>
             <span class="node-signature">
-        		  <%= JST["_node_signature"]({
-                node: node,
-                playerIsAuthor: playerIsAuthor
-              }) %>
+              <%= signatureField %>
         		</span>
           </li>
       		<li>
             <span class="node-date">
-        		  <% months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() %>
+        		  <% date %>
         		</span>
           </li>
       		<li>
@@ -53,10 +43,7 @@
           </li>
       		<li>
             <span class="node-flag">
-        		  <%= JST["_node_flag"]({
-                nodeId: node.id,
-                nodeFlag: nodeFlag
-              }) %>
+        		  <%= flagField %>
             </span>
           </li>
       	</ul>
