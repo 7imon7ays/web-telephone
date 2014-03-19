@@ -42,6 +42,7 @@ class Contribution < ActiveRecord::Base
     }]).sample
   end
 
+  # Hmmm yeah
   def eligible_parents
     <<-SQL
     WITH max_rank_per_thread AS (

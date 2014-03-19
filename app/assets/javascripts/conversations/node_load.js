@@ -90,20 +90,21 @@ WebTelephone.NodeLoad.prototype.pollForScroll = function () {
 };
 
 WebTelephone.NodeLoad.prototype.infiniteScroll = function () {
-  var cta_is_visible = false;
+  var ctaIsVisible = false
+    , topShareInstructionsAreInvisible = (!this.$share_top[0] ||
+        (this.$share_top[0].offsetTop + this.$share_top[0].offsetHeight)
+          < this.$window.scrollTop())
+    , viewIsCloseToBottom = this.$window.scrollTop() >
+        $(document).height() - this.$window.height() - 50;
 
-  // If near bottom, get more nodes
-  if (this.$window.scrollTop() > $(document).height() - this.$window.height() - 50) {
+  if (viewIsCloseToBottom) {
     var missingLinkId = this.youngestNode.parent_id;
     this.infiniteLoad(missingLinkId);
   }
 
-  // If below initial call to action (CTA) to share the site, show alternate CTA
-  if ( ((this.$share_top[0].offsetTop + this.$share_top[0].offsetHeight)
-        < this.$window.scrollTop() )
-        && !cta_is_visible ) {
-        this.cta_share.removeClass('hidden');
-        cta_is_visible = true;
+  if ( topShareInstructionsAreInvisible && !ctaIsVisible ) {
+    this.cta_share.removeClass('hidden');
+    ctaIsVisible = true;
   }
 };
 
