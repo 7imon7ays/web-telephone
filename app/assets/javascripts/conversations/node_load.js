@@ -127,6 +127,10 @@ WebTelephone.NodeLoad.prototype.listenForUserInputs = function () {
         new WebTelephone.NodeFlagger($target, $(".overlay.js-error-form"))
           .unflag();
       break;
+    case "contribution-email":
+      new WebTelephone.NodeEmailer($target, $(".overlay.js-error-form"))
+        .email();
+      break;
     }
   });
 

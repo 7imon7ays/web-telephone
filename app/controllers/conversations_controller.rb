@@ -12,6 +12,8 @@ class ConversationsController < ApplicationController
 
     if params[:contribution_id]
       @new_contribution = Contribution.find(params[:contribution_id])
+      @player_is_author = @new_contribution.author_id == current_player.id
+      @no_emailer_added = !@new_contribution.observers.include?(current_player)
     end
 
     @flagged_contributions = current_player.flagged_contributions

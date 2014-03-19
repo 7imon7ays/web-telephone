@@ -29,12 +29,17 @@
                       <li><a href="http://ctt.ec/SU52B" target="_blank">tw</a></li>
                   </ul>
               </li>
-              <li>Get notified when someone responds to your masterpiece:
-                  <form action="">
-                      <input type="email" placeholder="your email"/>
-                      <input type="submit" class="button-green button inherit-font" value="notify me">
-                  </form>
-              </li>
+              <% if @player_is_author && @no_emailer_added %>
+                <li>Get notified when someone responds to your masterpiece:
+                    <form class="contribution-email" data-id="<%= @new_contribution.id %>">
+                        <input type="email" placeholder="your email"/>
+                        <input type="submit"
+                          class="button-green button inherit-font"
+                          value="notify me"
+                        >
+                    </form>
+                </li>
+            <% end %>
           </ol>
       </p>
     <% end %>

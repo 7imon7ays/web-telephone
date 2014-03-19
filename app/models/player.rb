@@ -13,6 +13,7 @@ class Player < ActiveRecord::Base
   after_create :delayed_geocode
 
   has_many :contributions, foreign_key: :author_id
+  has_many :emailers
   has_many :flags
 
   def flagged_contributions
