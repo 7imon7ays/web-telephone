@@ -6,7 +6,8 @@ class ContributionsController < ApplicationController
   def index
     if params[:top_id]
       @top_contribution = Contribution.find(params[:top_id])
-      @prior_contributions = Contribution.ancestors_of(@top_contribution)
+      @prior_contributions = Contribution.includes(:author, :flags)
+        .ancestors_of(@top_contribution)
 
       render json: @prior_contributions.to_json(include: [:author, :flags])
     end

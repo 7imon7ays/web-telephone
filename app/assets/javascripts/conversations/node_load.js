@@ -2,10 +2,10 @@
 
 WebTelephone.NodeLoad = function( conversationObject, flagMap ) {
   this.$window = $(window);
-  this.initialNodesArray = conversationObject.contributions;
-  this.flagMap = flagMap;
   this.nodeRanking = {};
-  this._rankNodes(this.initialNodesArray);
+  this.rankNodes(conversationObject.contributions);
+  this.setYoungestNode(conversationObject.contributions);
+  this.flagMap = flagMap;
   this.$container = $('.js-node-sack');
   this.$sub_loading = $('.submission-loading');
   this.$share_top = $('#js-share-top');
@@ -14,29 +14,34 @@ WebTelephone.NodeLoad = function( conversationObject, flagMap ) {
   this.playerSubmissionIds = this._getContributionIds();
 };
 
-WebTelephone.NodeLoad.prototype.appendNode = function( contribution ){
-  var nodeConstructor = new WebTelephone.NodeConstructor(
-      contribution, this.playerSubmissionIds, this.flagMap
-    )
-    , new_node = nodeConstructor.build();
-  // Will: "It's a bit intense on the dom, but could be a simple way of dealing with the craziness of infinite load"
-  var parent_node = $('*[data-rank="' + (contribution.rank - 1) + '"]');
-  if (parent_node.length === 0) {
-    this.$container.append(new_node);
-  }
-  else {
-    $(parent_node).before(new_node);
-  }
-};
+WebTelephone.NodeLoad.prototype.buildNodesFromThread = function( nodes, linkId ) {
+  var node
+    , newNode
+    , chainString = ""
+    , Constructor = WebTelephone.NodeConstructor
+    , formerYoungestNode = this.youngestNode;
 
-WebTelephone.NodeLoad.prototype.buildNodesFromThread = function( thread ) {
-  var node;
-  for (node = this._getStartNode( thread );
+  this.setYoungestNode(nodes);
+
+  for ( node = this.youngestNode;
       !!node && !node.visible;
       node = this.nodeRanking[node.rank + 1] ) {
         node.visible = true;
-        this.appendNode(node);
+        newNode = new Constructor(
+            node, this.playerSubmissionIds, this.flagMap
+          ).build();
+        chainString = newNode.concat(chainString);
       }
+
+  var appendingFromInfiniteLoad = !!linkId;
+
+  if (appendingFromInfiniteLoad) {
+    var $parentNode = $("#" + formerYoungestNode.id);
+    $parentNode.after(chainString);
+  } else {
+    this.$container.append(chainString);
+  }
+
   return this;
 };
 
@@ -54,8 +59,8 @@ WebTelephone.NodeLoad.prototype.copyToClipboard = function(e, text) {
 }
 
 // Gets a thread from server.
-WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
-  if (!id) {
+WebTelephone.NodeLoad.prototype.infiniteLoad = function( linkId ){
+  if (!linkId) {
     this.$sub_loading.html("You've reached the top. Go eat a sandwich.");
      this.$window.off("scroll");
     return;
@@ -64,10 +69,10 @@ WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
   $.get(
     "/contributions/" +
     "?top_id=" +
-    id)
+    linkId)
   .done(function (priorContributions) {
-    this._rankNodes(priorContributions);
-    this.buildNodesFromThread(priorContributions);
+    this.rankNodes(priorContributions);
+    this.buildNodesFromThread(priorContributions, linkId);
   }.bind(this))
   .fail(function (error) {
     console.log(error);
@@ -75,19 +80,22 @@ WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
 };
 
 WebTelephone.NodeLoad.prototype.pollForScroll = function () {
-  var throttledInfiniteLoad = $.throttle(this.infiniteLoad.bind(this), 200);
-  this.$window.on("scroll", throttledInfiniteLoad);
+  var throttledInfiniteScroll = $.throttle(
+    this.infiniteScroll.bind(this),
+    200
+  );
 
+  this.$window.on("scroll", throttledInfiniteScroll);
   return this;
 };
 
-WebTelephone.NodeLoad.prototype.infiniteLoad = function () {
+WebTelephone.NodeLoad.prototype.infiniteScroll = function () {
   var cta_is_visible = false;
 
   // If near bottom, get more nodes
   if (this.$window.scrollTop() > $(document).height() - this.$window.height() - 50) {
-    var missingLinkId = this.nodeRanking[this.oldestNodeRank].parent_id;
-    this.getAncestorsFromServer(missingLinkId);
+    var missingLinkId = this.youngestNode.parent_id;
+    this.infiniteLoad(missingLinkId);
   }
 
   // If below initial call to action (CTA) to share the site, show alternate CTA
@@ -137,7 +145,6 @@ WebTelephone.NodeLoad.prototype.moreToggle = function() {
   return this;
 }
 
-// Returns the oldest node in thread
 WebTelephone.NodeLoad.prototype._getContributionIds = function () {
   var idsString = window.sessionStorage.getItem("contributions");
   if (!idsString) { return {}; }
@@ -161,26 +168,27 @@ WebTelephone.NodeLoad.prototype._getContributionIds = function () {
   return ids;
 };
 
-WebTelephone.NodeLoad.prototype._getStartNode = function ( thread ) {
-  var lowest = thread[0]
-  , length = thread.length
-  , i;
+WebTelephone.NodeLoad.prototype.setYoungestNode = function (nodes) {
+  var youngest = nodes[0]
+    , length = nodes.length
+    , node
+    , i;
 
   for (i = 0; i < length; i++) {
-    thread[i].rank < lowest.rank ? lowest = thread[i] : null;
+    node = nodes[i];
+    node.rank < youngest.rank ? youngest = node : null;
   }
-  this.oldestNodeRank = lowest.rank;
-  return lowest;
+
+  this.youngestNode = youngest;
 };
 
-WebTelephone.NodeLoad.prototype._rankNodes = function (thread) {
-  var contributions = thread
-  , length = contributions.length
-  , contribution
-  , i;
+WebTelephone.NodeLoad.prototype.rankNodes = function (nodes) {
+  var length = nodes.length
+    , node
+    , i;
 
   for (i = 0; i < length; i++) {
-    contribution = contributions[i];
-    this.nodeRanking[contribution.rank] = contribution;
+    node = nodes[i];
+    this.nodeRanking[node.rank] = node;
   }
 };
