@@ -1,6 +1,7 @@
 // So-named because we can.
 
 WebTelephone.NodeLoad = function( conversationObject, flagMap ) {
+  this.$window = $(window);
   this.initialNodesArray = conversationObject.contributions;
   this.flagMap = flagMap;
   this.nodeRanking = {};
@@ -56,9 +57,10 @@ WebTelephone.NodeLoad.prototype.copyToClipboard = function(e, text) {
 WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
   if (!id) {
     this.$sub_loading.html("You've reached the top. Go eat a sandwich.");
-    clearInterval(this.pollForScroll);
+     this.$window.off("scroll");
     return;
   }
+
   $.get(
     "/contributions/" +
     "?top_id=" +
@@ -72,28 +74,29 @@ WebTelephone.NodeLoad.prototype.getAncestorsFromServer = function( id ){
   })
 };
 
-// Function is for dev only, this will be converted to an infinite load script
-WebTelephone.NodeLoad.prototype.pollForScroll = function() {
-  var cta_is_visible = false;
-  var nearToBottom = 300;
-
-  this.pollForScroll = setInterval(function() {
-
-    // If near bottom, get more nodes
-    if ($(window).scrollTop() + $(window).height() >
-        $(document).height() - nearToBottom) {
-      this.getAncestorsFromServer(this.nodeRanking[this.oldestNodeRank].parent_id);
-    }
-
-    // If below initial call to action (CTA) to share the site, show alternate CTA
-    if (((this.$share_top[0].offsetTop + this.$share_top[0].offsetHeight) < $(window).scrollTop())
-          && !cta_is_visible ){
-      this.cta_share.removeClass('hidden');
-      cta_is_visible = true;
-    }
-  }.bind(this), 1000);
+WebTelephone.NodeLoad.prototype.pollForScroll = function () {
+  var throttledInfiniteLoad = $.throttle(this.infiniteLoad.bind(this), 200);
+  this.$window.on("scroll", throttledInfiniteLoad);
 
   return this;
+};
+
+WebTelephone.NodeLoad.prototype.infiniteLoad = function () {
+  var cta_is_visible = false;
+
+  // If near bottom, get more nodes
+  if (this.$window.scrollTop() > $(document).height() - this.$window.height() - 50) {
+    var missingLinkId = this.nodeRanking[this.oldestNodeRank].parent_id;
+    this.getAncestorsFromServer(missingLinkId);
+  }
+
+  // If below initial call to action (CTA) to share the site, show alternate CTA
+  if ( ((this.$share_top[0].offsetTop + this.$share_top[0].offsetHeight)
+        < this.$window.scrollTop() )
+        && !cta_is_visible ) {
+        this.cta_share.removeClass('hidden');
+        cta_is_visible = true;
+  }
 };
 
 WebTelephone.NodeLoad.prototype.listenForUserInputs = function () {

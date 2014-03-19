@@ -7,10 +7,12 @@ WebTelephone.NodeConstructor = function (node, playerSubmissionIds, flagMap) {
 WebTelephone.NodeConstructor.prototype.build = function() {
   var blobField = this.makeBlobField()
     , signatureField = this.makeSignatureField()
-    , flagField = this.makeFlagField()
-    , node = this.node
-    , isFlaggedByPlayer = !!this.flagMap[node.id]
-    , timeStamp = new Date(node.created_at)
+    , flagField = this.makeFlagField();
+
+  var node = this.node
+    , isFlaggedByPlayer = !!this.flagMap[node.id];
+
+  var timeStamp = new Date(node.created_at)
     , months = [ "January", "February", "March",
                   "April", "May", "June",
                   "July", "August", "September",

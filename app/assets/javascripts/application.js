@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.serializeJSON
+//= require underscore_throttle
 //= require turbolinks
 //= require fidel
 //= require scribble

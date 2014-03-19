@@ -9,8 +9,6 @@ class ContributionsController < ApplicationController
       @prior_contributions = Contribution.ancestors_of(@top_contribution)
 
       render json: @prior_contributions.to_json(include: [:author, :flags])
-    else
-      render json: Contribution.all
     end
   end
 
@@ -48,7 +46,7 @@ class ContributionsController < ApplicationController
     @contribution = Contribution.find(params[:id])
 
     player_is_registered_and_authorized =
-    current_player && @contribution.author_id == current_player.id
+      current_player && @contribution.author_id == current_player.id
 
     if !player_is_registered_and_authorized
       render json: ["Not your submission!"], status: 401
