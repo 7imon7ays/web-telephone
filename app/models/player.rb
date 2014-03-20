@@ -10,10 +10,10 @@ class Player < ActiveRecord::Base
   end
 
   validates :ip_address, presence: true
-  after_create :delayed_geocode
+  after_save :delayed_geocode
 
   has_many :contributions, foreign_key: :author_id
-  has_many :emailers
+  has_many :emailers, dependent: :destroy
   has_many :flags
 
   def flagged_contributions

@@ -19,5 +19,3 @@ class ApplicationController < ActionController::Base
     @current_player ||= Player.find_by_cookie(cookies.permanent[:token])
   end
 end
-
-

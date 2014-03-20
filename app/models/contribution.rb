@@ -15,7 +15,7 @@ class Contribution < ActiveRecord::Base
   belongs_to :parent, class_name: Contribution, foreign_key: :parent_id
   has_many :children, class_name: Contribution, foreign_key: :parent_id
   has_many :flags, dependent: :destroy
-  has_many :emailers
+  has_many :emailers, dependent: :destroy
   has_many :observers, through: :emailers, source: :player
 
   before_validation :set_thread, :set_rank, on: :create
