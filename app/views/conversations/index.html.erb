@@ -3,7 +3,7 @@
 <div class="full-page-response">
     <p class="thank-you-message">
       <% if @new_contribution && @new_contribution.category == "sentence" %>
-        YOU'RE A VERITABLE HEMINGWAY. 
+        YOU'RE A VERITABLE HEMINGWAY.
       <% elsif @new_contribution && @new_contribution.category == "picture" %>
         THAT WAS AN IMMACULATE DRAWING
       <% else %>
@@ -16,7 +16,7 @@
     <% if @new_contribution %>
       <p class="next-steps">
           <ol  class="next-steps-list">
-              <li>Ask a friend to 
+              <li>Ask a friend to
                 <% if @new_contribution.category == "sentence" %>
                   draw your sentence.
                 <% else %>
@@ -47,8 +47,7 @@
       </p>
     <% end %>
     <div class="scroll-prompt">
-        Scroll down to see it all:
-        <div class="down-arrow">↓</div>
+        Here's the chain you just added to:
     </div>
 </div>
 <div class="cta-share hidden">

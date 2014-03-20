@@ -51,6 +51,10 @@
    margin: auto;
    list-style-type: decimal;
 
+   @include bp(med-min) {
+      @include size-4;
+   }
+
    li {
       margin-bottom: 4px;
 
@@ -142,14 +146,41 @@
    display: inline-block
 }
 
+.holder-main-overflow {
+   overflow: hidden;
+   position: relative;
+   @extend .clearfix;
+
+   @include min-screen(780px) {
+      overflow: visible;
+   }
+}
+
 .holder-main {
    position: relative;
    @extend .cf;
    clear: both;
    overflow: hidden;
+
    @include min-screen(780px) {
-      margin-bottom: $vert-space*2;
       overflow: visible;
+   }
+
+   &:nth-child(3) {
+      .connect-arrow {
+         display: none;
+      }
+   }
+}
+
+
+.connect-arrow {
+   font-size: 20px;
+   padding: 10px 0;
+   display: none;
+
+   @include min-screen(780px) {
+      display: block;
    }
 }
 
