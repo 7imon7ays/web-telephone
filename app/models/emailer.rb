@@ -1,5 +1,7 @@
 class Emailer < ActiveRecord::Base
   validates :contribution, :address, :auth_token, presence: true
+  validates :contribution, uniqueness: { scope: :address,
+     message: "already registered with that address" }
 
   belongs_to :contribution
   belongs_to :player

@@ -6,8 +6,8 @@
 </p>
 
 <p>Your submission was</p>
-<% if @contribution.category == "picture" %>
-  <p> @contribution.blob </p>
+<% if @contribution.category == "sentence" %>
+  <p><%= @contribution.blob %></p>
 <% else %>
   <img src="<%= @contribution.blob %>">
 <% end %>
