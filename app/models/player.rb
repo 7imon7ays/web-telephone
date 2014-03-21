@@ -10,7 +10,8 @@ class Player < ActiveRecord::Base
   end
 
   validates :ip_address, presence: true
-  after_save :delayed_geocode
+  after_create :delayed_geocode
+  after_update :delayed_geocode, if: :ip_address_changed?
 
   has_many :contributions, foreign_key: :author_id
   has_many :emailers, dependent: :destroy

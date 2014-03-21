@@ -10,16 +10,12 @@ class ContributionsController < ApplicationController
         .ancestors_of(@top_contribution)
 
       render json: @prior_contributions.to_json(include: [:author, :flags])
+    else
+      not_found
     end
   end
 
   def new
-    if current_player.nil?
-      register_new_visitor!
-    else
-      update_player_location!
-    end
-
     @contribution = Contribution
       .new(parent_id: params[:parent_id])
       .set_associations(last_thread_id: session[:last_thread_id])
@@ -36,9 +32,10 @@ class ContributionsController < ApplicationController
     end
 
     if @contribution.save
-      @contribution.parent.emailers.each do |emailer|
-        emailer.deliver(@contribution)
-      end
+      @contribution.parent &&
+        @contribution.parent.emailers.each do |mlr|
+          mlr.deliver(@contribution)
+        end
 
       session[:last_thread_id] = @contribution.thread_id
       render json: @contribution
@@ -71,3 +68,4 @@ class ContributionsController < ApplicationController
     )
   end
 end
+

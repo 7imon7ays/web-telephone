@@ -5,3 +5,4 @@ class GeocodePlayerJob < Struct.new(:player)
     player.save!
   end
 end
+
