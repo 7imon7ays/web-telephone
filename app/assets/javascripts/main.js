@@ -27,12 +27,12 @@ WebTelephone.runThankYouPage = function () {
 };
 
 WebTelephone.initAboutOverlay = function() {
-  $('.js-about-show').on('click touchend', function() {
+  $('.js-about-show').on('click', function() {
     $('.js-about').removeClass('hidden');
   });
 
   // When a hide button of any overlay is clicked.
-  $('.overlay').on('click touchend', $('.js-overlay-close'), function() {
+  $('.overlay').on('click', $('.js-overlay-close'), function() {
     $(this).addClass('hidden');
   })
 }

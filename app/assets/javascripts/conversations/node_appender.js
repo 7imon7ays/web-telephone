@@ -47,16 +47,9 @@ WebTelephone.NodeConstructor.prototype.makeBlobField = function () {
   }
 };
 
-<<<<<<< HEAD
 WebTelephone.NodeConstructor.prototype.makeSignatureField = function () {
   var node = this.node
     , playerIsAuthor = !!this.playerSubmissionIds[node.id];
-=======
-  console.log(contribution);
-  if (contribution.flags.length > 2) {
-    var $content = new_node.find(".saved-sentence, .saved-picture")
-      , $censorOverlay = new_node.find(".censor-overlay");
->>>>>>> changed before pull
 
   if (node.signature && node.signature != "") {
     return JST["_node_signature"]({

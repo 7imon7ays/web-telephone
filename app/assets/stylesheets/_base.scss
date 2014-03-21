@@ -366,11 +366,7 @@ em {
 
 .about-toggle {
   text-decoration: underline;
-  display: block;
   cursor: pointer;
-  @include size-5;
-  padding-left: 4px;
-  float: left;
 
   @include bp(med-min) {
     font-size: 16px;
@@ -378,10 +374,8 @@ em {
 }
 
 .overlay-about {
-  font-family: Arial, sans-serif;
-  letter-spacing: .5px;
+  text-align: center;
   margin: auto;
-  text-align: left;
   padding: 38px 4px;
 
   @include bp(med-min) {
@@ -398,11 +392,11 @@ em {
   }
 
   p {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     @include size-4;
 
     @include bp(med-min) {
-      margin-bottom: 18px;
+      margin-bottom: 28px;
       @include size-3;
     }
   }

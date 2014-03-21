@@ -290,7 +290,18 @@ $tool_height: 28px;
     ------------------------------------------------------- */
 
 .contact-submit {
-   float: right;
    @include size-5;
-   padding-right: 4px;
+   float: right;
+
+   @media (min-height: 600px) {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+   }
+
+   a {
+      vertical-align: baseline;
+      padding: 8px 4px;
+      display: inline-block;
+   }
 }
