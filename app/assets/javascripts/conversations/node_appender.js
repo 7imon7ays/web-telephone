@@ -43,7 +43,7 @@ WebTelephone.NodeConstructor.prototype.makeBlobField = function () {
   } else {
     return JST["_node_picture"]({
       node: node
-    })
+    });
   }
 };
 
@@ -60,7 +60,7 @@ WebTelephone.NodeConstructor.prototype.makeSignatureField = function () {
       node: node
     });
   } else {
-    return ""
+    return "";
   }
 };
 
