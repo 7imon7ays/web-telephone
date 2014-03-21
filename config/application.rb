@@ -20,6 +20,6 @@ module WebTelephone
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.assets.paths << Rails.root.join("Vendor", "assets", "javascripts", "fonts")
-    config.action_mailer.default_url_options = { host: 'www.theworldsbiggestgameoftelephone.com' }
+    config.action_mailer.default_url_options = { host: ENV["HOST"] }
   end
 end
