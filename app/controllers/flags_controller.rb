@@ -1,9 +1,7 @@
 class FlagsController < ApplicationController
   def create
     @flag = Flag.new(flag_params)
-    @flag.player = current_player || Player.create!(
-        cookie: SecureRandom::base64(32), ip_address: request.remote_ip
-    )
+    @flag.player = current_player || register_new_visitor!
 
     if @flag.save
       render json: @flag
