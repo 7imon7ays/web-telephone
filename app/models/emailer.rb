@@ -1,11 +1,20 @@
 class Emailer < ActiveRecord::Base
-  validates :contribution, :address, presence: true
+  validates :contribution, :address, :auth_token, presence: true
 
   belongs_to :contribution
   belongs_to :player
 
-  def deliver
-    PlayerMailer.new_child_email(self).deliver
+  before_validation :set_auth_token, on: :create
+
+  def deliver(new_child)
+    PlayerMailer.new_child_email(self, new_child).deliver
   end
   handle_asynchronously :deliver
+
+  private
+
+  def set_auth_token
+    self.auth_token = SecureRandom.hex
+  end
 end
+

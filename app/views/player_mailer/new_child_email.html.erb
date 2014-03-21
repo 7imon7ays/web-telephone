@@ -1,4 +1,20 @@
 <h1>Your prompt got a new answer!</h1>
-<p>Go check it out at <%= root_url %></p>
+<p>Go check it out
+  <a href="<%= thank_you_url(thread_id: @new_child.thread_id) %>">
+    here
+  </a>
+</p>
+
 <p>Your submission was</p>
-<img src="<%= @parent.blob %>">
+<% if @contribution.category == "picture" %>
+  <p> @contribution.blob </p>
+<% else %>
+  <img src="<%= @contribution.blob %>">
+<% end %>
+
+<br/>
+<p><a href="<%= delete_emailer_url(
+  @emailer, auth_token: @emailer.auth_token ) %>">
+  Stop sending me these.
+</a></p>
+

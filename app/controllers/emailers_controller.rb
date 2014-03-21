@@ -10,9 +10,22 @@ class EmailersController < ApplicationController
     end
   end
 
+  def destroy
+    @emailer = Emailer.find(params[:emailer_id])
+    auth_token = params[:auth_token]
+
+    if @emailer.auth_token == auth_token
+      @emailer.destroy
+    else
+      render json: "Unauthorized!", status: 401
+      return
+    end
+  end
+
   private
 
   def emailer_params
     params.require(:emailer).permit(:address, :contribution_id)
   end
 end
+

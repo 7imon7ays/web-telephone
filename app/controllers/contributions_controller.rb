@@ -36,7 +36,9 @@ class ContributionsController < ApplicationController
     end
 
     if @contribution.save
-      @contribution.parent.emailers.each(&:deliver)
+      @contribution.parent.emailers.each do |emailer|
+        emailer.deliver(@contribution)
+      end
 
       session[:last_thread_id] = @contribution.thread_id
       render json: @contribution

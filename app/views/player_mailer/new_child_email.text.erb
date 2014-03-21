@@ -1,1 +1,9 @@
-Your prompt got a new answer! Go check it out at <%= root_url %>
+Your prompt got a new answer!
+Go check it out at <%= thank_you_url(thread_id:
+                                     @new_child.thread_id
+                                    ) %>
+
+To stop getting these, click on this link:
+<%= delete_emailer_url(
+  @emailer, auth_token: @emailer.auth_token) %>
+
