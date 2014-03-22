@@ -197,6 +197,21 @@
    float: left;
 }
 
+.arrow {
+   height: 0;
+   overflow: visible;
+   z-index: 1;
+   position: relative;
+   color: $gray-dd;
+   display: none;
+
+  @include min-screen(780px) {
+      font-size: 30px;
+      top: -14px;
+      display: block;
+   }
+}
+
 .node-meta {
    position: absolute;
    top: 100%;
