@@ -133,6 +133,11 @@
    }
 }
 
+.success-email {
+   color: $green;
+   margin-top: 6px;
+}
+
 /*   Submission list
    ------------------------------------------------------- */
 
@@ -164,6 +169,7 @@
 
    @include min-screen(780px) {
       overflow: visible;
+      margin-bottom: 12px;
    }
 
    &:nth-child(3) {
@@ -312,7 +318,7 @@
    bottom: 0;
    left: 0;
    right: 0;
-   background-color: rgba(255, 255, 255, 0.96);
+   background-color: rgba(255, 255, 255, 1);
    display: none;
    padding-top: 12px;
    box-shadow: 0 0 0px 2px $red inset;

@@ -35,7 +35,6 @@ WebTelephone.NodeConstructor.prototype.build = function() {
 
 WebTelephone.NodeConstructor.prototype.makeBlobField = function () {
   var node = this.node;
-
   if (node.category == "sentence") {
     return JST["_node_sentence"]({
       node: node

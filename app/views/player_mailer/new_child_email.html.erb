@@ -1,10 +1,10 @@
-<p><span style="font-family: 'courier new', courier;"><span style="font-size: large;">You just got an answer in the biggest game of telephone ever got an answer:&nbsp;</span><strong><a style="font-family: 'courier new', courier; font-size: large;" href="<%= thank_you_url(thread_id: @new_child.thread_id) %>">see it here</a></strong></span></p>
+<p><span style="font-family: 'courier new', courier;"><span style="font-size: large;">You just got an answer in the biggest game of telephone:&nbsp;</span><strong><a style="font-family: 'courier new', courier; font-size: large;" href="<%= thank_you_url(thread_id: @new_child.thread_id) %>">see it here</a></strong></span></p>
 <p><span style="font-family: 'courier new', courier;"><strong>&nbsp;</strong></span></p>
 <p><span style="font-family: 'courier new', courier; font-size: large;">It's responds to your submission:</span></p>
 <% if @contribution.category == "sentence" %>
   <p><%= @contribution.blob %></p>
 <% else %>
-  <img src="<%= @contribution.blob %>">
+  <img src="<%= @contribution.blob %>" alt="your drawing">
 <% end %>
 <p>&nbsp;</p>
 <p><span style="font-family: 'courier new', courier; font-size: large;">Keep it going baby,</span></p>

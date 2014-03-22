@@ -1,9 +1,7 @@
-Your prompt got a new answer!
-Go check it out at <%= thank_you_url(thread_id:
-                                     @new_child.thread_id
-                                    ) %>
+You just got an answer in the biggest game of telephone:
+see it here <%= thank_you_url(thread_id:@new_child.thread_id) %>
 
-To stop getting these, click on this link:
+To stop receiving these notifications, click this:
 <%= delete_emailer_url(
   @emailer, auth_token: @emailer.auth_token) %>
 
