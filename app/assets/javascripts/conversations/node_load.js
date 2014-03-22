@@ -60,9 +60,10 @@ WebTelephone.NodeLoad.prototype.copyToClipboard = function(e, text) {
 
 // Gets a thread from server.
 WebTelephone.NodeLoad.prototype.infiniteLoad = function( linkId ){
+  this.$window.off("scroll");
+
   if (!linkId) {
     this.$sub_loading.html("You've reached the top. Go eat a sandwich.");
-     this.$window.off("scroll");
     return;
   }
 
@@ -73,6 +74,7 @@ WebTelephone.NodeLoad.prototype.infiniteLoad = function( linkId ){
   .done(function (priorContributions) {
     this.rankNodes(priorContributions);
     this.buildNodesFromThread(priorContributions, linkId);
+    this.pollForScroll();
   }.bind(this))
   .fail(function (error) {
     console.log(error);
