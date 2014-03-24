@@ -24,19 +24,20 @@
                 <% end %>
                   <ul class="next-steps-share">
                       <li id="js-share-top"><a href="/?parent_id=<%= @new_contribution.id %>" class="js-copy-to-clip share-copy">copy link</a></li>
-                      <li><a href="mailto:?Subject=you%20should%20add%20to%20this%20giant%20game%20of%20online%20telephone.%20&Body=i%20added%20to%20it%2C%20you%20should%20too%3A%0A%0Ahttp%3A//www.theworldsbiggestgameoftelephoneever.com" target="" class="share-email">email</a></li>
-                      <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.theworldsbiggestgameoftelephoneever.com" target="_blank">fb</a></li>
-                      <li><a href="http://ctt.ec/SU52B" target="_blank">tw</a></li>
+                      <li><a href="mailto:?Subject=you%20should%20add%20to%20this%20giant%20game%20of%20online%20telephone.%20&Body=i%20added%20to%20it%2C%20you%20should%20too%3A%0A%0Ahttps://<%= ENV['HOST'] %>/?parent_id=<%= @new_contribution.id %>" target="" class="share-email">email</a></li>
+                      <li><a href="https://www.facebook.com/sharer/sharer.php?p[url]=https%3A%2F%2F<%= ENV['HOST'] %>/?parent_id=<%= @new_contribution.id %>" target="_blank">fb</a></li>
+                      <li><a href="https://twitter.com/intent/tweet?text=you+should+add+to+this+giant+game+of+telephone%2C+i+just+did%3A+https%3A%2F%2F<%= ENV['HOST'] %>/?parent_id=<%= @new_contribution.id %>&source=clicktotweet" target="_blank">tw</a></li>
                   </ul>
               </li>
               <% if @player_is_author && @no_emailer_added %>
                 <li>Get notified when someone responds to your masterpiece:
                     <form class="contribution-email" data-id="<%= @new_contribution.id %>">
-                        <input type="email" placeholder="your email"/>
+                        <input type="email" placeholder="your email" />
                         <input type="submit"
                           class="button-green button inherit-font"
                           value="notify me"
                         >
+                        <p class="caption">(you can unsubscribe whenever, and we won't spam you)</p>
                     </form>
                 </li>
             <% end %>
@@ -55,8 +56,8 @@
     <ul class="cta-actions">
         <li><a href="/" class="js-copy-to-clip share-copy">copy link</a></li>
         <li><a href="mailto:?Subject=you%20should%20add%20to%20this%20giant%20game%20of%20online%20telephone.%20&Body=i%20added%20to%20it%2C%20you%20should%20too%3A%0A%0A<%= ENV["HOST"] %>" target="" class="share-email">email</a></li>
-        <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.theworldsbiggestgameoftelephoneever.com" target="_blank">fb</a></li>
-        <li><a href="http://ctt.ec/SU52B" target="_blank">tw</a></li>
+        <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F<%= ENV['HOST'] %>" target="_blank">fb</a></li>
+        <li><a href="https://twitter.com/intent/tweet?text=you+should+add+to+this+giant+game+of+telephone%2C+i+just+did%3A+https%3A%2F%2F<%= ENV['HOST'] %>&source=clicktotweet" target="_blank">tw</a></li>
     </ul>
     <div class="contact-thankyou">
         <%= mail_to "thetelephoneoperators@gmail.com", "Something wrong?", subject: "Something's wrong." %>

@@ -64,6 +64,11 @@
    }
 }
 
+.caption {
+   @include size-6;
+   color: $gray-dd;
+}
+
 .scroll-prompt {
    padding: 20px 0;
    text-align: center;
