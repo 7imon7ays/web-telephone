@@ -56,7 +56,7 @@
    }
 
    li {
-      margin-bottom: 4px;
+      margin-bottom: 10px;
 
       @include bp(med-min) {
          margin-bottom: 18px;
@@ -419,4 +419,5 @@
   text-align: right;
   @include size-6;
   float: right;
+  padding-right: 12px;
 }
