@@ -47,8 +47,13 @@
           </ol>
       </p>
     <% end %>
+
     <div class="scroll-prompt">
+      <% if @new_contribution %>
         Here's the chain you just added to:
+      <% else %>
+        Here's the game so far:
+      <% end %>
     </div>
 </div>
 <div class="cta-share hidden">

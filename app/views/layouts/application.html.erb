@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WebTelephone</title>
+  <title>The World's Biggest Game Of Telephone Ever</title>
   <%= favicon_link_tag '/favicon.png' %>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta property="og:title" content="The World's Biggest Game Of Telephone Ever" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://www.theworldsbiggestgameoftelephoneever.com" />
-  <meta property="og:description" content="The game of telephone that Alexandre Graham Bell wished would never come to pass." />
+  <meta property="og:url" content="http://<%= ENV['HOST'] %>" />
+  <meta property="og:description" content="It's a super giant game of online telephone that all the kids are playing. See a sentence: draw a picture. See a picture, draw a sentence. And on and on and on and on." />
   <meta property="og:image" content="http://upload.wikimedia.org/wikipedia/commons/f/f4/Actor_portraying_Alexander_Graham_Bell_in_an_AT%26T_promotional_film_(1926).jpg" />
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
