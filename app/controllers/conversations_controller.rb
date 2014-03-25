@@ -13,7 +13,7 @@ class ConversationsController < ApplicationController
       @no_emailer_added = !@new_contribution.observers.include?(current_player)
     end
 
-    @flagged_contributions = current_player.flagged_contributions
+    @flagged_contributions = current_player.try(:flagged_contributions) || {}
   end
 end
 
