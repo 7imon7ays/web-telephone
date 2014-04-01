@@ -250,6 +250,10 @@ $tool_height: 28px;
    @extend %draw-tool-r;
 }
 
+.submit-loading {
+   @extend %draw-tool-r;
+}
+
  /*    Scribble canvas native styles
     ------------------------------------------------------- */
 

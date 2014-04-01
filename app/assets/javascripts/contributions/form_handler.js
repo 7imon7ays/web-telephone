@@ -96,6 +96,8 @@ WebTelephone.FormHandler.prototype.submitContribution = function () {
     , submissionData = this.$serverForm.serializeJSON();
   submissionData["contribution"]["empty_canvas_value"] = this.emptyCanvasValue;
 
+  this.$submitButton.replaceWith('<div class="loader submit-loading"><span>w</span><span class="span2">a</span><span class="span3">i</span><span class="span4">t</span><span class="span5">.</span><span class="span6">.</span><span>.</span></div>');
+
   $.post("/contributions", submissionData)
   .done(function (data) {
     var previousSession =
