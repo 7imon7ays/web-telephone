@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-WebTelephone::Application.config.secret_key_base = '73d053c98fb9d93ac3a084eb5864bb210f0263fc85d3730dc55ce5172f8d5a470f14d5082c46a440350d79c8ae6849c321664c2e661c866ad9ebb262831fbea0'
+WebTelephone::Application.config.secret_key_base = ENV['COOKIE_KEY'']
