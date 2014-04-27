@@ -2,7 +2,7 @@ WebTelephone.NodeFlagger = function ($flagForm, $errorOverlay) {
   this.$flagForm = $flagForm;
   this.errorHandler = new WebTelephone.ErrorHandler($errorOverlay);
   this.$holder = $flagForm.parents('.holder-main');
-}
+};
 
 WebTelephone.NodeFlagger.prototype.flag = function () {
   var $flagButton = this.$flagForm.find("input[type='submit']")
@@ -11,9 +11,9 @@ WebTelephone.NodeFlagger.prototype.flag = function () {
 
   $.post("/contributions/" + contributionId + "/flags", { flag: flagData })
   .done(function (flag) {
-    var unflagForm = JST["_node_flag"]({
+    var unflagForm = JST["_node_unflag"]({
       nodeId: contributionId,
-      nodeFlag: flag
+      flagId: flag.id
     });
     this.$flagForm.parent().replaceWith(unflagForm);
     this.$holder.addClass('flagged');
@@ -36,7 +36,7 @@ WebTelephone.NodeFlagger.prototype.unflag = function () {
     var flagForm = JST["_node_flag"]({
       nodeId: contributionId,
       nodeFlag: null
-    })
+    });
     this.$flagForm.parent().replaceWith(flagForm);
     this.$holder.removeClass('flagged');
   }.bind(this))

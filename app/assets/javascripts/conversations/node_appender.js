@@ -66,10 +66,10 @@ WebTelephone.NodeConstructor.prototype.makeSignatureField = function () {
 WebTelephone.NodeConstructor.prototype.makeFlagField = function () {
   var node = this.node;
 
-  if ( nodeFlag = this.flagMap[node.id] ) {
+  if ( flagId = this.flagMap[node.id] ) {
     return JST["_node_unflag"]({
       nodeId: node.id,
-      nodeFlag: nodeFlag
+      flagId: flagId
     });
   } else {
     return JST["_node_flag"]({
