@@ -3,6 +3,10 @@ class Conversation < ActiveRecord::Base
     class_name: Contribution, foreign_key: :thread_id
 
   def as_json(options = {})
+    contributions.each do |ctb|
+      ctb.blob.force_encoding('UTF-8') if ctb.category == "sentence"
+    end
+
     include_options = {
       include: { contributions:
         { include:
