@@ -110,8 +110,15 @@ WebTelephone.FormHandler.prototype.submitContribution = function () {
       "?" + "thread_id=" + data.thread_id +
       "&" + "contribution_id=" + data.id;
   })
-  .fail(function (data) {
-    self.errorHandler.flash(data.responseJSON[0]);
+  .fail(function (response) {
+    var errorMessage;
+    if (response.status == 500) {
+      errorMessage = "Something went wrong. Call back in five.";
+    } else {
+      errorMessage = response.responseJSON[0];
+    }
+
+    self.errorHandler.flash(errorMessage);
   });
 };
 
