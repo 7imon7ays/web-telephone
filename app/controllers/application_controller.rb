@@ -6,12 +6,16 @@ class ApplicationController < ActionController::Base
   def register_new_visitor!
     new_token = SecureRandom::base64(32)
     cookies.permanent[:token] = new_token
-    @current_player = Player.create!(cookie: new_token, ip_address: request.remote_ip)
+    @current_player = Player.new(cookie: new_token, ip_address: request.remote_ip)
+    @current_player.save!
   end
 
   def update_player_location!
-    request.remote_ip == current_player.ip_address ?
-      current_player : current_player.update_attributes!(ip_address: request.remote_ip)
+    player_ip_has_changed = request.remote_ip != current_player.ip_address
+
+    if player_ip_has_changed
+      current_player.update_attributes!(ip_address: request.remote_ip)
+    end
   end
 
   def current_player

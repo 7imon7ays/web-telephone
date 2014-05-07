@@ -25,8 +25,8 @@ class ContributionsController < ApplicationController
   def create
     @contribution = Contribution.new(contribution_params)
 
-    @contribution.author = current_player.nil? ?
-      register_new_visitor! : update_player_location!
+    current_player.nil? ? register_new_visitor! : update_player_location!
+    @contribution.author = current_player
 
     if @contribution.save
       @contribution.parent &&
