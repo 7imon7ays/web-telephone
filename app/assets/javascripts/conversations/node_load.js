@@ -97,7 +97,7 @@ WebTelephone.NodeLoad.prototype.infiniteScroll = function () {
         (this.$share_top[0].offsetTop + this.$share_top[0].offsetHeight)
           < this.$window.scrollTop())
     , viewIsCloseToBottom = this.$window.scrollTop() >
-        $(document).height() - this.$window.height() - 50;
+        $(document).height() - this.$window.height() - 1000;
 
   if (viewIsCloseToBottom) {
     var missingLinkId = this.youngestNode.parent_id;
