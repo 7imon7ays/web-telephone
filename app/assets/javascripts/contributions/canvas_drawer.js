@@ -166,7 +166,7 @@ WebTelephone.CanvasDrawer.prototype.handleOrientation = function(self) {
 	// TODO don't reset this every time function is called
 	var $alert = $('.js-error-orientation');
 
-	if(window.orientation === 90 || window.orientation === -90) {
+	if(window.innerWidth < 600 && (window.orientation === 90 || window.orientation === -90)) {
 		$alert.removeClass('hidden');
 	}
 	else {
