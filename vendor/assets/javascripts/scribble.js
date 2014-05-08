@@ -356,16 +356,17 @@
       else if ( typeof e.originalEvent !== 'undefined' && typeof e.originalEvent.changedTouches !== 'undefined'){
         touchEvent = e.originalEvent.changedTouches[0];
       }
-      x = e.offsetX
-      || e.layerX
-      || e.pageX - e.originalEvent.target.offsetParent.offsetParent.offsetLeft
-      || touchEvent.pageX - e.originalEvent.target.offsetParent.clientLeft
-      ;
-      y = e.offsetY
-      || e.layerY
-      || e.pageY - e.originalEvent.target.offsetParent.offsetTop
-      || touchEvent.pageY - e.originalEvent.target.offsetParent.clientTop
-      ;
+
+      x = e.offsetX || e.layerX || touchEvent.pageX;
+           y = e.offsetY || e.layerY || touchEvent.pageY;
+
+           if (e.type.indexOf('touch') !== -1){
+             var offset = this.shadowCanvas.offset();
+
+             x -= offset.left;
+             y -= offset.top;
+           }
+
 
       return {
         x : x,
