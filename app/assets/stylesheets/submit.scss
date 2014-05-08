@@ -111,10 +111,6 @@
    display: inline-block;
    margin: 24px auto;
    padding: 8px 12px;
-   border: 2px solid $green;
-   border-radius: 3px;
-   color: $green;
-   font-weight: bold;
 }
 
 .prompt-toggle {
@@ -297,7 +293,7 @@ $tool_height: 28px;
    @include size-5;
    float: right;
 
-   @media (min-height: 600px) {
+   @media (min-height: 760px) {
       position: absolute;
       bottom: 0;
       right: 0;

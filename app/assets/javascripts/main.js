@@ -32,8 +32,8 @@ WebTelephone.initAboutOverlay = function() {
   });
 
   // When a hide button of any overlay is clicked.
-  $('.overlay').on('click', $('.js-overlay-close'), function() {
-    $(this).addClass('hidden');
+  $('.js-overlay-close').on('click', function() {
+    $('.overlay').addClass('hidden');
   })
 }
 

@@ -411,6 +411,8 @@ em {
 .do-it {
   @include size-2;
   padding: 8px 14px;
+  font-family: inherit;
+  text-transform: uppercase;
 }
 
 .overlay-close {
