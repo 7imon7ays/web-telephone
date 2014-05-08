@@ -1,18 +1,21 @@
 // Methods for creating a new drawing
 WebTelephone.CanvasDrawer = function ($canvasWrapper) {
   this.$canvasWrapper = $canvasWrapper;
+  this.weight_1 = 2;
+  this.weight_2 = 8;
+  this.weight_3 = 24;
   this.config = {
     canvas: { max_size: 500 },
     drawingOptions: {
-		weight: [2 , 6, 12],
+		weight: [this.weight_1 , this.weight_2, this.weight_3],
 		color: [
-		"rgba(255,0,0,0.9)" // red
-		,"rgba(255,255,0, 0.9)" // yellow
-		,"rgba(80,229,85, 0.9)" // green
-		,"rgba(6,163,253, 0.9)" // blue
-		,"rgba(174,0,255, 0.9)" // purple
-		,"rgba(116,80,0, 0.9)" // brown
-		,"rgba(3,3,3, 0.9)" // black
+		"rgba(255,0,0,1)" // red
+		,"rgba(255,255,0, 1)" // yellow
+		,"rgba(80,229,85, 1)" // green
+		,"rgba(6,163,253, 1)" // blue
+		,"rgba(174,0,255, 1)" // purple
+		,"rgba(116,80,0, 1)" // brown
+		,"rgba(3,3,3, 1)" // black
 		  ]
     }
   };
@@ -21,7 +24,7 @@ WebTelephone.CanvasDrawer = function ($canvasWrapper) {
   var random_color = Math.floor(Math.random() * this.config.drawingOptions.color.length);
   random_color = this.config.drawingOptions.color[random_color];
 
-  this.currentOptions = { weight: 6, color: random_color },
+  this.currentOptions = { weight: this.weight_2, color: random_color },
   this.scribbleFidel = {};
   this.canvasSizeIsSet = false;
 };
@@ -88,13 +91,13 @@ WebTelephone.CanvasDrawer.prototype.scribbleSetDefaults = function() {
 
 WebTelephone.CanvasDrawer.prototype.assignWeightClass = function( number ) {
 	switch (number) {
-		case (2) :
+		case (this.weight_1) :
 			return "light"
 		break
-		case (6) :
+		case (this.weight_2) :
 			return "medium"
 		break
-		case (12) :
+		case (this.weight_3) :
 			return "heavy"
 		break
 	}
