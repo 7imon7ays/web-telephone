@@ -18,6 +18,11 @@
 # Ignore application configuration
 /config/application.yml
 
+.gitignore
+
 go_taps_go.sh
 heroku.dump
+.ruby-version
+latest.dump
+staging.dump
 
