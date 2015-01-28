@@ -26,3 +26,6 @@ heroku.dump
 latest.dump
 staging.dump
 
+index.html
+seed_files
+
