@@ -37,6 +37,7 @@ gem 'foreman'
 gem 'geocoder'
 gem 'sanitize'
 gem 'unicorn'
+gem 'seed_dump'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
